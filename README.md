@@ -6,6 +6,7 @@
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
 * [Пресистентность в Кожуре (часть 1)](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
 * [Пресистентность в Кожуре (часть 2)](https://hypirion.com/musings/understanding-persistent-vector-pt-2)
+* [Сторонняя реализация java абстракций](https://github.com/functionaljava/functionaljava/tree/series/5.x/core/src/main/java/fj/data)
 
 ## План работы
 - [ ] Сделать собственную обертку над LinkedList, реализующую интерфейс ??**Collection**/Iterable??. **Deadline 31.10.2020**
