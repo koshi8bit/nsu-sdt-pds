@@ -2,6 +2,7 @@
 Курсач по СМП на тему "Persistent data structure"
 
 ## Ссылки
+* [Задание](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 * [MIT youtube](https://www.youtube.com/playlist?list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf)
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
 * [Пресистентность в Кожуре (часть 1)](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
@@ -20,3 +21,7 @@
 
 ### Виды пресистентности
 ![Виды пресистентности](/img/02.png)
+
+## Как че вообще
+Можно представить дерево в виде списка, и делать вставку за O(1). Обход дерева указан на рисунке ниже (красным)
+![Виды пресистентности](/img/03.png)
