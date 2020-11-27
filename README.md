@@ -2,6 +2,9 @@
 Курсач по СМП на тему "Persistent data structure"
 
 ## Ссылки
+* [Алгоритм копирования путей, он же черновик](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
+* [Functional Data Structures in Scala (видосик 50 мин.)](https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala/)
+
 * [Задание](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 * [MIT youtube](https://www.youtube.com/playlist?list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf)
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
