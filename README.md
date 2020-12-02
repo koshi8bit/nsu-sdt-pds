@@ -3,12 +3,13 @@
 
 ## Ссылки
 * [Алгоритм копирования путей, он же черновик](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
+
 Пресистентность в Кожуре
 * [#01](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
 * [#02](https://hypirion.com/musings/understanding-persistent-vector-pt-2)
 * [#03](https://hypirion.com/musings/understanding-persistent-vector-pt-3)
-* [#04](https://hypirion.com/musings/understanding-persistent-vector-pt-4)
-* [#05](https://hypirion.com/musings/understanding-persistent-vector-pt-5)
+* [#04](https://hypirion.com/musings/understanding-clojure-transients)
+* [#05](https://hypirion.com/musings/persistent-vector-performance-summarised)
 
 Прочее
 * [Persistent data structure в кожуре](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
