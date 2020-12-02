@@ -5,9 +5,10 @@
 * [Алгоритм копирования путей, он же черновик](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
 * [Functional Data Structures in Scala (видосик 50 мин.)](https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala/)
 * [Persistent data structure в кожуре](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
+* [Задание (новое)](https://classroom.google.com/u/1/c/MTU4ODY2Njk3NDM3/m/MjIxNzU2MDE1NzA3/details)
+* [Задание (старое)](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 
 * [Пресистентность в Кожуре (Всего 5 статей)](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
-* [Задание (старое)](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 * [MIT youtube](https://www.youtube.com/playlist?list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf)
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
 * [Сторонняя реализация java абстракций](https://github.com/functionaljava/functionaljava/tree/series/5.x/core/src/main/java/fj/data)
