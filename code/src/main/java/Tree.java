@@ -7,7 +7,8 @@ public class Tree<E> {
 
     public Tree() {
         root = new Node<>();
-        root.setChildren(new ArrayList<>(4));
+        root.parent = null;
+        root.createChildren();
     }
 
 }
