@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="Рефакторинг">
+    <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Node.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" afterDir="false" />
     </list>
@@ -138,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606989858597</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Добавление элемента">
+      <created>1606993612401</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606993612401</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -147,40 +155,84 @@
     <MESSAGE value="second" />
     <MESSAGE value="рекурсия" />
     <MESSAGE value="Рефакторинг" />
-    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг" />
+    <MESSAGE value="Добавление элемента" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавление элемента" />
   </component>
   <component name="WindowStateProjectService">
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1606978562386">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1606978562386" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606989934848">
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606993611564">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606989934848" />
-    <state width="1323" height="149" key="GridCell.Tab.0.bottom" timestamp="1606992534207">
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606993611564" />
+    <state width="1323" height="227" key="GridCell.Tab.0.bottom" timestamp="1606995366907">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606992534207" />
-    <state width="1323" height="149" key="GridCell.Tab.0.center" timestamp="1606992534207">
+    <state width="1323" height="227" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.0.center" timestamp="1606995366907">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606992534207" />
-    <state width="1323" height="149" key="GridCell.Tab.0.left" timestamp="1606992534207">
+    <state width="1323" height="227" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.0.left" timestamp="1606995366907">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606992534207" />
-    <state width="1323" height="149" key="GridCell.Tab.0.right" timestamp="1606992534207">
+    <state width="1323" height="227" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.0.right" timestamp="1606995366907">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606992534207" />
+    <state width="1323" height="227" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.1.bottom" timestamp="1606995366908">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606995366908" />
+    <state width="1323" height="227" key="GridCell.Tab.1.center" timestamp="1606995366907">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.1.left" timestamp="1606995366907">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1606995366907" />
+    <state width="1323" height="227" key="GridCell.Tab.1.right" timestamp="1606995366908">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1606995366908" />
     <state width="498" height="446" key="SwitcherDM" timestamp="1606989545628">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606989867992">
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606993668465">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606989867992" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606993668465" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/code/src/main/java/Main.java</url>
+          <line>4</line>
+          <properties class="Main" method="main">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/code/src/main/java/Main.java</url>
+          <line>14</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="bit_dlya_rasc_ur" language="JAVA" />
+        <watch expression="level" language="JAVA" />
+        <watch expression="index" language="JAVA" />
+        <watch expression="node" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

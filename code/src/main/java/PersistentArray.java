@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersistentArray<E> {
@@ -5,7 +6,6 @@ public class PersistentArray<E> {
     public static int depth = 3;
     public static int bit_dlya_rasc_ur = Node.bit_na_pu * depth;
     public static int mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
-    public static int level = bit_dlya_rasc_ur - Node.bit_na_pu;
 
     public Node<E> root;
     private int count = 0;
@@ -23,6 +23,7 @@ public class PersistentArray<E> {
 
 
     public void add(E element) {
+        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
         Node<E> node = root;
         while (level > 0) {
             int index = (count >> level) & mask;
@@ -30,7 +31,13 @@ public class PersistentArray<E> {
             level -= Node.bit_na_pu;
         }
         int index = count & mask;
+
+        if (node.data == null) {
+            node.data = new ArrayList<>();
+        }
+
         node.data.add(index, element);
+        count++;
     }
 
     public void createBranch(Node<E> node, int depth) {
