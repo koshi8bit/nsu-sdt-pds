@@ -13,7 +13,7 @@ public class Node<E> {
         node.parent = this;
 
         if (children.size() < width)
-        children.add(node);
+            children.add(node);
     }
 
     public List<Node<E>> getChildren() {
