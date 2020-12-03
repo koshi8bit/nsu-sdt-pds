@@ -13,20 +13,17 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GradleLocalSettings">
-    <option name="projectSyncType">
-      <map>
-        <entry key="C:/Work/dp/informer" value="PREVIEW" />
-        <entry key="C:/Work/dp/qpay-google" value="PREVIEW" />
-        <entry key="C:/Work/dp/spring-boot-jaeger-starter" value="PREVIEW" />
-        <entry key="C:/Work/inspector" value="PREVIEW" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectId" id="1l8OzX3LyBruymwxFCwGBctF0Iq" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/IdeaProjects/anton" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/code/src/main/java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -76,12 +73,35 @@
       <option name="presentableId" value="Default" />
       <updated>1606975514988</updated>
     </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1606975717101</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606975717101</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init">
+      <created>1606975771080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606975771080</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606975711529">
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606975768119">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606975711529" />
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606975768119" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606975778236">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606975778236" />
   </component>
 </project>
