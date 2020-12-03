@@ -1,11 +1,12 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Node<E> {
 
-    private int width = 4;
-    private E[] data;
+    public int width = 4;
+    public List<E> data;
     public Node<E> parent;
-    private List<Node<E>> children;
+    public List<Node<E>> children = new ArrayList<>();
 
     public void createChildren() {
         Node<E> node = new Node<E>();
@@ -13,7 +14,9 @@ public class Node<E> {
 
         if (children.size() < width)
         children.add(node);
+    }
 
-
+    public List<Node<E>> getChildren() {
+        return children;
     }
 }

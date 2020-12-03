@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Head.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Head.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Tree.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Tree.java" afterDir="false" />
     </list>
@@ -37,6 +39,13 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="nsu-sdt-pds" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
       <setting name="replType" value="NREPL" />
       <setting name="execution" value="LEININGEN" />
@@ -58,6 +67,11 @@
       <setting name="fixLineNumbers" value="false" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -103,22 +117,50 @@
       <option name="project" value="LOCAL" />
       <updated>1606976033287</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="second">
+      <created>1606976822595</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606976822595</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="one" />
-    <option name="LAST_COMMIT_MESSAGE" value="one" />
+    <MESSAGE value="second" />
+    <option name="LAST_COMMIT_MESSAGE" value="second" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606976030498">
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1606978562386">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606976030498" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606976038558">
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1606978562386" />
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1606976819976">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606976038558" />
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1606976819976" />
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom" timestamp="1606982795030">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="182" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606982795030" />
+    <state width="1323" height="182" key="GridCell.Tab.0.center" timestamp="1606982795030">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="182" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606982795030" />
+    <state width="1323" height="182" key="GridCell.Tab.0.left" timestamp="1606982795030">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="182" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606982795030" />
+    <state width="1323" height="182" key="GridCell.Tab.0.right" timestamp="1606982795030">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="182" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606982795030" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606976826621">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606976826621" />
   </component>
 </project>

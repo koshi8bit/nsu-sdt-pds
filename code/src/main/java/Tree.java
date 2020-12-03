@@ -1,14 +1,20 @@
-import java.util.ArrayList;
-
 public class Tree<E> {
 
-    private Node<E> root;
-    private int height = 3;
+    public Node<E> root;
+    public int height = 2;
 
     public Tree() {
         root = new Node<>();
         root.parent = null;
-        root.createChildren();
+        createBrunch(root, height);
+        System.out.println(height);
+    }
+
+    public void createBrunch(Node<E> node, int height) {
+        node.createChildren();
+        if (height > 0) {
+            createBrunch(node.getChildren().get(0), --height);
+        }
     }
 
 }
