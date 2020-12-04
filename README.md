@@ -3,6 +3,7 @@
 
 ## Ссылки
 * [Алгоритм копирования путей, он же черновик](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
+* [Задание](task.pdf)
 
 Пресистентность в Кожуре
 * [#01](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
@@ -12,7 +13,7 @@
 * [#05](https://hypirion.com/musings/persistent-vector-performance-summarised)
 
 Прочее
-* [Persistent data structure в кожуре](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
+* [Persistent data structure в кожуре (java)](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
 * [Задание (новое)](https://classroom.google.com/u/1/c/MTU4ODY2Njk3NDM3/m/MjIxNzU2MDE1NzA3/details)
 * [Задание (старое)](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 * [Functional Data Structures in Scala (видосик 50 мин.)](https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala/)
