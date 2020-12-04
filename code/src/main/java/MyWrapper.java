@@ -1,7 +1,6 @@
 import java.util.*;
 
-public class MyWrapper<E>
-        implements List<E>
+public class MyWrapper<E> implements List<E>
 {
     List<E> list = new LinkedList<>();
 
