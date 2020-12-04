@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/MyWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/MyWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606995406606</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Добавил лист, реализовал toArray, допилил вставку">
+      <created>1607073984046</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607073984046</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -171,17 +173,22 @@
     <MESSAGE value="Рефакторинг" />
     <MESSAGE value="Добавление элемента" />
     <MESSAGE value="(1, 2)" />
-    <option name="LAST_COMMIT_MESSAGE" value="(1, 2)" />
+    <MESSAGE value="Добавил лист, реализовал toArray, допилил вставку" />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавил лист, реализовал toArray, допилил вставку" />
   </component>
   <component name="WindowStateProjectService">
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607063488529">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1607063488529" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607063190042">
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607074020509">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607063190042" />
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1607074020509" />
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607073982768">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607073982768" />
     <state width="1323" height="174" key="GridCell.Tab.0.bottom" timestamp="1607066272756">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -218,10 +225,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1606995472646">
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607073996088">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1606995472646" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607073996088" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
