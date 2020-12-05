@@ -2,17 +2,44 @@ import java.util.*;
 
 public class PersistentList<E> implements List<E> {
 
-    public static int depth = 3;
+    public static int depth = 2;
     public static int bit_dlya_rasc_ur = Node.bit_na_pu * depth;
     public static int mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
 
     public Node<Data<E>> root;
     private int count = 0;
 
+    public Data<E> first;
+    public Data<E> last;
+
     public PersistentList() {
         root = new Node<>();
         root.parent = null;
         createBranch(root, depth);
+    }
+
+    private Data<E> addFirst(E e) {
+        Data<E> oldFirst = first;
+        Data<E> newFirst = new Data<E>(e, oldFirst, null);
+        first = newFirst;
+        if (oldFirst == null) {
+            last = newFirst;
+        } else {
+            oldFirst.prev = newFirst;
+        }
+        return newFirst;
+    }
+
+    private Data<E> addLast(E e) {
+        Data<E> oldLast = last;
+        Data<E> newLast = new Data<E>(e, null, oldLast);
+        last = newLast;
+        if (oldLast == null) {
+            first = newLast;
+        } else {
+            oldLast.next = newLast;
+        }
+        return newLast;
     }
 
     @Override
@@ -35,7 +62,7 @@ public class PersistentList<E> implements List<E> {
             node.data = new ArrayList<>();
         }
 
-        node.data.add(index, new Data<E>(element));
+        node.data.add(index, addLast(element));
         count++;
         return true;
     }
@@ -43,16 +70,23 @@ public class PersistentList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<Data<E>> node = root;
-
-        while (level > 0) {
-            int tempIndex = (index >> level) & mask;
-            node = node.children.get(tempIndex);
-            level -= Node.bit_na_pu;
+        if (index == 0) {
+            return first.data;
+        } else if (index == count) {
+            return last.data;
+        } else if ((count / 2) > index) {
+            Data<E> currentData = first;
+            for (int i = 0; i < index; i++) {
+                currentData = currentData.getNext();
+            }
+            return currentData.data;
+        } else {
+            Data<E> currentData = last;
+            for (int i = count; i > index; i--) {
+                currentData = currentData.getPrev();
+            }
+            return currentData.data;
         }
-
-        return node.data.get(index & mask).data;
     }
 
     @Override
@@ -175,13 +209,23 @@ public class PersistentList<E> implements List<E> {
         }
     }
 
-    private class Data<E> {
+    private static class Data<E> {
         public E data;
         public Data<E> next;
-        public Data<E> pref;
+        public Data<E> prev;
 
-        public Data(E data) {
+        public Data(E data, Data<E> next, Data<E> prev) {
             this.data = data;
+            this.next = next;
+            this.prev = prev;
+        }
+
+        public Data<E> getNext() {
+            return next;
+        }
+
+        public Data<E> getPrev() {
+            return prev;
         }
     }
 }
