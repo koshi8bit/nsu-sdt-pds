@@ -1,9 +1,7 @@
 # nsu-sdt-pds
 Курсач по СМП на тему "Persistent data structure"
 
-## Ссылки
-* [Алгоритм копирования путей, он же черновик](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
-* [Задание](task.pdf)
+[Алгоритмы](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
 
 Пресистентность в Кожуре
 * [#01](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
@@ -27,10 +25,11 @@
 - [ ] Расширить экономичное использование памяти на операцию преобразования одной структуры к другой (например, списка в массив)
 - [ ] Реализовать поддержку транзакционной памяти STM (?atom VS ref. agent мб очередь операций с пуллом потоков VS actor) 
 
-## Прочее
-* [Persistent data structure в кожуре (java)](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
+## Ссылки
+* [Задание (pdf)](task.pdf)
 * [Задание (новое)](https://classroom.google.com/u/1/c/MTU4ODY2Njk3NDM3/m/MjIxNzU2MDE1NzA3/details)
 * [Задание (старое)](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
+* [Persistent data structure в кожуре (java)](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
 * [Functional Data Structures in Scala (видосик 50 мин.)](https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala/)
 * [MIT youtube](https://www.youtube.com/playlist?list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf)
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
