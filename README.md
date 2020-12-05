@@ -25,7 +25,7 @@
 - [ ] Реализовать универсальныйundo-redo механизм для перечисленных структур с поддержкой каскадности (для вложенных структур)
 - [x] Реализовать более эффективное по скорости доступа представление структур данных, чем fat-node
 - [ ] Расширить экономичное использование памяти на операцию преобразования одной структуры к другой (например, списка в массив)
-- [ ] Реализовать поддержку транзакционной памяти STM (?atom VS ref. agent мб очередь операций) 
+- [ ] Реализовать поддержку транзакционной памяти STM (?atom VS ref. agent мб очередь операций с пуллом потоков) 
 
 ## Прочее
 * [Persistent data structure в кожуре (java)](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
@@ -36,11 +36,6 @@
 * [Habr 01 simple](https://m.habr.com/ru/post/113585/)
 * [Сторонняя реализация java абстракций](https://github.com/functionaljava/functionaljava/tree/series/5.x/core/src/main/java/fj/data)
 * [Вики](https://en.wikipedia.org/wiki/Persistent_data_structure)
-
-## План работы
-- [x] Сделать собственную обертку над LinkedList, реализующую интерфейс List ~~??**Collection**/Iterable??~~. **Deadline 31.10.2020**
-- [ ] Раскурить все статьи из раздела ссылки. **Deadline  7.11.2020**
-- [ ] Описать на листе бумаги, как будем реализовывать алгоритмы в коде. **Deadline 14.11.2020**
 
 ## Инфа
 ### Классы в java
