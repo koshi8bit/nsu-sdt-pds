@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/First.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/MyWrapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList$Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList$Data.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +40,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/code/src/main/java" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -178,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607169327245</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Исправил баг в get у связного списка">
+      <created>1607218847534</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607218847534</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -192,41 +206,42 @@
     <MESSAGE value="Добавил лист, реализовал toArray, допилил вставку" />
     <MESSAGE value="Почистил мэйн, добавил PersistentList" />
     <MESSAGE value="Реализовал вставку в конец и начало связного списка за О(1), get работает за O(n)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Реализовал вставку в конец и начало связного списка за О(1), get работает за O(n)" />
+    <MESSAGE value="Исправил баг в get у связного списка" />
+    <option name="LAST_COMMIT_MESSAGE" value="Исправил баг в get у связного списка" />
   </component>
   <component name="WindowStateProjectService">
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607165768880">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1607165768880" />
-    <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607166722794">
+    <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607246924828">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1607166722794" />
+    <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1607246924828" />
     <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607163628381">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1607163628381" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607169325948">
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607218846333">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607169325948" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1607218802113">
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607218846332" />
+    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1607219183009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607218802113" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1607218802113">
+    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
+    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1607219183009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607218802113" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1607218802113">
+    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
+    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1607219183009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607218802113" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1607218802113">
+    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
+    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1607219183009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607218802113" />
+    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
     <state width="1323" height="227" key="GridCell.Tab.1.bottom" timestamp="1606996362779">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -247,10 +262,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607169340775">
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607218850658">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607169340775" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607218850658" />
     <state x="334" y="59" width="696" height="678" key="search.everywhere.popup" timestamp="1607166967871">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -261,7 +276,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/code/src/main/java/Main.java</url>
-          <line>7</line>
+          <line>8</line>
           <properties class="Main" method="main">
             <option name="EMULATED" value="true" />
           </properties>

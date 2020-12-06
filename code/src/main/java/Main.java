@@ -2,6 +2,7 @@ import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
@@ -29,5 +30,7 @@ public class Main {
         for (int i = 0; i < persistentList.size(); i++) {
             System.out.println(persistentList.get(i));
         }
+
+        List<Integer> list = new LinkedList<>();
     }
 }

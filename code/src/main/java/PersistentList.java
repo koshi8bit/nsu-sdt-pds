@@ -6,11 +6,11 @@ public class PersistentList<E> implements List<E> {
     public static int bit_dlya_rasc_ur = Node.bit_na_pu * depth;
     public static int mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
 
-    public Node<Data<E>> root;
+    public Node<LinkedData<E>> root;
     private int count = 0;
 
-    public Data<E> first;
-    public Data<E> last;
+    public LinkedData<E> first;
+    public LinkedData<E> last;
 
     public PersistentList() {
         root = new Node<>();
@@ -18,9 +18,9 @@ public class PersistentList<E> implements List<E> {
         createBranch(root, depth);
     }
 
-    private Data<E> addFirst(E e) {
-        Data<E> oldFirst = first;
-        Data<E> newFirst = new Data<E>(e, oldFirst, null);
+    private LinkedData<E> addFirst(E e) {
+        LinkedData<E> oldFirst = first;
+        LinkedData<E> newFirst = new LinkedData<E>(e, oldFirst, null);
         first = newFirst;
         if (oldFirst == null) {
             last = newFirst;
@@ -30,9 +30,9 @@ public class PersistentList<E> implements List<E> {
         return newFirst;
     }
 
-    private Data<E> addLast(E e) {
-        Data<E> oldLast = last;
-        Data<E> newLast = new Data<E>(e, null, oldLast);
+    private LinkedData<E> addLast(E e) {
+        LinkedData<E> oldLast = last;
+        LinkedData<E> newLast = new LinkedData<E>(e, null, oldLast);
         last = newLast;
         if (oldLast == null) {
             first = newLast;
@@ -45,7 +45,7 @@ public class PersistentList<E> implements List<E> {
     @Override
     public boolean add(E element) {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<Data<E>> node = root;
+        Node<LinkedData<E>> node = root;
 
         while (level > 0) {
             int index = (count >> level) & mask;
@@ -77,17 +77,17 @@ public class PersistentList<E> implements List<E> {
         } else if (index == count) {
             return last.data;
         } else if ((count / 2) > index) {
-            Data<E> currentData = first;
+            LinkedData<E> currentLinkedData = first;
             for (int i = 0; i < index; i++) {
-                currentData = currentData.getNext();
+                currentLinkedData = currentLinkedData.getNext();
             }
-            return currentData.data;
+            return currentLinkedData.data;
         } else {
-            Data<E> currentData = last;
-            for (int i = count - 1; i > index; i--) {     //count = 7 index = 3
-                currentData = currentData.getPrev();  //попали в 5
+            LinkedData<E> currentLinkedData = last;
+            for (int i = count - 1; i > index; i--) {
+                currentLinkedData = currentLinkedData.getPrev();
             }
-            return currentData.data;
+            return currentLinkedData.data;
         }
     }
 
@@ -204,29 +204,29 @@ public class PersistentList<E> implements List<E> {
         return null;
     }
 
-    public void createBranch(Node<Data<E>> node, int depth) {
+    public void createBranch(Node<LinkedData<E>> node, int depth) {
         node.createChildren();
         if (depth > 0) {
             createBranch(node.getChildren().get(0), --depth);
         }
     }
 
-    private static class Data<E> {
+    private static class LinkedData<E> {
         public E data;
-        public Data<E> next;
-        public Data<E> prev;
+        public LinkedData<E> next;
+        public LinkedData<E> prev;
 
-        public Data(E data, Data<E> next, Data<E> prev) {
+        public LinkedData(E data, LinkedData<E> next, LinkedData<E> prev) {
             this.data = data;
             this.next = next;
             this.prev = prev;
         }
 
-        public Data<E> getNext() {
+        public LinkedData<E> getNext() {
             return next;
         }
 
-        public Data<E> getPrev() {
+        public LinkedData<E> getPrev() {
             return prev;
         }
     }
