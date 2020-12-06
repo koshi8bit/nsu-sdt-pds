@@ -70,7 +70,9 @@ public class PersistentList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        if (index == 0) {
+        if (index > count) {
+            throw new IndexOutOfBoundsException();
+        } else if (index == 0) {
             return first.data;
         } else if (index == count) {
             return last.data;
@@ -82,8 +84,8 @@ public class PersistentList<E> implements List<E> {
             return currentData.data;
         } else {
             Data<E> currentData = last;
-            for (int i = count; i > index; i--) {
-                currentData = currentData.getPrev();
+            for (int i = count - 1; i > index; i--) {     //count = 7 index = 3
+                currentData = currentData.getPrev();  //попали в 5
             }
             return currentData.data;
         }

@@ -1,9 +1,11 @@
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) {/*
         PersistentArray<Integer> pa = new PersistentArray<>();
 
         System.out.println(pa.root.getChildren().get(0).getChildren().get(0).data);
@@ -16,6 +18,16 @@ public class Main {
 
         System.out.println(pa.get(0));
         System.out.println(pa.get(1));
-        System.out.println(pa.get(2));
+        System.out.println(pa.get(2));*/
+
+        PersistentList<Integer> persistentList = new PersistentList<>();
+
+        for (int i = 0; i < 15; i++) {
+            persistentList.add(i);
+        }
+
+        for (int i = 0; i < persistentList.size(); i++) {
+            System.out.println(persistentList.get(i));
+        }
     }
 }
