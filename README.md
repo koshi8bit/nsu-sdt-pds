@@ -2,6 +2,7 @@
 Курсач по СМП на тему "Persistent data structure"
 
 [Алгоритмы](https://docs.google.com/document/d/1CKQ902VsTXsa9CZYZVnGKs5C4jJO3WkqjIPo0ntAMcM/edit#)
+[Умные расчеты](https://docs.google.com/spreadsheets/d/1xNfALDSZxXMbOlgF4tEBWf7jhpzwcq4zjkXq-W9hojI/edit#gid=0)
 
 Пресистентность в Кожуре
 * [#01](https://hypirion.com/musings/understanding-persistent-vector-pt-1)
