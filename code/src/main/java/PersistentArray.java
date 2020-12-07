@@ -1,44 +1,61 @@
 import java.util.*;
 
-public class PersistentArray<E> implements List<E> {
+public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
-    public static int depth = 3;
-    public static int bit_dlya_rasc_ur = Node.bit_na_pu * depth;
-    public static int mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
-
-    public Node<E> root;
-    private int count = 0;
+    public Head<E> head;
+    public Stack<Head<E>> undo = new Stack<>();
+    public Stack<Head<E>> redo = new Stack<>();
 
     public PersistentArray() {
-        root = new Node<>();
-        root.parent = null;
-        createBranch(root, depth);
+        head = new Head<>();
+        undo.push(head);
+        createBranch(head.root, depth);
+    }
+
+    @Override
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    @Override
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
     }
 
     @Override
     public boolean add(E element) {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = root;
+        Node<E> currentNode = head.root;
 
         while (level > 0) {
-            int index = (count >> level) & mask;
-            if (node.children.size() - 1 != index) {
-                node.createChildren();
+            int index = (head.count >> level) & mask;
+            if (currentNode.children.size() - 1 != index) {
+                currentNode.createChildren();
             }
-            System.out.println(index + " " + node.children.size());
-            node = node.children.get(index);
+            System.out.println(index + " " + currentNode.children.size());
+            currentNode = currentNode.children.get(index);
             level -= Node.bit_na_pu;
         }
-        System.out.println("Вышли");
 
-        int index = count & mask;
+        int index = head.count & mask;
 
-        if (node.data == null) {
-            node.data = new ArrayList<>();
+        if (currentNode.data == null) {
+            currentNode.data = new ArrayList<>();
         }
 
-        node.data.add(index, element);
-        count++;
+        currentNode.data.add(index, element);
+        head.count++;
+
+        Head<E> newHead = new Head<>(head);
+        undo.push(newHead);
+        while (!redo.empty()) {
+            redo.pop();
+        }
+
         return true;
     }
 
@@ -46,7 +63,7 @@ public class PersistentArray<E> implements List<E> {
     @Override
     public E get(int index) {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = root;
+        Node<E> node = head.root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
@@ -59,12 +76,12 @@ public class PersistentArray<E> implements List<E> {
 
     @Override
     public int size() {
-        return count;
+        return head.count;
     }
 
     @Override
     public boolean isEmpty() {
-        return count <= 0;
+        return head.count <= 0;
     }
 
     @Override
@@ -79,7 +96,7 @@ public class PersistentArray<E> implements List<E> {
 
     @Override
     public Object[] toArray() {
-        Object[] objects = new Object[count];
+        Object[] objects = new Object[head.count];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = this.get(i);
         }

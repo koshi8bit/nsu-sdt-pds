@@ -1,10 +1,6 @@
 import java.util.*;
 
-public class PersistentList<E> implements List<E> {
-
-    public static int depth = 2;
-    public static int bit_dlya_rasc_ur = Node.bit_na_pu * depth;
-    public static int mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
+public class PersistentList<E> extends AbstractPersistentCollection<E> {
 
     public Head<LinkedData<E>> head;
     public Stack<Head<LinkedData<E>>> undo = new Stack<>();
@@ -17,19 +13,6 @@ public class PersistentList<E> implements List<E> {
         head = new Head<>();
         undo.push(head);
         createBranch(head.root, depth);
-    }
-
-    public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
-        }
-    }
-
-
-    public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
-        }
     }
 
     private LinkedData<E> addFirst(E e) {
@@ -54,6 +37,20 @@ public class PersistentList<E> implements List<E> {
             oldLast.next = newLast;
         }
         return newLast;
+    }
+
+    @Override
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    @Override
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
     }
 
     @Override
@@ -83,7 +80,7 @@ public class PersistentList<E> implements List<E> {
         Head<LinkedData<E>> newHead = new Head<>(head);
         undo.push(newHead);
         while (!redo.empty()) {
-         redo.pop();
+            redo.pop();
         }
 
         return true;
