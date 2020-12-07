@@ -51,9 +51,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         //Head<E> newHead = new Head<>(getCurrentHead());
         //undo.push(newHead);
-        while (!redo.empty()) {
-            redo.pop();
-        }
+//        while (!redo.empty()) {
+//            redo.pop();
+//        }
         return true;
     }
 
@@ -65,7 +65,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         while (level > 0)
         {
-            Integer index = (head.size >> level) & mask;
+            Integer index = ((head.size - 1) >> level) & mask;
             Node<E> tmp = currentNode.child.get(index);
             Node<E> newNode = new Node<>(tmp);
             currentNode.child.set(index, newNode);

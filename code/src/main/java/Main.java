@@ -1,3 +1,6 @@
+
+import com.sun.xml.internal.ws.util.StringUtils;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,17 +20,25 @@ public class Main {
         System.out.println(pa.get(1));
         System.out.println(pa.get(2));*/
 
-        PersistentList<Integer> persistentList = new PersistentList<>();
+        PersistentArray<Integer> persistentArray = new PersistentArray<>();
 
-        for (int i = 0; i < 15; i++) {
-            persistentList.add(i);
+        for (int i = 0; i < 22; i++) {
+            persistentArray.add2(i);
         }
 
-        for (int i = 0; i < persistentList.size(); i++) {
-            System.out.println(persistentList.get(i));
-        }
+        printArray(persistentArray);
+
+
 
         List<Integer> list = new LinkedList<>();
         //Проверка работы пул реквеста
+    }
+
+    private static void printArray(PersistentArray<Integer> array)
+    {
+        System.out.print("size: "+ array.size() + "   ");
+        for (int i = 0; i < array.size(); i++) {
+            System.out.print(array.get(i) + " ");
+        }
     }
 }
