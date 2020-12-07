@@ -15,6 +15,7 @@ public class Node<E> {
 
     }
 
+    /// Копирование содержимого при копировании пути
     public Node(Node<E> prevRoot) {
         //TODO check
         if (prevRoot.children != null)

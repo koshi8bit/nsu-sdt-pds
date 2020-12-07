@@ -60,10 +60,16 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public boolean add(E element) {
 
+        if (getCurrentHead().count % Node.width != 0) {
+            //TODO ANT add some code here for "Есть место в самом правом листе"
+            //а еще зацени, getCurrentHead() пригодился
 
-
-
-        return true;
+            return true;
+        }
+        else {
+            //TODO другие кейсы
+            return true;
+        }
     }
 
 
