@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
+    <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/AbstractPersistentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/AbstractPersistentCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentArray.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList$Data.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +204,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607331684460</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)">
+      <created>1607335221027</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607335221027</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -217,7 +227,8 @@
     <MESSAGE value="Реализовал вставку в конец и начало связного списка за О(1), get работает за O(n)" />
     <MESSAGE value="Исправил баг в get у связного списка" />
     <MESSAGE value="Добавил undo redo в list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил undo redo в list" />
+    <MESSAGE value="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)" />
   </component>
   <component name="WindowStateProjectService">
     <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607333257956">
@@ -232,26 +243,26 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1607333080189" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607335164734">
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607335220301">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607335164734" />
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1607219183009">
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607335220301" />
+    <state width="1323" height="149" key="GridCell.Tab.0.bottom" timestamp="1607335959282">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
-    <state width="1323" height="234" key="GridCell.Tab.0.center" timestamp="1607219183009">
+    <state width="1323" height="149" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.center" timestamp="1607335959282">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
-    <state width="1323" height="234" key="GridCell.Tab.0.left" timestamp="1607219183009">
+    <state width="1323" height="149" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.left" timestamp="1607335959282">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
-    <state width="1323" height="234" key="GridCell.Tab.0.right" timestamp="1607219183009">
+    <state width="1323" height="149" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.right" timestamp="1607335959282">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="234" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607219183009" />
+    <state width="1323" height="149" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
     <state width="1323" height="227" key="GridCell.Tab.1.bottom" timestamp="1606996362779">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -272,10 +283,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607331688284">
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607335223543">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607331688284" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607335223543" />
     <state x="334" y="59" width="696" height="678" key="search.everywhere.popup" timestamp="1607166967871">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -286,7 +297,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/code/src/main/java/Main.java</url>
-          <line>8</line>
+          <line>4</line>
           <properties class="Main" method="main">
             <option name="EMULATED" value="true" />
           </properties>
