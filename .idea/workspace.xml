@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Head.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Head.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

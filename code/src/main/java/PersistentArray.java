@@ -26,10 +26,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
     }
 
-    @Override
-    public boolean add(E element) {
-
-
+    public boolean add2(E element) {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
         Node<E> currentNode = head.root;
 
@@ -57,6 +54,14 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         while (!redo.empty()) {
             redo.pop();
         }
+        return true;
+    }
+
+    @Override
+    public boolean add(E element) {
+
+
+
 
         return true;
     }
