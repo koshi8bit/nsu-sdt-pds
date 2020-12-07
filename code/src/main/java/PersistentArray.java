@@ -59,18 +59,26 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public boolean add(E newElement) {
         Head<E> newHead = new Head<>(getCurrentHead(), +1);
+        undo.push(newHead);
         Node<E> currentNode = newHead.root;
         int level = Node.bit_na_pu * (depth - 1);
 
         while (level > 0)
         {
+            //todo handle if no node created
             int index = ((newHead.size - 1) >> level) & mask;
-            Node<E> tmp = currentNode.child.get(index);
+            Node<E> tmp;
+            if (index == currentNode.child.size())
+                tmp = new Node<>();
+            else
+                tmp = currentNode.child.get(index);
             Node<E> newNode = new Node<>(tmp);
             currentNode.child.set(index, newNode);
             currentNode = newNode;
             level -= Node.bit_na_pu;
         }
+        if (currentNode.data == null)
+            currentNode.data = new ArrayList<>();
         currentNode.data.add(newElement);
 
         return true;
