@@ -9,7 +9,8 @@ public class Head<E> {
     }
 
     public Head(Head<E> prevHead) {
-        this.root = prevHead.root;
-        this.count = prevHead.count;
+        this.root = new Node<>(prevHead.root);
+        this.root.parent = null;
+        this.count = prevHead.count + 1;
     }
 }

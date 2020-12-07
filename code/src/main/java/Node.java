@@ -12,6 +12,15 @@ public class Node<E> {
         width = (int) Math.pow(2, bit_na_pu);
     }
 
+    public Node() {
+
+    }
+
+    public Node(Node<E> prevRoot) {
+        //TODO check
+        children.addAll(prevRoot.children);
+    }
+
     public void createChildren() {
         Node<E> node = new Node<E>();
         node.parent = this;

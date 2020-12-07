@@ -28,6 +28,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E element) {
+
+
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
         Node<E> currentNode = head.root;
 
@@ -50,7 +52,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         currentNode.data.add(index, element);
         head.count++;
 
-        Head<E> newHead = new Head<>(head);
+        Head<E> newHead = new Head<>(getCurrentHead());
         undo.push(newHead);
         while (!redo.empty()) {
             redo.pop();
@@ -192,5 +194,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         if (depth > 0) {
             createBranch(node.getChildren().get(0), --depth);
         }
+    }
+
+    private Head<E> getCurrentHead() {
+        return this.undo.peek();
     }
 }

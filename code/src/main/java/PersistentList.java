@@ -77,8 +77,8 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
         head.count++;
 
 
-        Head<LinkedData<E>> newHead = new Head<>(head);
-        undo.push(newHead);
+        //Head<LinkedData<E>> newHead = new Head<>(head);
+        //undo.push(newHead);
         while (!redo.empty()) {
             redo.pop();
         }
