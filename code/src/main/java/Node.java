@@ -5,8 +5,7 @@ public class Node<E> {
     public static int bit_na_pu = 1;
     public static int width;
     public List<E> data;
-    public Node<E> parent;
-    public List<Node<E>> children = new ArrayList<>();
+    public List<Node<E>> children = new ArrayList<>();  // пусть изначально равно null
 
     static {
         width = (int) Math.pow(2, bit_na_pu);
@@ -18,6 +17,7 @@ public class Node<E> {
 
     public Node(Node<E> prevRoot) {
         //TODO check
+        if (prevRoot.children == null) // TODO
         children.addAll(prevRoot.children);
     }
 
