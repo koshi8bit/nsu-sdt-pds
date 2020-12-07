@@ -60,10 +60,10 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
 
         while (level > 0) {
             int index = (head.count >> level) & mask;
-            if (currentNode.children.size() - 1 != index) {
+            if (currentNode.child.size() - 1 != index) {
                 currentNode.createChildren();
             }
-            currentNode = currentNode.children.get(index);
+            currentNode = currentNode.child.get(index);
             level -= Node.bit_na_pu;
         }
 
@@ -226,7 +226,7 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
     public void createBranch(Node<LinkedData<E>> node, int depth) {
         node.createChildren();
         if (depth > 0) {
-            createBranch(node.getChildren().get(0), --depth);
+            createBranch(node.getChild().get(0), --depth);
         }
     }
 

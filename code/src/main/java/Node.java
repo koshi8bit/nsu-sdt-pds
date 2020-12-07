@@ -5,7 +5,7 @@ public class Node<E> {
     public static int bit_na_pu = 1;
     public static int width;
     public List<E> data;
-    public List<Node<E>> children = new ArrayList<>(); // TODO make as data: null as default
+    public List<Node<E>> child = new ArrayList<>(); // TODO make as data: null as default
 
     static {
         width = (int) Math.pow(2, bit_na_pu);
@@ -18,8 +18,8 @@ public class Node<E> {
     /// Копирование содержимого при копировании пути
     public Node(Node<E> prevRoot) {
         //TODO check
-        if (prevRoot.children != null)
-            children.addAll(prevRoot.children);
+        if (prevRoot.child != null)
+            child.addAll(prevRoot.child);
 
         if (prevRoot.data != null) {
             data = new ArrayList<>();
@@ -30,11 +30,11 @@ public class Node<E> {
     public void createChildren() {
         Node<E> node = new Node<E>();
 
-        if (children.size() < width)
-            children.add(node);
+        if (child.size() < width)
+            child.add(node);
     }
 
-    public List<Node<E>> getChildren() {
-        return children;
+    public List<Node<E>> getChild() {
+        return child;
     }
 }
