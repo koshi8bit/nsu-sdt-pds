@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node<E> {
-    public static int bit_na_pu = 1;
+    public static int bit_na_pu = 2;
     public static int width;
     public List<E> data;
     public List<Node<E>> child = new ArrayList<>(); // TODO make as data: null as default
@@ -16,17 +16,19 @@ public class Node<E> {
     }
 
     /// Копирование содержимого при копировании пути
-    public Node(Node<E> prevRoot) {
+    public Node(Node<E> other) {
         //TODO check
-        if (prevRoot.child != null)
-            child.addAll(prevRoot.child);
+        if (other.child != null)
+            if (!other.child.isEmpty()) // TODO delete me. see line 8
+                child.addAll(other.child);
 
-        if (prevRoot.data != null) {
+        if (other.data != null) {
             data = new ArrayList<>();
-            data.addAll(prevRoot.data);
+            data.addAll(other.data);
         }
     }
 
+    // TODO delete later
     public void createChildren() {
         Node<E> node = new Node<E>();
 
