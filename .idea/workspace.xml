@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/First.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/MyWrapper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList$Data.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList$Data.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/nsu-sdt-pds/PersistentList.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607218847534</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Исправил баг в get у связного списка">
+      <created>1607257012199</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607257012199</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -210,10 +210,10 @@
     <option name="LAST_COMMIT_MESSAGE" value="Исправил баг в get у связного списка" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607165768880">
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607329129648">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1607165768880" />
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1607329129648" />
     <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607246924828">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -222,10 +222,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1607163628381" />
-    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607218846333">
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607257007801">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607218846332" />
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607257007801" />
     <state width="1323" height="234" key="GridCell.Tab.0.bottom" timestamp="1607219183009">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -262,10 +262,10 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607218850658">
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607257018351">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607218850658" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607257018351" />
     <state x="334" y="59" width="696" height="678" key="search.everywhere.popup" timestamp="1607166967871">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
