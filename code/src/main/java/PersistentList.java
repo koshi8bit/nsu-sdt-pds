@@ -10,9 +10,9 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
     public LinkedData<E> last;
 
     public PersistentList() {
-        head = new Head<>();
-        undo.push(head);
-        createBranch(head.root, depth);
+//        head = new Head<>();
+//        undo.push(head);
+//        createBranch(head.root, depth);
     }
 
     private LinkedData<E> addFirst(E e) {
@@ -55,33 +55,33 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E element) {
-        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<LinkedData<E>> currentNode = head.root;
-
-        while (level > 0) {
-            int index = (head.size >> level) & mask;
-            if (currentNode.child.size() - 1 != index) {
-                currentNode.createChildren();
-            }
-            currentNode = currentNode.child.get(index);
-            level -= Node.bit_na_pu;
-        }
-
-        int index = head.size & mask;
-
-        if (currentNode.data == null) {
-            currentNode.data = new ArrayList<>();
-        }
-
-        currentNode.data.add(index, addLast(element));
-        head.size++;
-
-
-        //Head<LinkedData<E>> newHead = new Head<>(head);
-        //undo.push(newHead);
-        while (!redo.empty()) {
-            redo.pop();
-        }
+//        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
+//        Node<LinkedData<E>> currentNode = head.root;
+//
+//        while (level > 0) {
+//            int index = (head.size >> level) & mask;
+//            if (currentNode.child.size() - 1 != index) {
+//                currentNode.createChildren();
+//            }
+//            currentNode = currentNode.child.get(index);
+//            level -= Node.bit_na_pu;
+//        }
+//
+//        int index = head.size & mask;
+//
+//        if (currentNode.data == null) {
+//            currentNode.data = new ArrayList<>();
+//        }
+//
+//        currentNode.data.add(index, addLast(element));
+//        head.size++;
+//
+//
+//        //Head<LinkedData<E>> newHead = new Head<>(head);
+//        //undo.push(newHead);
+//        while (!redo.empty()) {
+//            redo.pop();
+//        }
 
         return true;
     }
@@ -224,12 +224,12 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
         return null;
     }
 
-    public void createBranch(Node<LinkedData<E>> node, int depth) {
-        node.createChildren();
-        if (depth > 0) {
-            createBranch(node.getChild().get(0), --depth);
-        }
-    }
+//    public void createBranch(Node<LinkedData<E>> node, int depth) {
+//        node.createChildren();
+//        if (depth > 0) {
+//            createBranch(node.getChild().get(0), --depth);
+//        }
+//    }
 
     private static class LinkedData<E> {
         public E data;

@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         PersistentArray<Integer> pa = new PersistentArray<>();
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             pa.add(i);
         }
         printArray(pa);
@@ -21,6 +21,8 @@ public class Main {
     private static void printArray(PersistentArray<Integer> array)
     {
         System.out.print("size: "+ array.size() + "   ");
+
+        //DO NOT CHANGE FOR
         for (int i = 0; i < array.size(); i++) {
             System.out.print(array.get(i) + " ");
         }
