@@ -2,8 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node<E> {
-    public int iii = 999;
-    public static int bit_na_pu = 2;
+    public static int bit_na_pu = 1;
     public static int width;
     public List<E> data;
     public List<Node<E>> child;// = new ArrayList<>(); // TODO make as data: null as default

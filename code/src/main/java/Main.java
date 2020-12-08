@@ -8,20 +8,11 @@ public class Main {
     public static void main(String[] args) {
         PersistentArray<Integer> pa = new PersistentArray<>();
 
-        for (int i = 0; i < 4; i++) {
+        int count = 2;
+        for (int i = 0; i < count; i++) {
             pa.add(i);
         }
-        printArray(pa);
-        pa.undo();
-        printArray(pa);
-        pa.redo();
-        printArray(pa);
-        System.out.println("---");
-        pa.undo();
-        pa.undo();
-        printArray(pa);
-        pa.add(9);
-        pa.redo();
+
         printArray(pa);
     }
 
