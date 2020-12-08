@@ -60,17 +60,18 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     public boolean add(E newElement) {
         Head<E> newHead = new Head<>(getCurrentHead(), +1);
         undo.push(newHead);
+        redo.clear();
         Node<E> currentNode = newHead.root;
         int level = Node.bit_na_pu * (depth - 1);
 
-        System.out.print(newElement + "   ");
+        //System.out.print(newElement + "   ");
         while (level > 0)
         {
             int index = ((newHead.size - 1) >> level) & mask;
 //            System.out.print(" L");
 //            System.out.println(level);
 //            System.out.print(" I");
-            System.out.print(index);
+            //System.out.print(index);
             Node<E> tmp;
 
             if (currentNode.child == null)
@@ -89,7 +90,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         if (currentNode.data == null)
             currentNode.data = new ArrayList<>();
         currentNode.data.add(newElement);
-        System.out.println();
+        //System.out.println();
 
         return true;
 
