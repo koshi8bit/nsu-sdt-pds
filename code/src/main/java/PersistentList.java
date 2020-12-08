@@ -55,8 +55,8 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E element) {
-//        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-//        Node<LinkedData<E>> currentNode = head.root;
+//        int level = bit_dlya_rasc_ur - Node.Node.bit_na_pu;
+//        Node.Node<LinkedData<E>> currentNode = head.root;
 //
 //        while (level > 0) {
 //            int index = (head.size >> level) & mask;
@@ -64,7 +64,7 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
 //                currentNode.createChildren();
 //            }
 //            currentNode = currentNode.child.get(index);
-//            level -= Node.bit_na_pu;
+//            level -= Node.Node.bit_na_pu;
 //        }
 //
 //        int index = head.size & mask;
@@ -224,7 +224,7 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
         return null;
     }
 
-//    public void createBranch(Node<LinkedData<E>> node, int depth) {
+//    public void createBranch(Node.Node<LinkedData<E>> node, int depth) {
 //        node.createChildren();
 //        if (depth > 0) {
 //            createBranch(node.getChild().get(0), --depth);

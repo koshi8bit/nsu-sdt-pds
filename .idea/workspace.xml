@@ -21,7 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/AbstractPersistentCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/AbstractPersistentCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Head.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Head.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/nodes/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentList.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +70,13 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="nsu-sdt-pds" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
       <setting name="replType" value="NREPL" />
       <setting name="execution" value="LEININGEN" />
@@ -86,18 +98,23 @@
       <setting name="fixLineNumbers" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="nsu-sdt-pds" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -218,9 +235,6 @@
     <option name="localTasksCounter" value="16" />
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="oldMeFiltersMigrated" value="true" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init" />
     <MESSAGE value="one" />
@@ -263,25 +277,25 @@
       <screen x="0" y="0" width="1920" height="935" />
     </state>
     <state width="473" height="466" key="DebuggerActiveHint/0.0.1920.935@0.0.1920.935" timestamp="1607366042343" />
-    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1607403940609">
-      <screen x="0" y="0" width="1920" height="935" />
+    <state width="1323" height="149" key="GridCell.Tab.0.bottom" timestamp="1607412201462">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607412201462" />
     <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
-    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1607403940609">
-      <screen x="0" y="0" width="1920" height="935" />
+    <state width="1323" height="149" key="GridCell.Tab.0.center" timestamp="1607412201461">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607412201461" />
     <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
-    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1607403940609">
-      <screen x="0" y="0" width="1920" height="935" />
+    <state width="1323" height="149" key="GridCell.Tab.0.left" timestamp="1607412201461">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607412201461" />
     <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
-    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1607403940609">
-      <screen x="0" y="0" width="1920" height="935" />
+    <state width="1323" height="149" key="GridCell.Tab.0.right" timestamp="1607412201461">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
-    <state width="1323" height="149" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1323" height="149" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607412201461" />
     <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
     <state width="1877" height="195" key="GridCell.Tab.1.bottom" timestamp="1607403387249">
       <screen x="0" y="0" width="1920" height="935" />

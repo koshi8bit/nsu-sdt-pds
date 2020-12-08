@@ -1,3 +1,5 @@
+import nodes.Node;
+
 import java.util.*;
 
 public class PersistentArray<E> extends AbstractPersistentCollection<E> {
@@ -26,8 +28,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     }
 
 //    public boolean add2(E element) {
-//        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-//        Node<E> currentNode = head.root;
+//        int level = bit_dlya_rasc_ur - Node.Node.bit_na_pu;
+//        Node.Node<E> currentNode = head.root;
 //
 //        while (level > 0) {
 //            int index = (head.size >> level) & mask;
@@ -36,7 +38,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 //            }
 //            System.out.println(index + " " + currentNode.child.size());
 //            currentNode = currentNode.child.get(index);
-//            level -= Node.bit_na_pu;
+//            level -= Node.Node.bit_na_pu;
 //        }
 //
 //        int index = head.size & mask;
@@ -65,19 +67,20 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         int level = Node.bit_na_pu * (depth - 1);
 
         System.out.print(newElement + "   ");
-        while (level > 0)
-        {
+        while (level > 0) {
             int index = ((newHead.size - 1) >> level) & mask;
             System.out.print(index);
             Node<E> tmp;
 
-            if (currentNode.child == null)
+            if (currentNode.child == null) {
                 currentNode.child = new ArrayList<>();
+            }
 
-            if (index == currentNode.child.size())
+            if (index == currentNode.child.size()) {
                 tmp = new Node<>();
-            else
+            } else {
                 tmp = currentNode.child.get(index);
+            }
 
             Node<E> newNode = new Node<>(tmp);
             currentNode.child.set(index, newNode);
@@ -91,7 +94,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         return true;
 
-//        if (getCurrentHead().size % Node.width != 0) {
+//        if (getCurrentHead().size % Node.Node.width != 0) {
 //            //TODO ANT add some code here for "Есть место в самом правом листе"
 //            //а еще зацени, getCurrentHead() пригодился
 //
@@ -123,7 +126,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     public void createFirstBranch(Node<E> node, int depth) {
         node.child = new ArrayList<>();
 
-        Node<E> tmp = new Node<E>();
+        Node<E> tmp = new Node<>();
         node.child.add(tmp);
 
         if (depth > 0) {

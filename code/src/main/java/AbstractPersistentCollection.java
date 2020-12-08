@@ -1,3 +1,5 @@
+import nodes.Node;
+
 import java.util.List;
 
 public abstract class AbstractPersistentCollection<E> implements UndoRedo, List<E> {

@@ -1,6 +1,8 @@
+import nodes.Node;
+
 public class Head<E> {
     public Node<E> root;
-    public int size = 0;
+    public int size;
 
     public Head() {
         this.root = new Node<>();
