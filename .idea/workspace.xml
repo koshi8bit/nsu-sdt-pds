@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:gh" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/code/src/main/java/PersistentArray.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="isMigrated" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1l8OzX3LyBruymwxFCwGBctF0Iq" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/code/src/main/java" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\nsu-sdt-pds\code\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <setting name="replType" value="NREPL" />
+      <setting name="execution" value="LEININGEN" />
+      <setting name="jvmArgs" value="" />
+      <setting name="parameters" value="" />
+      <setting name="workingDir" value="" />
+      <setting name="profiles" value="" />
+      <setting name="aliases" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="nsu-sdt-pds" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7be34038-66db-43b7-9fca-aa702031ccaa" name="Default Changelist" comment="" />
+      <created>1606975514988</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606975514988</updated>
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <created>1606975717101</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606975717101</updated>
+    </task>
+    <task id="LOCAL-00002" summary="init">
+      <created>1606975771080</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606975771080</updated>
+    </task>
+    <task id="LOCAL-00003" summary="one">
+      <created>1606976033287</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606976033287</updated>
+    </task>
+    <task id="LOCAL-00004" summary="second">
+      <created>1606976822595</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606976822595</updated>
+    </task>
+    <task id="LOCAL-00005" summary="рекурсия">
+      <created>1606984752366</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1606984752366</updated>
+    </task>
+    <task id="LOCAL-00006" summary="рекурсия">
+      <created>1606989858597</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606989858597</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Добавление элемента">
+      <created>1606993612401</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606993612401</updated>
+    </task>
+    <task id="LOCAL-00008" summary="(1, 2)">
+      <created>1606995406606</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1606995406606</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Добавил лист, реализовал toArray, допилил вставку">
+      <created>1607073984046</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607073984046</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Почистил мэйн, добавил PersistentList">
+      <created>1607074134889</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607074134889</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Реализовал вставку в конец и начало связного списка за О(1), get работает за O(n)">
+      <created>1607169327245</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607169327245</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Исправил баг в get у связного списка">
+      <created>1607218847534</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607218847534</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Исправил баг в get у связного списка">
+      <created>1607257012199</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607257012199</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Добавил undo redo в list">
+      <created>1607331684460</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1607331684460</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)">
+      <created>1607335221027</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1607335221027</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <MESSAGE value="one" />
+    <MESSAGE value="second" />
+    <MESSAGE value="рекурсия" />
+    <MESSAGE value="Рефакторинг" />
+    <MESSAGE value="Добавление элемента" />
+    <MESSAGE value="(1, 2)" />
+    <MESSAGE value="Добавил лист, реализовал toArray, допилил вставку" />
+    <MESSAGE value="Почистил мэйн, добавил PersistentList" />
+    <MESSAGE value="Реализовал вставку в конец и начало связного списка за О(1), get работает за O(n)" />
+    <MESSAGE value="Исправил баг в get у связного списка" />
+    <MESSAGE value="Добавил undo redo в list" />
+    <MESSAGE value="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Припудрил носик &#10;(интерфейс UndoRedo и абстр класс)" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser" timestamp="1607333257956">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="488" y="52" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1607333257956" />
+    <state x="571" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607357419064">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state x="406" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1366.738@0.0.1366.738" timestamp="1607246924828" />
+    <state x="571" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.935@0.0.1920.935" timestamp="1607357419064" />
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1607333080189">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="413" y="115" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.738@0.0.1366.738" timestamp="1607333080189" />
+    <state x="715" y="170" key="#xdebugger.evaluate" timestamp="1607359733723">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state x="715" y="170" key="#xdebugger.evaluate/0.0.1920.935@0.0.1920.935" timestamp="1607359733723" />
+    <state x="337" y="0" key="CommitChangelistDialog2" timestamp="1607335220301">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="337" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1607335220301" />
+    <state width="473" height="466" key="DebuggerActiveHint" timestamp="1607366042343">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="473" height="466" key="DebuggerActiveHint/0.0.1920.935@0.0.1920.935" timestamp="1607366042343" />
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom" timestamp="1607403940609">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="149" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1877" height="188" key="GridCell.Tab.0.bottom/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
+    <state width="1877" height="188" key="GridCell.Tab.0.center" timestamp="1607403940609">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="149" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1877" height="188" key="GridCell.Tab.0.center/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
+    <state width="1877" height="188" key="GridCell.Tab.0.left" timestamp="1607403940609">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="149" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1877" height="188" key="GridCell.Tab.0.left/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right" timestamp="1607403940609">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="149" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1607335959282" />
+    <state width="1877" height="188" key="GridCell.Tab.0.right/0.0.1920.935@0.0.1920.935" timestamp="1607403940609" />
+    <state width="1877" height="195" key="GridCell.Tab.1.bottom" timestamp="1607403387249">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606996362779" />
+    <state width="1877" height="195" key="GridCell.Tab.1.bottom/0.0.1920.935@0.0.1920.935" timestamp="1607403387249" />
+    <state width="1877" height="195" key="GridCell.Tab.1.center" timestamp="1607403387249">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.738@0.0.1366.738" timestamp="1606996362779" />
+    <state width="1877" height="195" key="GridCell.Tab.1.center/0.0.1920.935@0.0.1920.935" timestamp="1607403387249" />
+    <state width="1877" height="195" key="GridCell.Tab.1.left" timestamp="1607403387249">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.738@0.0.1366.738" timestamp="1606996362778" />
+    <state width="1877" height="195" key="GridCell.Tab.1.left/0.0.1920.935@0.0.1920.935" timestamp="1607403387249" />
+    <state width="1877" height="195" key="GridCell.Tab.1.right" timestamp="1607403387249">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.738@0.0.1366.738" timestamp="1606996362779" />
+    <state width="1877" height="195" key="GridCell.Tab.1.right/0.0.1920.935@0.0.1920.935" timestamp="1607403387249" />
+    <state width="1877" height="249" key="GridCell.Tab.2.bottom" timestamp="1607359743435">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.2.bottom/0.0.1920.935@0.0.1920.935" timestamp="1607359743435" />
+    <state width="1877" height="249" key="GridCell.Tab.2.center" timestamp="1607359743435">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.2.center/0.0.1920.935@0.0.1920.935" timestamp="1607359743435" />
+    <state width="1877" height="249" key="GridCell.Tab.2.left" timestamp="1607359743435">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.2.left/0.0.1920.935@0.0.1920.935" timestamp="1607359743435" />
+    <state width="1877" height="249" key="GridCell.Tab.2.right" timestamp="1607359743435">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.2.right/0.0.1920.935@0.0.1920.935" timestamp="1607359743435" />
+    <state width="1877" height="249" key="GridCell.Tab.3.bottom" timestamp="1607359743109">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.3.bottom/0.0.1920.935@0.0.1920.935" timestamp="1607359743109" />
+    <state width="1877" height="249" key="GridCell.Tab.3.center" timestamp="1607359743109">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.3.center/0.0.1920.935@0.0.1920.935" timestamp="1607359743109" />
+    <state width="1877" height="249" key="GridCell.Tab.3.left" timestamp="1607359743109">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.3.left/0.0.1920.935@0.0.1920.935" timestamp="1607359743109" />
+    <state width="1877" height="249" key="GridCell.Tab.3.right" timestamp="1607359743109">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state width="1877" height="249" key="GridCell.Tab.3.right/0.0.1920.935@0.0.1920.935" timestamp="1607359743109" />
+    <state width="498" height="446" key="SwitcherDM" timestamp="1606989545628">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="498" height="446" key="SwitcherDM/0.0.1366.738@0.0.1366.738" timestamp="1606989545628" />
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2" timestamp="1607335223543">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="275" y="89" key="Vcs.Push.Dialog.v2/0.0.1366.738@0.0.1366.738" timestamp="1607335223543" />
+    <state x="565" y="78" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1607360471822">
+      <screen x="0" y="0" width="1920" height="935" />
+    </state>
+    <state x="565" y="78" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.935@0.0.1920.935" timestamp="1607360471822" />
+    <state x="334" y="59" width="696" height="678" key="search.everywhere.popup" timestamp="1607166967871">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="334" y="59" width="696" height="678" key="search.everywhere.popup/0.0.1366.738@0.0.1366.738" timestamp="1607166967871" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint type="java-line">
+          <condition expression="newElement.equals(4) &amp;&amp; level==2" language="JAVA" />
+          <url>file://$PROJECT_DIR$/code/src/main/java/PersistentArray.java</url>
+          <line>69</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/code/src/main/java/PersistentArray.java</url>
+          <line>70</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="level" language="JAVA" />
+        <watch expression="currentNode.iii" language="JAVA" />
+        <watch expression="pa.undo" language="JAVA" />
+        <watch expression="pa.redo" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
