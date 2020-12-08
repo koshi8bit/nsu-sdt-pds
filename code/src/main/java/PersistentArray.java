@@ -68,9 +68,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         while (level > 0)
         {
             int index = ((newHead.size - 1) >> level) & mask;
-//            System.out.print(" L");
-//            System.out.println(level);
-//            System.out.print(" I");
             System.out.print(index);
             Node<E> tmp;
 
