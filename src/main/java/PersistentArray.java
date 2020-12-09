@@ -73,7 +73,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             int index = ((newHead.size - 1) >> level) & mask;
             System.out.print(index);
             AbstractNode<E> tmp;
-            ((PU)currentNode).child
+            if (currentNode.child == null)
+
 
         }
         if (currentNode.data == null)
@@ -140,7 +141,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             level -= AbstractNode.bit_na_pu;
         }
 
-        return ((Leaf<E>)node).data.get(index & mask);
+        return node.value.get(index & mask);
     }
 
 

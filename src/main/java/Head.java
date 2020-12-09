@@ -1,16 +1,16 @@
-import nodes.PU;
+import nodes.AbstractNode;
 
 public class Head<E> {
-    public PU<E> root;
+    public AbstractNode<E> root;
     public int size;
 
     public Head() {
-        this.root = new PU<>();
+        this.root = new AbstractNode<>();
         this.size = 0;
     }
 
     public Head(Head<E> prevHead, Integer sizeDelta) {
-        this.root = new PU<>(prevHead.root);
+        this.root = new AbstractNode<>(prevHead.root);
         this.size = prevHead.size + sizeDelta;
     }
 }
