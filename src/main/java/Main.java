@@ -19,10 +19,10 @@ public class Main {
         System.out.println("testAPI");
         clearAndFill(pa, 5);
         System.out.println(Arrays.toString(
-                pa.stream().map(i -> i * 2).toArray()));
+                pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
 
         System.out.println(Arrays.toString(
-                pa.undo().stream().map(i -> i * 2).toArray()));
+                pa.undo().stream().map(i -> i * 2).filter(x -> x>10).toArray()));
 
         for (Integer integer : pa) {
             System.out.print(integer + " ");
