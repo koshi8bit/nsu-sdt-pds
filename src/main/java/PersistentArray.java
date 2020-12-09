@@ -26,6 +26,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
     }
 
+    private bool deleteEmptyNodes(Node<E> node, int )
+
     public E pop() throws NoSuchElementException
     {
         if (getCurrentHead().size == 0)
@@ -49,7 +51,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             newNode = new Node<>(tmp);
             currentNode.child.set(index, newNode);
 
-
             currentNode = newNode;
             level -= Node.bit_na_pu;
         }
@@ -57,6 +58,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         int index = newHead.size & mask;
         currentNode.value.remove(index);
         System.out.println(index);
+
+        for (int i=getCurrentHead().size-1; i>=0; i--)
+        {
+
+        }
 
 
         return result;

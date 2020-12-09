@@ -17,6 +17,10 @@ public class Main {
         System.out.println(pa.pop());
         System.out.println(pa.pop());
         printArray(pa);
+        pa.undo();
+        printArray(pa);
+        pa.redo();
+        printArray(pa);
     }
 
     private static void testUndoRedo(PersistentArray<Integer> pa) {
