@@ -24,6 +24,8 @@ public class Main {
         pa.redo();
         pa.redo();
         printArray(pa);
+        pa.clear();
+        pa.pop();
     }
 
     private static void testUndoRedo(PersistentArray<Integer> pa) {
