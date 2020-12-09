@@ -63,6 +63,8 @@ public class Main {
 //        for (int i = 0; i < array.size(); i++) {
 //            System.out.print(array.get(i) + " ");
 //        }
+
+        // Anton test
         System.out.println();
     }
 }
