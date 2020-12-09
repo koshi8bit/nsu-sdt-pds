@@ -4,8 +4,8 @@ import java.util.*;
 
 public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
-    public Stack<Head<E>> undo = new Stack<>();
-    public Stack<Head<E>> redo = new Stack<>();
+    private Stack<Head<E>> undo = new Stack<>();
+    private Stack<Head<E>> redo = new Stack<>();
 
     public PersistentArray() {
         Head<E> head = new Head<>();
@@ -60,6 +60,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E newElement) {
+        if (getCurrentHead().size == maxSize()) {
+            //throw new SizeLimitExceededException();
+            return false;
+        }
+
         Head<E> newHead = new Head<>(getCurrentHead(), +1);
         undo.push(newHead);
         redo.clear();
@@ -81,9 +86,17 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             }
             else
             {
-                tmp = currentNode.child.get(index);
-                newNode = new AbstractNode<>(tmp);
-                currentNode.child.set(index, newNode);
+                if (index == currentNode.child.size())
+                {
+                    newNode = new AbstractNode<>();
+                    currentNode.child.add(newNode);
+                }
+                else
+                {
+                    tmp = currentNode.child.get(index);
+                    newNode = new AbstractNode<>(tmp);
+                    currentNode.child.set(index, newNode);
+                }
             }
 
             currentNode = newNode;
