@@ -6,6 +6,7 @@ import java.util.List;
 public class PU<E> extends AbstractNode<E> {
     public List<AbstractNode<E>> child;
 
+
     public PU() { }
 
     public PU(PU<E> other) {

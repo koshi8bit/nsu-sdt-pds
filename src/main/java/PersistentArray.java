@@ -62,17 +62,48 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E newElement) {
+        Head<E> newHead = new Head<>(getCurrentHead(), +1);
+        undo.push(newHead);
+        redo.clear();
+        AbstractNode<E> currentNode = newHead.root;
+        int level = AbstractNode.bit_na_pu * (depth - 1);
+
+        System.out.print(newElement + "   ");
+        while (level > 0) {
+            int index = ((newHead.size - 1) >> level) & mask;
+            System.out.print(index);
+            AbstractNode<E> tmp;
+            ((PU)currentNode).child
+
+        }
+        if (currentNode.data == null)
+            currentNode.data = new ArrayList<>();
+        currentNode.data.add(newElement);
+        System.out.println();
+
+        return true;
+
+//        if (getCurrentHead().size % Node.Node.width != 0) {
+//            //TODO ANT add some code here for "Есть место в самом правом листе"
+//            //а еще зацени, getCurrentHead() пригодился
+//
+//            return true;
+//        }
+//        else {
+//            //TODO другие кейсы
+//            return true;
+//        }
 //        Head<E> newHead = new Head<>(getCurrentHead(), +1);
 //        undo.push(newHead);
 //        redo.clear();
-//        Node<E> currentNode = newHead.root;
-//        int level = Node.bit_na_pu * (depth - 1);
+//        AbstractNode<E> currentNode = newHead.root;
+//        int level = AbstractNode.bit_na_pu * (depth - 1);
 //
 //        System.out.print(newElement + "   ");
 //        while (level > 0) {
 //            int index = ((newHead.size - 1) >> level) & mask;
 //            System.out.print(index);
-//            Node<E> tmp;
+//            AbstractNode<E> tmp;
 //
 //            if (currentNode.child == null) {
 //                currentNode.child = new ArrayList<>();
@@ -93,19 +124,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 //            currentNode.data = new ArrayList<>();
 //        currentNode.data.add(newElement);
 //        System.out.println();
-
-        return true;
-
-//        if (getCurrentHead().size % Node.Node.width != 0) {
-//            //TODO ANT add some code here for "Есть место в самом правом листе"
-//            //а еще зацени, getCurrentHead() пригодился
 //
-//            return true;
-//        }
-//        else {
-//            //TODO другие кейсы
-//            return true;
-//        }
+//        return true;
     }
 
 
