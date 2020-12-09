@@ -16,6 +16,7 @@ public class Main {
     }
 
     private static void testUndoRedo(PersistentArray<Integer> pa) {
+        System.out.println("testUndoRedo");
         printArray(pa);
         pa.undo();
         pa.undo();
@@ -24,13 +25,23 @@ public class Main {
         printArray(pa);
         pa.redo();
         printArray(pa);
+        System.out.println("undo() undo() redo() redo()");
+        pa.undo();
+        pa.undo();
+        printArray(pa);
+        pa.redo();
+        pa.redo();
+        printArray(pa);
     }
 
     private static void testClear(PersistentArray<Integer> pa) {
+        System.out.println("testClear");
         pa.clear();
+        printArray(pa);
     }
 
     private static void testIterator(PersistentArray<Integer> pa) {
+        System.out.println("testIterator");
         pa.add(7);
         pa.add(3);
         pa.add(9);

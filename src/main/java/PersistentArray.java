@@ -29,7 +29,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public boolean add(E newElement) {
         if (getCurrentHead().size == maxSize) {
-            //throw new SizeLimitExceededException(); //TODO
             return false;
         }
 
