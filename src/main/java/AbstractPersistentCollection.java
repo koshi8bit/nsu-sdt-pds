@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class AbstractPersistentCollection<E> implements UndoRedo, List<E> {
+public abstract class AbstractPersistentCollection<E> implements /*UndoRedo,*/ List<E> {
     public final int depth;
     public final int bit_dlya_rasc_ur;
     public final int mask;

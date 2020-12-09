@@ -14,18 +14,20 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         undo.push(head);
     }
 
-    @Override
-    public void undo() {
+    //@Override
+    public PersistentArray<E> undo() {
         if (!undo.empty()) {
             redo.push(undo.pop());
         }
+        return this;
     }
 
-    @Override
-    public void redo() {
+    //@Override
+    public PersistentArray<E> redo() {
         if (!redo.empty()) {
             undo.push(redo.pop());
         }
+        return this;
     }
 
     public E pop() throws NoSuchElementException
@@ -34,6 +36,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             throw new NoSuchElementException("Array is empty");
 
         //E result = get(getCurrentHead().size - 1);
+
         Head<E> newHead = new Head<>(getCurrentHead(), -1);
         undo.push(newHead);
         redo.clear();

@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Stack;
 
@@ -9,6 +10,24 @@ public class Main {
         testUndoRedo(pa);
         testIterator(pa);
         testPop(pa);
+        testAPI(pa);
+
+
+    }
+
+    private static void testAPI(PersistentArray<Integer> pa) {
+        System.out.println("testAPI");
+        clearAndFill(pa, 5);
+        System.out.println(Arrays.toString(
+                pa.stream().map(i -> i * 2).toArray()));
+
+        System.out.println(Arrays.toString(
+                pa.undo().stream().map(i -> i * 2).toArray()));
+
+        for (Integer integer : pa) {
+            System.out.print(integer + " ");
+        }
+
     }
 
     private static void testPop(PersistentArray<Integer> pa) {
@@ -24,8 +43,8 @@ public class Main {
         pa.redo();
         pa.redo();
         printArray(pa);
-        pa.clear();
-        pa.pop();
+//        pa.clear();
+//        pa.pop();
     }
 
     private static void testUndoRedo(PersistentArray<Integer> pa) {
