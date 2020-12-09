@@ -10,7 +10,7 @@ public class Head<E> {
     }
 
     public Head(Head<E> prevHead, Integer sizeDelta) {
-        this.root = new Node<>(prevHead.root);
+        this.root = new PU<>(prevHead.root);
         this.size = prevHead.size + sizeDelta;
     }
 }

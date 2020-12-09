@@ -1,4 +1,7 @@
+import nodes.AbstractNode;
+import nodes.Leaf;
 import nodes.Node;
+import nodes.PU;
 
 import java.util.*;
 
@@ -10,7 +13,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     public PersistentArray() {
         Head<E> head = new Head<>();
         undo.push(head);
-        createFirstBranch(head.root, depth);
+        //createFirstBranch(head.root, depth);
     }
 
     @Override
@@ -60,37 +63,37 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public boolean add(E newElement) {
-        Head<E> newHead = new Head<>(getCurrentHead(), +1);
-        undo.push(newHead);
-        redo.clear();
-        Node<E> currentNode = newHead.root;
-        int level = Node.bit_na_pu * (depth - 1);
-
-        System.out.print(newElement + "   ");
-        while (level > 0) {
-            int index = ((newHead.size - 1) >> level) & mask;
-            System.out.print(index);
-            Node<E> tmp;
-
-            if (currentNode.child == null) {
-                currentNode.child = new ArrayList<>();
-            }
-
-            if (index == currentNode.child.size()) {
-                tmp = new Node<>();
-            } else {
-                tmp = currentNode.child.get(index);
-            }
-
-            Node<E> newNode = new Node<>(tmp);
-            currentNode.child.set(index, newNode);
-            currentNode = newNode;
-            level -= Node.bit_na_pu;
-        }
-        if (currentNode.data == null)
-            currentNode.data = new ArrayList<>();
-        currentNode.data.add(newElement);
-        System.out.println();
+//        Head<E> newHead = new Head<>(getCurrentHead(), +1);
+//        undo.push(newHead);
+//        redo.clear();
+//        Node<E> currentNode = newHead.root;
+//        int level = Node.bit_na_pu * (depth - 1);
+//
+//        System.out.print(newElement + "   ");
+//        while (level > 0) {
+//            int index = ((newHead.size - 1) >> level) & mask;
+//            System.out.print(index);
+//            Node<E> tmp;
+//
+//            if (currentNode.child == null) {
+//                currentNode.child = new ArrayList<>();
+//            }
+//
+//            if (index == currentNode.child.size()) {
+//                tmp = new Node<>();
+//            } else {
+//                tmp = currentNode.child.get(index);
+//            }
+//
+//            Node<E> newNode = new Node<>(tmp);
+//            currentNode.child.set(index, newNode);
+//            currentNode = newNode;
+//            level -= Node.bit_na_pu;
+//        }
+//        if (currentNode.data == null)
+//            currentNode.data = new ArrayList<>();
+//        currentNode.data.add(newElement);
+//        System.out.println();
 
         return true;
 
@@ -110,30 +113,30 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public E get(int index) {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = getCurrentHead().root;
+        AbstractNode<E> node = getCurrentHead().root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
-            node = node.child.get(tempIndex);
+            node = ((PU<E>)node).child.get(tempIndex);
             level -= Node.bit_na_pu;
         }
 
-        return node.data.get(index & mask);
+        return ((Leaf<E>)node).data.get(index & mask);
     }
 
 
     // todo may be noo need because of cool add?
-    public void createFirstBranch(Node<E> node, int depth) {
-        node.child = new ArrayList<>();
-
-        Node<E> tmp = new Node<>();
-        node.child.add(tmp);
-
-        if (depth > 0) {
-            //createFirstBranch(node.getChild().get(0), --depth);
-            createFirstBranch(tmp, --depth);
-        }
-    }
+//    public void createFirstBranch(Node<E> node, int depth) {
+//        node.child = new ArrayList<>();
+//
+//        Node<E> tmp = new Node<>();
+//        node.child.add(tmp);
+//
+//        if (depth > 0) {
+//            //createFirstBranch(node.getChild().get(0), --depth);
+//            createFirstBranch(tmp, --depth);
+//        }
+//    }
 
     private Head<E> getCurrentHead() {
         return this.undo.peek();
