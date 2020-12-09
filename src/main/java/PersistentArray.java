@@ -1,6 +1,5 @@
 import nodes.AbstractNode;
 import nodes.Leaf;
-import nodes.Node;
 import nodes.PU;
 
 import java.util.*;
@@ -112,13 +111,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E get(int index) {
-        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
+        int level = bit_dlya_rasc_ur - AbstractNode.bit_na_pu;
         AbstractNode<E> node = getCurrentHead().root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
             node = ((PU<E>)node).child.get(tempIndex);
-            level -= Node.bit_na_pu;
+            level -= AbstractNode.bit_na_pu;
         }
 
         return ((Leaf<E>)node).data.get(index & mask);
