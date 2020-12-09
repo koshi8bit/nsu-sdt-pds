@@ -26,8 +26,44 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
     }
 
-    @Override
-    public boolean add(E newElement) {
+    public E pop() throws NoSuchElementException
+    {
+        if (getCurrentHead().size == 0)
+            throw new NoSuchElementException("Array is empty");
+
+        E result = get(getCurrentHead().size - 1);
+        Head<E> newHead = new Head<>(getCurrentHead(), -1);
+        undo.push(newHead);
+        redo.clear();
+        Node<E> currentNode = newHead.root;
+        int level = Node.bit_na_pu * (depth - 1);
+
+        System.out.print("[" + getCurrentHead().size + "]   ");
+        while (level > 0)
+        {
+            int index = (newHead.size >> level) & mask;
+            System.out.print(index);
+            Node<E> tmp, newNode;
+
+            tmp = currentNode.child.get(index);
+            newNode = new Node<>(tmp);
+            currentNode.child.set(index, newNode);
+
+
+            currentNode = newNode;
+            level -= Node.bit_na_pu;
+        }
+
+        int index = newHead.size & mask;
+        currentNode.value.remove(index);
+        System.out.println(index);
+
+
+        return result;
+    }
+
+    public boolean conj(E newElement)
+    {
         if (getCurrentHead().size == maxSize) {
             return false;
         }
@@ -38,11 +74,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         Node<E> currentNode = newHead.root;
         int level = Node.bit_na_pu * (depth - 1);
 
-        System.out.print(newElement + "   ");
+        //System.out.print(newElement + "   ");
         while (level > 0)
         {
             int index = ((newHead.size - 1) >> level) & mask;
-            System.out.print(index);
+            //System.out.print(index);
             Node<E> tmp, newNode;
 
             if (currentNode.child == null)
@@ -74,9 +110,14 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             currentNode.value = new ArrayList<>();
 
         currentNode.value.add(newElement);
-        System.out.println();
+        //System.out.println();
 
         return true;
+    }
+
+    @Override
+    public boolean add(E newElement) {
+        return conj(newElement);
     }
 
 
