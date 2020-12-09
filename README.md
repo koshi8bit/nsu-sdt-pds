@@ -30,7 +30,7 @@
 - [ ] Как удалять из середины
 
 ## Ссылки
-* [Задание (pdf)](task.pdf)
+* [Задание (pdf)](/ect/task.pdf)
 * [Задание (новое)](https://classroom.google.com/u/1/c/MTU4ODY2Njk3NDM3/m/MjIxNzU2MDE1NzA3/details)
 * [Задание (старое)](http://ccfit.nsu.ru/~shadow/DT6/course_tasks/PDS.html)
 * [Persistent data structure в кожуре (java)](https://github.com/clojure/clojure/blob/0b73494c3c855e54b1da591eeb687f24f608f346/src/jvm/clojure/lang/PersistentVector.java#L97-L113)
@@ -42,11 +42,11 @@
 
 ## Инфа
 ### Классы в java
-![Классы в java](/img/01.png)
+![Классы в java](/ect/01.png)
 
 ### Виды пресистентности
-![Виды пресистентности](/img/02.png)
+![Виды пресистентности](/ect/02.png)
 
 ## Как че вообще
 Можно представить дерево в виде списка, и делать вставку за O(1). Обход дерева указан на рисунке ниже (красным)
-![Виды пресистентности](/img/03.png)
+![Виды пресистентности](/ect/03.png)
