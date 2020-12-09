@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        PersistentArray<Integer> pa = new PersistentArray<>(3);
+        PersistentArray<Integer> pa = new PersistentArray<>(5);
         System.out.println("Max count: " + pa.maxSize);
 
         int count = 7;
