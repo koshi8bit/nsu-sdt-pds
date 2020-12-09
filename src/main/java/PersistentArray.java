@@ -1,6 +1,4 @@
 import nodes.AbstractNode;
-import nodes.Leaf;
-import nodes.PU;
 
 import java.util.*;
 
@@ -69,17 +67,33 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         int level = AbstractNode.bit_na_pu * (depth - 1);
 
         System.out.print(newElement + "   ");
-        while (level > 0) {
+        while (level > 0)
+        {
             int index = ((newHead.size - 1) >> level) & mask;
             System.out.print(index);
-            AbstractNode<E> tmp;
+            AbstractNode<E> tmp, newNode;
+
             if (currentNode.child == null)
+            {
+                currentNode.child = new LinkedList<>();
+                newNode = new AbstractNode<>();
+                currentNode.child.add(newNode);
+            }
+            else
+            {
+                tmp = currentNode.child.get(index);
+                newNode = new AbstractNode<>(tmp);
+                currentNode.child.set(index, newNode);
+            }
 
-
+            currentNode = newNode;
+            level -= AbstractNode.bit_na_pu;
         }
-        if (currentNode.data == null)
-            currentNode.data = new ArrayList<>();
-        currentNode.data.add(newElement);
+
+        if (currentNode.value == null)
+            currentNode.value = new ArrayList<>();
+
+        currentNode.value.add(newElement);
         System.out.println();
 
         return true;
@@ -137,7 +151,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
-            node = ((PU<E>)node).child.get(tempIndex);
+            node = node.child.get(tempIndex);
             level -= AbstractNode.bit_na_pu;
         }
 
