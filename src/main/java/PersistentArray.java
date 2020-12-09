@@ -1,16 +1,15 @@
-import nodes.Node;
-
+import javax.naming.SizeLimitExceededException;
 import java.util.*;
 
 public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
-    public Stack<Head<E>> undo = new Stack<>();
-    public Stack<Head<E>> redo = new Stack<>();
+    private Stack<Head<E>> undo = new Stack<>();
+    private Stack<Head<E>> redo = new Stack<>();
 
-    public PersistentArray() {
+    public PersistentArray(int depth) {
+        super(depth);
         Head<E> head = new Head<>();
         undo.push(head);
-        createFirstBranch(head.root, depth);
     }
 
     @Override
@@ -27,39 +26,12 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
     }
 
-//    public boolean add2(E element) {
-//        int level = bit_dlya_rasc_ur - Node.Node.bit_na_pu;
-//        Node.Node<E> currentNode = head.root;
-//
-//        while (level > 0) {
-//            int index = (head.size >> level) & mask;
-//            if (currentNode.child.size() - 1 != index) {
-//                currentNode.createChildren();
-//            }
-//            System.out.println(index + " " + currentNode.child.size());
-//            currentNode = currentNode.child.get(index);
-//            level -= Node.Node.bit_na_pu;
-//        }
-//
-//        int index = head.size & mask;
-//
-//        if (currentNode.data == null) {
-//            currentNode.data = new ArrayList<>();
-//        }
-//
-//        currentNode.data.add(index, element);
-//        head.size++;
-//
-//        //Head<E> newHead = new Head<>(getCurrentHead());
-//        //undo.push(newHead);
-////        while (!redo.empty()) {
-////            redo.pop();
-////        }
-//        return true;
-//    }
-
     @Override
     public boolean add(E newElement) {
+        if (getCurrentHead().size == maxSize) {
+            return false;
+        }
+
         Head<E> newHead = new Head<>(getCurrentHead(), +1);
         undo.push(newHead);
         redo.clear();
@@ -67,43 +39,44 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         int level = Node.bit_na_pu * (depth - 1);
 
         System.out.print(newElement + "   ");
-        while (level > 0) {
+        while (level > 0)
+        {
             int index = ((newHead.size - 1) >> level) & mask;
             System.out.print(index);
-            Node<E> tmp;
+            Node<E> tmp, newNode;
 
-            if (currentNode.child == null) {
-                currentNode.child = new ArrayList<>();
+            if (currentNode.child == null)
+            {
+                currentNode.child = new LinkedList<>();
+                newNode = new Node<>();
+                currentNode.child.add(newNode);
+            }
+            else
+            {
+                if (index == currentNode.child.size())
+                {
+                    newNode = new Node<>();
+                    currentNode.child.add(newNode);
+                }
+                else
+                {
+                    tmp = currentNode.child.get(index);
+                    newNode = new Node<>(tmp);
+                    currentNode.child.set(index, newNode);
+                }
             }
 
-            if (index == currentNode.child.size()) {
-                tmp = new Node<>();
-            } else {
-                tmp = currentNode.child.get(index);
-            }
-
-            Node<E> newNode = new Node<>(tmp);
-            currentNode.child.set(index, newNode);
             currentNode = newNode;
             level -= Node.bit_na_pu;
         }
-        if (currentNode.data == null)
-            currentNode.data = new ArrayList<>();
-        currentNode.data.add(newElement);
+
+        if (currentNode.value == null)
+            currentNode.value = new ArrayList<>();
+
+        currentNode.value.add(newElement);
         System.out.println();
 
         return true;
-
-//        if (getCurrentHead().size % Node.Node.width != 0) {
-//            //TODO ANT add some code here for "Есть место в самом правом листе"
-//            //а еще зацени, getCurrentHead() пригодился
-//
-//            return true;
-//        }
-//        else {
-//            //TODO другие кейсы
-//            return true;
-//        }
     }
 
 
@@ -118,21 +91,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             level -= Node.bit_na_pu;
         }
 
-        return node.data.get(index & mask);
-    }
-
-
-    // todo may be noo need because of cool add?
-    public void createFirstBranch(Node<E> node, int depth) {
-        node.child = new ArrayList<>();
-
-        Node<E> tmp = new Node<>();
-        node.child.add(tmp);
-
-        if (depth > 0) {
-            //createFirstBranch(node.getChild().get(0), --depth);
-            createFirstBranch(tmp, --depth);
-        }
+        return node.value.get(index & mask);
     }
 
     private Head<E> getCurrentHead() {
@@ -159,7 +118,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new PersistentArrayIterator<E>();
     }
 
     @Override
@@ -212,7 +171,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public void clear() {
-
+        undo.clear();
+        redo.clear();
+        Head<E> head = new Head<>();
+        undo.push(head);
     }
 
     @Override
@@ -253,6 +215,26 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    public class PersistentArrayIterator<E> implements java.util.Iterator<E> {
+
+        int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public E next() {
+            return (E) get(index++); // TODO WTF
+        }
+
+        @Override
+        public void remove() {
+
+        }
     }
 
 }

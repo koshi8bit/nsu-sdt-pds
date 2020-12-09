@@ -1,5 +1,3 @@
-import nodes.Node;
-
 public class Head<E> {
     public Node<E> root;
     public int size;
