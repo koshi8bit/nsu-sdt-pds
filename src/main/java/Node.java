@@ -1,18 +1,16 @@
-package nodes;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractNode<E> {
-    public static int bit_na_pu = 1;
+public class Node<E> {
+    public static int bit_na_pu = 5;
     public static int width = (int) Math.pow(2, bit_na_pu);
 
-    public List<AbstractNode<E>> child;
+    public List<Node<E>> child;
     public List<E> value;
 
-    public AbstractNode() {    }
+    public Node() {    }
 
-    public AbstractNode(AbstractNode<E> other) {
+    public Node(Node<E> other) {
         if (other.child != null) {
             child = new ArrayList<>();
             child.addAll(other.child);

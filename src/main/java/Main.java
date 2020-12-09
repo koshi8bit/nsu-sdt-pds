@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        PersistentArray<Integer> pa = new PersistentArray<>();
-        System.out.println("Max count: " + pa.maxSize());
+        PersistentArray<Integer> pa = new PersistentArray<>(3);
+        System.out.println("Max count: " + pa.maxSize);
 
         int count = 7;
         for (int i = 0; i < count; i++) {
@@ -21,7 +21,7 @@ public class Main {
     {
         System.out.print("size: "+ array.size() + "   ");
 
-        //DO NOT CHANGE FOR
+        //DO NOT CHANGE TO FOR, WE DONT HAVE ITERATOR YET TODO iterator
         for (int i = 0; i < array.size(); i++) {
             System.out.print(array.get(i) + " ");
         }
