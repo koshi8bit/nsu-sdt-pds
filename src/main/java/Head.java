@@ -1,11 +1,11 @@
-import nodes.Node;
+import nodes.PU;
 
 public class Head<E> {
-    public Node<E> root;
+    public PU<E> root;
     public int size;
 
     public Head() {
-        this.root = new Node<>();
+        this.root = new PU<>();
         this.size = 0;
     }
 
