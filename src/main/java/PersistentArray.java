@@ -119,7 +119,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new PersistentArrayIterator<E>();
     }
 
     @Override
@@ -172,7 +172,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public void clear() {
-
+        undo.clear();
+        redo.clear();
+        Head<E> head = new Head<>();
+        undo.push(head);
     }
 
     @Override
@@ -213,6 +216,26 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    public class PersistentArrayIterator<E> implements java.util.Iterator<E> {
+
+        int index = 0;
+
+        @Override
+        public boolean hasNext() {
+            return index < size();
+        }
+
+        @Override
+        public E next() {
+            return (E) get(index++); // TODO WTF
+        }
+
+        @Override
+        public void remove() {
+
+        }
     }
 
 }
