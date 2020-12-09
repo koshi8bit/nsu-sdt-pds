@@ -13,12 +13,15 @@ public class Main {
 
     private static void testPop(PersistentArray<Integer> pa) {
         System.out.println("testPop");
-        clearAndFill(pa, 3);
-        System.out.println(pa.pop());
-        System.out.println(pa.pop());
+        clearAndFill(pa, 5);
+        System.out.println("pop=" + pa.pop());
+        printArray(pa);
+        System.out.println("pop=" + pa.pop());
         printArray(pa);
         pa.undo();
+        pa.undo();
         printArray(pa);
+        pa.redo();
         pa.redo();
         printArray(pa);
     }
@@ -57,7 +60,7 @@ public class Main {
     {
         pa.clear();
         for (int i = 0; i < count; i++) {
-            pa.add(i);
+            pa.add((count - i)+2);
         }
         printArray(pa);
     }

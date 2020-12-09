@@ -22,4 +22,20 @@ public class Node<E> {
         }
     }
 
+    public boolean isEmpty()
+    {
+        if ((child == null) && (value == null))
+            return true;
+
+        boolean result = true;
+
+        if ((child != null) && (!child.isEmpty()))
+            result = false;
+
+        if ((value != null) && (!value.isEmpty()))
+            result = false;
+
+        return result;
+    }
+
 }

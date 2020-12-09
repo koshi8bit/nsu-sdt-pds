@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import javax.naming.SizeLimitExceededException;
 import java.util.*;
 
@@ -26,44 +28,49 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
     }
 
-    private bool deleteEmptyNodes(Node<E> node, int )
-
     public E pop() throws NoSuchElementException
     {
         if (getCurrentHead().size == 0)
             throw new NoSuchElementException("Array is empty");
 
-        E result = get(getCurrentHead().size - 1);
+        //E result = get(getCurrentHead().size - 1);
         Head<E> newHead = new Head<>(getCurrentHead(), -1);
         undo.push(newHead);
         redo.clear();
-        Node<E> currentNode = newHead.root;
+        LinkedList<Pair<Node<E>, Integer>> path = new LinkedList<>();
+        path.add(new Pair<>(newHead.root, 0));
         int level = Node.bit_na_pu * (depth - 1);
 
-        System.out.print("[" + getCurrentHead().size + "]   ");
+        //System.out.print("index=" + getCurrentHead().size + "   ");
         while (level > 0)
         {
             int index = (newHead.size >> level) & mask;
-            System.out.print(index);
+            //System.out.print(index);
             Node<E> tmp, newNode;
 
-            tmp = currentNode.child.get(index);
+            tmp = path.getLast().getKey().child.get(index);
             newNode = new Node<>(tmp);
-            currentNode.child.set(index, newNode);
+            path.getLast().getKey().child.set(index, newNode);
 
-            currentNode = newNode;
+            path.add(new Pair<>(newNode, index));
             level -= Node.bit_na_pu;
         }
 
         int index = newHead.size & mask;
-        currentNode.value.remove(index);
-        System.out.println(index);
+        //System.out.println(index);
 
-        for (int i=getCurrentHead().size-1; i>=0; i--)
+        E result = path.getLast().getKey().value.remove(index);
+
+        for (int i=path.size()-1; i>=1; i--)
         {
-
+            Pair<Node<E>, Integer> elem = path.get(i);
+            if (elem.getKey().isEmpty())
+            {
+                path.get(i-1).getKey().child.set(elem.getValue(), null);
+            }
+            else
+                break;
         }
-
 
         return result;
     }
