@@ -1,6 +1,5 @@
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
@@ -12,22 +11,33 @@ public class Main {
         testPop(pa);
         testAPI(pa);
 
-
+        testPersistentHashMap();
     }
 
     private static void testAPI(PersistentArray<Integer> pa) {
         System.out.println("testAPI");
         clearAndFill(pa, 5);
         System.out.println(Arrays.toString(
-                pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
+                pa.stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
 
         System.out.println(Arrays.toString(
-                pa.undo().stream().map(i -> i * 2).filter(x -> x>10).toArray()));
+                pa.undo().stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
 
         for (Integer integer : pa) {
             System.out.print(integer + " ");
         }
 
+    }
+
+    private static void testPersistentHashMap() {
+        System.out.println();
+        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
+        phm.put("Anton", 777);
+        phm.put("Alex", 888);
+        System.out.println(phm.get("Anton"));
+        System.out.println(phm.get("Alex"));
+        System.out.println(phm.keySet());
+        System.out.println(phm.values());
     }
 
     private static void testPop(PersistentArray<Integer> pa) {
@@ -77,18 +87,16 @@ public class Main {
         System.out.println(i.hasNext());
     }
 
-    private static void clearAndFill(PersistentArray<Integer> pa, int count)
-    {
+    private static void clearAndFill(PersistentArray<Integer> pa, int count) {
         pa.clear();
         for (int i = 0; i < count; i++) {
-            pa.add((count - i)+2);
+            pa.add((count - i) + 2);
         }
         printArray(pa);
     }
 
-    private static void printArray(PersistentArray<Integer> array)
-    {
-        System.out.print("size: "+ array.size() + "   ");
+    private static void printArray(PersistentArray<Integer> array) {
+        System.out.print("size: " + array.size() + "   ");
 
         for (Integer integer : array) {
             System.out.print(integer + " ");
