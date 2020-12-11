@@ -7,11 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-//
-//        PersistentArray<Integer> pa = new PersistentArray<>(100);
-//        pa.add(4);
-//        pa.add(5);
-
         testUndoRedo();
         testIterator();
         testPop();
@@ -29,13 +24,17 @@ public class Main {
         pa.add(1);
         pa.add(2);
         pa.add(3);
-        printArray(pa);
-        pa.undo();
-        printArray(pa);
-        pa.add(4);
-        printArray(pa);
-        pa.add(0, 5);
-        printArray(pa);
+        Iterator<Integer> i = pa.iterator();
+        System.out.println(i.next());
+        System.out.println(i.next());
+        System.out.println(i.next());
+//        printArray(pa);
+//        pa.undo();
+//        printArray(pa);
+//        pa.add(4);
+//        printArray(pa);
+//        pa.add(0, 5);
+//        printArray(pa);
     }
 
     private static void testString() {
@@ -43,13 +42,17 @@ public class Main {
         pa.add("A");
         pa.add("B");
         pa.add("C");
-        printArray2(pa);
-        pa.undo();
-        printArray2(pa);
-        pa.add("D");
-        printArray2(pa);
-        pa.add(0, "E");
-        printArray2(pa);
+        Iterator<String> i = pa.iterator();
+        System.out.println(i.next());
+        System.out.println(i.next());
+        System.out.println(i.next());
+//        printArray2(pa);
+//        pa.undo();
+//        printArray2(pa);
+//        pa.add("D");
+//        printArray2(pa);
+//        pa.add(0, "E");
+//        printArray2(pa);
     }
 
     private static void testUniqueLeafs() {
