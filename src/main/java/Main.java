@@ -19,7 +19,22 @@ public class Main {
         testCascades();
         testAssoc();
         testUniqueLeafs();
+        testString();
 
+    }
+
+    private static void testString() {
+        PersistentArray<String> pa = new PersistentArray<>(20);
+        pa.add("A");
+        pa.add("B");
+        pa.add("C");
+        printArray2(pa);
+        pa.undo();
+        printArray2(pa);
+        pa.add("D");
+        printArray2(pa);
+        pa.add(0, "E");
+        printArray2(pa);
     }
 
     private static void testUniqueLeafs() {
@@ -169,8 +184,24 @@ public class Main {
         System.out.print("size: " + array.size() + "; unique leafs: "
                 + array.calcUniqueLeafs() + "; array: ");
 
-        for (Integer integer : array) {
-            System.out.print(integer + " ");
+        for (Integer e : array) {
+            System.out.print(e + " ");
+        }
+
+//        for (int i = 0; i < array.size(); i++) {
+//            System.out.print(array.get(i) + " ");
+//        }
+
+        System.out.println();
+    }
+
+    private static void printArray2(PersistentArray<String> array)
+    {
+        System.out.print("size: " + array.size() + "; unique leafs: "
+                + array.calcUniqueLeafs() + "; array: ");
+
+        for (String e : array) {
+            System.out.print(e + " ");
         }
 
 //        for (int i = 0; i < array.size(); i++) {

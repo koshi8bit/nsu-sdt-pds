@@ -110,7 +110,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 //    {
 //        return assoc(index, value);
 //    }
-    
+
+
+
+
     private void printLeafs(Head<E> head)
     {
         for (int i=0; i<head.size; i++)
@@ -120,6 +123,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         System.out.println();
     }
 
+    @Override
+    public void add(int index, E element) {
+        assoc(index, element);
+    }
+
     public boolean assoc(int index, E value)
     {
         if (index >= getCurrentHead().size) {
@@ -127,12 +135,12 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         Head<E> oldHead = getCurrentHead();
-        printLeafs(oldHead);
+        //printLeafs(oldHead);
 
         Pair<Node<E>, Integer> copedNodeP = copyNode(oldHead, index);
         int leafIndex = copedNodeP.getValue();
         Head<E> newHead = getCurrentHead();
-        printLeafs(newHead);
+        //printLeafs(newHead);
         Node<E> copedNode = copedNodeP.getKey();
 
         copedNode.value.add(leafIndex, value);
@@ -146,7 +154,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
                 conj(newHead, get(oldHead, i));
             }
         }
-        printLeafs(newHead);
+        //printLeafs(newHead);
 
 
 
@@ -360,10 +368,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return null;
     }
 
-    @Override
-    public void add(int index, E element) {
-
-    }
 
     @Override
     public E remove(int index) {
