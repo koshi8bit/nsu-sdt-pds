@@ -7,8 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-
         testUndoRedo();
         testIterator();
         testPop();
@@ -228,33 +226,35 @@ public class Main {
 
     private static void printArray(PersistentArray<Integer> array)
     {
-        System.out.print("size: " + array.size() + "; unique leafs: "
-                + array.calcUniqueLeafs() + "; array: ");
-
-        for (Integer e : array) {
-            System.out.print(e + " ");
-        }
-
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.print(array.get(i) + " ");
+        System.out.println(array);
+//        System.out.print("size: " + array.size() + "; unique leafs: "
+//                + array.calcUniqueLeafs() + "; array: ");
+//
+//        for (Integer e : array) {
+//            System.out.print(e + " ");
 //        }
-
-        System.out.println();
+//
+////        for (int i = 0; i < array.size(); i++) {
+////            System.out.print(array.get(i) + " ");
+////        }
+//
+//        System.out.println();
     }
 
     private static void printArray2(PersistentArray<String> array)
     {
-        System.out.print("size: " + array.size() + "; unique leafs: "
-                + array.calcUniqueLeafs() + "; array: ");
-
-        for (String e : array) {
-            System.out.print(e + " ");
-        }
-
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.print(array.get(i) + " ");
+        System.out.println(array);
+//        System.out.print("size: " + array.size() + "; unique leafs: "
+//                + array.calcUniqueLeafs() + "; array: ");
+//
+//        for (String e : array) {
+//            System.out.print(e + " ");
 //        }
-
-        System.out.println();
+//
+////        for (int i = 0; i < array.size(); i++) {
+////            System.out.print(array.get(i) + " ");
+////        }
+//
+//        System.out.println();
     }
 }
