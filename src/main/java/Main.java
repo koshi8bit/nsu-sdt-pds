@@ -20,7 +20,22 @@ public class Main {
         testAssoc();
         testUniqueLeafs();
         testString();
+        testIntAsString();
 
+    }
+
+    private static void testIntAsString() {
+        PersistentArray<Integer> pa = new PersistentArray<>(20);
+        pa.add(1);
+        pa.add(2);
+        pa.add(3);
+        printArray(pa);
+        pa.undo();
+        printArray(pa);
+        pa.add(4);
+        printArray(pa);
+        pa.add(0, 5);
+        printArray(pa);
     }
 
     private static void testString() {
