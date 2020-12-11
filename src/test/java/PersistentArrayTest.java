@@ -108,10 +108,45 @@ public class PersistentArrayTest {
         PersistentArray<String> pa = new PersistentArray<>(20);
         pa.add("0");
         pa.add("1");
-        System.out.println(pa);
+        printArrayS(pa);
         pa.set(0, "9");
+        printArrayS(pa);
         assertEquals("9", pa.get(0));
-        System.out.println(stringPersistentArray.pop());
+        pa.undo();
+        assertEquals("0", pa.get(0));
+
+    }
+
+    private static void printArrayI(PersistentArray<Integer> array)
+    {
+        System.out.print("size: " + array.size() + "; unique leafs: "
+                + array.calcUniqueLeafs() + "; array: ");
+
+        for (Integer e : array) {
+            System.out.print(e + " ");
+        }
+
+//        for (int i = 0; i < array.size(); i++) {
+//            System.out.print(array.get(i) + " ");
+//        }
+
+        System.out.println();
+    }
+
+    private static void printArrayS(PersistentArray<String> array)
+    {
+        System.out.print("size: " + array.size() + "; unique leafs: "
+                + array.calcUniqueLeafs() + "; array: ");
+
+        for (String e : array) {
+            System.out.print(e + " ");
+        }
+
+//        for (int i = 0; i < array.size(); i++) {
+//            System.out.print(array.get(i) + " ");
+//        }
+
+        System.out.println();
     }
 
 }

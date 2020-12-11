@@ -383,7 +383,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     public E set(int index, E element) {
 
         Pair<Node<E>, Integer> pair = copyNode(getCurrentHead(), index);
-        pair.getKey().value.set(index, element);
+        pair.getKey().value.set(pair.getValue(), element);
         return get(index);
     }
 
