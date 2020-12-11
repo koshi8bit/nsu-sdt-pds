@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PersistentArrayTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-12-11T13:47:30" hostname="DESKTOP-4ES4BNO" time="0.014">
+<testsuite name="PersistentArrayTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-12-11T14:31:29" hostname="DESKTOP-4ES4BNO" time="0.013">
   <properties/>
-  <testcase name="testPersistentArrayForEach" classname="PersistentArrayTest" time="0.005"/>
+  <testcase name="testPersistentArrayForEach" classname="PersistentArrayTest" time="0.006"/>
   <testcase name="testPersistentArrayIterator" classname="PersistentArrayTest" time="0.003"/>
   <testcase name="testPersistentArraySize" classname="PersistentArrayTest" time="0.0"/>
   <testcase name="testPersistentArrayPop" classname="PersistentArrayTest" time="0.003"/>
-  <testcase name="testPersistentArraySet" classname="PersistentArrayTest" time="0.0"/>
-  <testcase name="testPersistentArrayAddAndGet" classname="PersistentArrayTest" time="0.001"/>
+  <testcase name="testPersistentArraySet" classname="PersistentArrayTest" time="0.001"/>
+  <testcase name="testPersistentArrayAddAndGet" classname="PersistentArrayTest" time="0.0"/>
   <testcase name="testPersistentArrayUndoRedo" classname="PersistentArrayTest" time="0.0"/>
-  <testcase name="testPersistentArrayIsEmpty" classname="PersistentArrayTest" time="0.001"/>
-  <testcase name="testPersistentArrayToArray" classname="PersistentArrayTest" time="0.001"/>
+  <testcase name="testPersistentArrayIsEmpty" classname="PersistentArrayTest" time="0.0"/>
+  <testcase name="testPersistentArrayToArray" classname="PersistentArrayTest" time="0.0"/>
   <system-out><![CDATA[A
 B
 C

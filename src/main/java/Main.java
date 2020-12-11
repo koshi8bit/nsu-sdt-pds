@@ -14,7 +14,7 @@ public class Main {
         testPop();
         testAPI();
         testCascades();
-        testAssoc();
+        testAdd();
         testUniqueLeafs();
         testString();
         testIntAsString();
@@ -26,15 +26,24 @@ public class Main {
         System.out.println("\n" + "testIntAsString2");
         PersistentArray<Integer> pa = new PersistentArray<>(20);
         pa.add(1);
-        pa.add(2);
+        pa.add(7);
+        pa.add(6);
         pa.add(3);
+        pa.add(1, 0);
         printArray(pa);
-        pa.undo();
-        printArray(pa);
-        pa.add(4);
-        printArray(pa);
-        pa.assoc(0, 5);
-        printArray(pa);
+
+
+
+
+
+
+//        printArray(pa);
+//        pa.undo();
+//        printArray(pa);
+//        pa.add(4);
+//        printArray(pa);
+//        pa.assoc(0, 5);
+//        printArray(pa);
     }
 
     private static void testIntAsString() {
@@ -113,14 +122,14 @@ public class Main {
         return pa;
     }
 
-    private static void testAssoc() {
-        PersistentArray<Integer> pa = testBegin("testAssoc", 4);
+    private static void testAdd() {
+        PersistentArray<Integer> pa = testBegin("testAdd", 4);
 //        PersistentArray<Integer> pa = new PersistentArray<>(4, false);
 //        pa.add(2);
 //        pa.add(3);
 //        pa.add(4);
 //        pa.add(4);
-        pa.assoc(3, 999);
+        pa.add(3, 999);
         printArray(pa);
         pa.undo();
         printArray(pa);
