@@ -140,11 +140,29 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return conj(newElement);
     }
 
+//    private Node<E> getNode(Node<E> root, int index)
+//    {
+//
+//    }
 
-    @Override
-    public E get(int index) {
+    public boolean assoc(int index, E value)
+    {
+        if (getCurrentHead().size == maxSize) {
+            return false;
+        }
+
+        Head<E> oldHead = getCurrentHead();
+        Head<E> newHead = new Head<>(oldHead, +1);
+
+
+
+        return true;
+    }
+
+    private E get(Head<E> head, int index)
+    {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = getCurrentHead().root;
+        Node<E> node = head.root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
@@ -153,6 +171,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         return node.value.get(index & mask);
+    }
+
+    @Override
+    public E get(int index) {
+        return get(getCurrentHead(), index);
     }
 
     private Head<E> getCurrentHead() {
