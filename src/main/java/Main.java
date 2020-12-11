@@ -8,6 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
 
+//
+//        PersistentArray<Integer> pa = new PersistentArray<>(100);
+//        pa.add(4);
+//        pa.add(5);
+
         testUndoRedo();
         testIterator();
         testPop();
@@ -35,7 +40,12 @@ public class Main {
     }
 
     private static void testAssoc() {
-        PersistentArray<Integer> pa = testBegin("testAssoc", 5);
+        PersistentArray<Integer> pa = testBegin("testAssoc", 4);
+//        PersistentArray<Integer> pa = new PersistentArray<>(4, false);
+//        pa.add(2);
+//        pa.add(3);
+//        pa.add(4);
+//        pa.add(4);
         pa.assoc(3, 999);
         printArray(pa);
         pa.undo();
@@ -79,6 +89,7 @@ public class Main {
         for (Integer integer : pa) {
             System.out.print(integer + " ");
         }
+        System.out.println();
 
     }
 
@@ -127,7 +138,7 @@ public class Main {
     private static void fill(PersistentArray<Integer> pa, int count)
     {
         for (int i = 0; i < count; i++) {
-            pa.add(i+2);
+            pa.add(i);
             //pa.add(random.nextInt(9));
         }
     }
