@@ -13,6 +13,14 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         this(6, false);
     }
 
+    public PersistentArray(PersistentArray<E> other)
+    {
+        this(other.depth, false);
+
+        this.undo.addAll(other.undo);
+        this.redo.addAll(other.redo);
+    }
+
     public PersistentArray(int depth, boolean foo) {
         super(depth);
         Head<E> head = new Head<>();
@@ -65,6 +73,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             undo.push(redo.pop());
         }
     }
+
+
+
+
 
     public E pop() throws NoSuchElementException
     {
@@ -156,10 +168,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         copedNode.value.set(leafIndex, value);
         int count = Node.width - leafIndex - 1;
-        for (int i=0; i<count; i++) {
-            newHead.size--;
-            copedNode.value.remove(copedNode.value.size() - 1);
-        }
+//        for (int i=0; i<count; i++) {
+//            newHead.size--;
+//            copedNode.value.remove(copedNode.value.size() - 1);
+//        }
 
         for (int i = index; i<oldHead.size; i++)
         {
@@ -199,6 +211,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         return new Pair<>(currentNode, index & mask);
+    }
+
+    public PersistentArray<E> conj(E newElement)
+    {
+        PersistentArray<E> result = new PersistentArray<>(this);
+        result.add(newElement);
+        return result;
     }
 
 
@@ -374,6 +393,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         redo.clear();
         Head<E> head = new Head<>();
         undo.push(head);
+    }
+
+    public PersistentArray<E> assoc(int index, E element)
+    {
+        PersistentArray<E> result = new PersistentArray<>(this);
+        result.set(index, element);
+        return result;
     }
 
     @Override

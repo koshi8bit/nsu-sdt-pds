@@ -17,6 +17,25 @@ public class Main {
         testString();
         testIntAsString();
         //testIntAsString2();
+        testVasya();
+
+    }
+
+    private static void testVasya() {
+        System.out.println("\n" + "testVasya");
+        PersistentArray<String> v1 = new PersistentArray<>(20);
+        v1.add("Vasya");
+        PersistentArray<String> v2 = v1.conj("Cooper");
+
+        System.out.println(v1);
+        System.out.println(v2);
+
+        PersistentArray<String> v3 = v2.assoc(0, "Abdula");
+
+        System.out.println(v1);
+        System.out.println(v2);
+        System.out.println(v3);
+
 
     }
 
