@@ -7,6 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
 
+
+
         testUndoRedo();
         testIterator();
         testPop();

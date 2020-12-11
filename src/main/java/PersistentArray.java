@@ -47,7 +47,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
                     list.add(leaf);
             }
         }
+
     }
+
+
 
     @Override
     public void undo() {
@@ -129,6 +132,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     }
 
     @Override
+    public String toString() {
+        return Arrays.toString(toArray());
+    }
+
+    @Override
     public void add(int index, E element) {
         assoc(index, element);
     }
@@ -166,7 +174,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return true;
     }
 
-    private Pair<Node<E>, Integer> copyNode(Head<E> head, int insertIndex)
+    private Pair<Node<E>, Integer> copyNode(Head<E> head, int index)
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -182,19 +190,19 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         //System.out.print(newElement + "   ");
         while (level > 0)
         {
-            int index = (insertIndex >> level) & mask;
+            int _index = (index >> level) & mask;
             //System.out.print(index);
             Node<E> tmp, newNode;
 
-            tmp = currentNode.child.get(index);
+            tmp = currentNode.child.get(_index);
             newNode = new Node<>(tmp);
-            currentNode.child.set(index, newNode);
+            currentNode.child.set(_index, newNode);
 
             currentNode = newNode;
             level -= Node.bit_na_pu;
         }
 
-        return new Pair<>(currentNode, insertIndex & mask);
+        return new Pair<>(currentNode, index & mask);
     }
 
     public boolean conj(E newElement)
@@ -263,6 +271,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     private Node<E> getLeaf(Head<E> head, int index)
     {
+        if (index >= head.size)
+            throw new IndexOutOfBoundsException();
+
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
         Node<E> node = head.root;
 
@@ -371,8 +382,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public E set(int index, E element) {
 
-
-        return element;
+        Pair<Node<E>, Integer> pair = copyNode(getCurrentHead(), index);
+        pair.getKey().value.set(index, element);
+        return get(index);
     }
 
 

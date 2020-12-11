@@ -103,4 +103,15 @@ public class PersistentArrayTest {
         System.out.println(stringPersistentArray.pop());
     }
 
+    @Test
+    public void testPersistentArraySet() {
+        PersistentArray<String> pa = new PersistentArray<>(20);
+        pa.add("0");
+        pa.add("1");
+        System.out.println(pa);
+        pa.set(0, "9");
+        assertEquals("9", pa.get(0));
+        System.out.println(stringPersistentArray.pop());
+    }
+
 }
