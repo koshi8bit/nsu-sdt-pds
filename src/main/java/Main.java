@@ -31,7 +31,7 @@ public class Main {
         printArray(pa);
         pa.add(4);
         printArray(pa);
-        pa.add(0, 5);
+        pa.assoc(0, 5);
         printArray(pa);
     }
 
