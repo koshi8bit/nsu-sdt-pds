@@ -1,6 +1,6 @@
 import java.util.List;
 
-public abstract class AbstractPersistentCollection<E> implements /*UndoRedo,*/ List<E> {
+public abstract class AbstractPersistentCollection implements UndoRedo, List<E> {
     public final int depth;
     public final int bit_dlya_rasc_ur;
     public final int mask;
@@ -12,4 +12,6 @@ public abstract class AbstractPersistentCollection<E> implements /*UndoRedo,*/ L
         mask = (int) Math.pow(2, Node.bit_na_pu) - 1;
         maxSize = (int) Math.pow(2, bit_dlya_rasc_ur);
     }
+
+
 }

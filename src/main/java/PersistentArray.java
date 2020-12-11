@@ -15,19 +15,24 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     }
 
     //@Override
-    public PersistentArray<E> undo() {
+    public void undo() {
+        E lolVar;
+
+        if (lolVar instanceof PersistentArray)
+        {
+            (PersistentArray<Integer>)get(0).
+        }
+
         if (!undo.empty()) {
             redo.push(undo.pop());
         }
-        return this;
     }
 
     //@Override
-    public PersistentArray<E> redo() {
+    public void redo() {
         if (!redo.empty()) {
             undo.push(redo.pop());
         }
-        return this;
     }
 
     public E pop() throws NoSuchElementException

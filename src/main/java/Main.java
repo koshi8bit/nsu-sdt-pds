@@ -11,13 +11,33 @@ public class Main {
         testIterator(pa);
         testPop(pa);
         testAPI(pa);
+        testCascades();
 
+
+    }
+
+    private static void testCascades() {
+        PersistentArray<PersistentArray<Integer>> parentPA = new PersistentArray<>(5);
+
+        PersistentArray<Integer> childPA1 = new PersistentArray<>(5);
+        childPA1.add(7);
+        childPA1.add(3);
+
+        PersistentArray<Integer> childPA2 = new PersistentArray<>(5);
+        childPA1.add(8);
+        childPA1.add(4);
+
+        parentPA.add(childPA1);
+        parentPA.add(childPA2);
+        parentPA.undo();
 
     }
 
     private static void testAPI(PersistentArray<Integer> pa) {
         System.out.println("testAPI");
         clearAndFill(pa, 5);
+        pa.add(8);
+        printArray(pa);
         System.out.println(Arrays.toString(
                 pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
 
