@@ -1,34 +1,79 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Random;
 
 public class Main {
+    final static Random random = new Random();
+
     public static void main(String[] args) {
-        PersistentArray<Integer> pa = new PersistentArray<>(5);
+
+        testUndoRedo();
+        testIterator();
+        testPop();
+        testAPI();
+        testCascades();
+        testAssoc();
+    }
+
+    private static PersistentArray<Integer> testBegin(String section, int size)
+    {
+        System.out.println("\n" + section);
+        PersistentArray<Integer> pa = new PersistentArray<>(100);
         System.out.println("Max count: " + pa.maxSize);
+        fill(pa, size);
+        printArray(pa);
+        return pa;
+    }
 
-        testUndoRedo(pa);
-        testIterator(pa);
-        testPop(pa);
-        testAPI(pa);
+    private static PersistentArray<Integer> testBegin(String section)
+    {
+        System.out.println("\n" + section);
+        PersistentArray<Integer> pa = new PersistentArray<>(100);
+        System.out.println("Max count: " + pa.maxSize);
+        return pa;
+    }
 
-        testPersistentHashMap();
-        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
-        phm.put("Petya", 1);
-        phm.put("Petya", 2);
-        phm.put("Petya", 2);
-        System.out.println(phm.get("Petya"));
+    private static void testAssoc() {
+        PersistentArray<Integer> pa = testBegin("testAssoc", 5);
+        pa.assoc(3, 999);
+        printArray(pa);
+        pa.undo();
+        printArray(pa);
 
     }
 
-    private static void testAPI(PersistentArray<Integer> pa) {
-        System.out.println("testAPI");
-        clearAndFill(pa, 5);
+    private static void testCascades() {
+//        PersistentArray<PersistentArray<Integer>> parentPA = new PersistentArray<>(5);
+//
+//        PersistentArray<Integer> childPA1 = new PersistentArray<>(5);
+//        childPA1.add(7);
+//        childPA1.add(3);
+//
+//        PersistentArray<Integer> childPA2 = new PersistentArray<>(5);
+//        childPA2.add(8);
+//        childPA2.add(4);
+//
+//        parentPA.add(childPA1);
+//        parentPA.add(childPA2);
+//        parentPA.undo();
+
+    }
+
+    private static void testAPI() {
+        PersistentArray<Integer> pa = testBegin("testAPI");
+        pa.add(7);
+        pa.add(6);
+        pa.add(5);
+        pa.add(4);
+        pa.add(3);
+        pa.add(8);
+        printArray(pa);
         System.out.println(Arrays.toString(
-                pa.stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
+                pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
+        pa.undo();
 
         System.out.println(Arrays.toString(
-                pa.undo().stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
+                pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
 
         for (Integer integer : pa) {
             System.out.print(integer + " ");
@@ -36,20 +81,8 @@ public class Main {
 
     }
 
-    private static void testPersistentHashMap() {
-        System.out.println();
-        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
-        phm.put("Anton", 777);
-        phm.put("Alex", 888);
-        System.out.println(phm.get("Anton"));
-        System.out.println(phm.get("Alex"));
-        System.out.println(phm.keySet());
-        System.out.println(phm.values());
-    }
-
-    private static void testPop(PersistentArray<Integer> pa) {
-        System.out.println("testPop");
-        clearAndFill(pa, 5);
+    private static void testPop() {
+        PersistentArray<Integer> pa = testBegin("testPop", 5);
         System.out.println("pop=" + pa.pop());
         printArray(pa);
         System.out.println("pop=" + pa.pop());
@@ -64,10 +97,8 @@ public class Main {
 //        pa.pop();
     }
 
-    private static void testUndoRedo(PersistentArray<Integer> pa) {
-        System.out.println("testUndoRedo");
-        clearAndFill(pa, 5);
-        printArray(pa);
+    private static void testUndoRedo() {
+        PersistentArray<Integer> pa = testBegin("testUndoRedo", 5);
         pa.undo();
         pa.undo();
         printArray(pa);
@@ -84,26 +115,25 @@ public class Main {
         printArray(pa);
     }
 
-    private static void testIterator(PersistentArray<Integer> pa) {
-        System.out.println("testIterator");
-        clearAndFill(pa, 5);
-        printArray(pa);
+    private static void testIterator() {
+        PersistentArray<Integer> pa = testBegin("testIterator", 5);
         Iterator<Integer> i = pa.iterator();
         System.out.println(i.next());
         System.out.println(i.next());
         System.out.println(i.hasNext());
     }
 
-    private static void clearAndFill(PersistentArray<Integer> pa, int count) {
-        pa.clear();
+    private static void fill(PersistentArray<Integer> pa, int count)
+    {
         for (int i = 0; i < count; i++) {
-            pa.add((count - i) + 2);
+            pa.add(i+2);
+            //pa.add(random.nextInt(9));
         }
-        printArray(pa);
     }
 
-    private static void printArray(PersistentArray<Integer> array) {
-        System.out.print("size: " + array.size() + "   ");
+    private static void printArray(PersistentArray<Integer> array)
+    {
+        System.out.print("size: "+ array.size() + "   ");
 
         for (Integer integer : array) {
             System.out.print(integer + " ");

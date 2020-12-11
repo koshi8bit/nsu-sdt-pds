@@ -1,6 +1,5 @@
 import javafx.util.Pair;
 
-import javax.naming.SizeLimitExceededException;
 import java.util.*;
 
 public class PersistentArray<E> extends AbstractPersistentCollection<E> {
@@ -8,26 +7,30 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     private Stack<Head<E>> undo = new Stack<>();
     private Stack<Head<E>> redo = new Stack<>();
 
-    public PersistentArray(int depth) {
-        super(depth);
+    public PersistentArray() {
+        super(6);
         Head<E> head = new Head<>();
         undo.push(head);
     }
 
-    //@Override
-    public PersistentArray<E> undo() {
+    public PersistentArray(int maxSize) {
+        super((int)Math.ceil(log(maxSize, (int)Math.pow(2, Node.bit_na_pu))));
+        Head<E> head = new Head<>();
+        undo.push(head);
+    }
+
+    @Override
+    public void undo() {
         if (!undo.empty()) {
             redo.push(undo.pop());
         }
-        return this;
     }
 
-    //@Override
-    public PersistentArray<E> redo() {
+    @Override
+    public void redo() {
         if (!redo.empty()) {
             undo.push(redo.pop());
         }
-        return this;
     }
 
     public E pop() throws NoSuchElementException
@@ -76,6 +79,67 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         return result;
+    }
+
+//    public boolean add(int index, E value)
+//    {
+//        return assoc(index, value);
+//    }
+
+    public boolean assoc(int index, E value)
+    {
+        if (index >= getCurrentHead().size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Head<E> oldHead = getCurrentHead();
+        Pair<Node<E>, Integer> copedNodeP = copyNode(oldHead, index, +1);
+        Node<E> copedNode = copedNodeP.getKey();
+
+        copedNode.value.add(copedNodeP.getValue(), value);
+        if (copedNode.value.size() == Node.width)
+        {
+            copedNode.value.remove(copedNode.value.size()-1);
+            for (int i = index+1; i<oldHead.size; i++)
+            {
+                conj(get(oldHead, i));
+            }
+        }
+
+
+
+        return true;
+    }
+
+    private Pair<Node<E>, Integer> copyNode(Head<E> head, int insertIndex, int sizeDelta)
+    {
+        if (getCurrentHead().size == maxSize) {
+            throw new IllegalStateException("array is full");
+            //return null;
+        }
+
+        Head<E> newHead = new Head<>(head, sizeDelta);
+        undo.push(newHead);
+        redo.clear();
+        Node<E> currentNode = newHead.root;
+        int level = Node.bit_na_pu * (depth - 1);
+
+        //System.out.print(newElement + "   ");
+        while (level > 0)
+        {
+            int index = (insertIndex >> level) & mask;
+            //System.out.print(index);
+            Node<E> tmp, newNode;
+
+            tmp = currentNode.child.get(index);
+            newNode = new Node<>(tmp);
+            currentNode.child.set(index, newNode);
+
+            currentNode = newNode;
+            level -= Node.bit_na_pu;
+        }
+
+        return new Pair<>(currentNode, insertIndex & mask);
     }
 
     public boolean conj(E newElement)
@@ -136,11 +200,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return conj(newElement);
     }
 
-
-    @Override
-    public E get(int index) {
+    private Node<E> getNode(Node<E> root, int index)
+    {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = getCurrentHead().root;
+        Node<E> node = root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
@@ -148,7 +211,17 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             level -= Node.bit_na_pu;
         }
 
-        return node.value.get(index & mask);
+        return node;
+    }
+
+    private E get(Head<E> head, int index)
+    {
+        return getNode(head.root, index).value.get(index & mask);
+    }
+
+    @Override
+    public E get(int index) {
+        return get(getCurrentHead(), index);
     }
 
     private Head<E> getCurrentHead() {
@@ -274,7 +347,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return null;
     }
 
-    public class PersistentArrayIterator<E> implements java.util.Iterator<E> {
+    public class PersistentArrayIterator<E> implements Iterator<E> {
 
         int index = 0;
 
