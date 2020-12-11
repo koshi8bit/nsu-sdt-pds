@@ -25,7 +25,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     public int getVersionCount()
     {
-        return undo.size() - redo.size();
+        return undo.size() + redo.size();
     }
 
     public int calcUniqueLeafs()
