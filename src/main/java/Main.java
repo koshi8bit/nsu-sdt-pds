@@ -16,7 +16,7 @@ public class Main {
         testUniqueLeafs();
         testString();
         testIntAsString();
-        testIntAsString2();
+        //testIntAsString2();
 
     }
 
