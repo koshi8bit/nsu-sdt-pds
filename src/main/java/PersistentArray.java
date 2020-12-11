@@ -8,27 +8,26 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     private Stack<Head<E>> undo = new Stack<>();
     private Stack<Head<E>> redo = new Stack<>();
 
-    public PersistentArray(int depth) {
-        super(depth);
+    public PersistentArray() {
+        super(6);
         Head<E> head = new Head<>();
         undo.push(head);
     }
 
-    //@Override
+    public PersistentArray(int maxSize) {
+        super((int)Math.ceil(log(maxSize, (int)Math.pow(2, Node.bit_na_pu))));
+        Head<E> head = new Head<>();
+        undo.push(head);
+    }
+
+    @Override
     public void undo() {
-        E lolVar;
-
-        if (lolVar instanceof PersistentArray)
-        {
-            (PersistentArray<Integer>)get(0).
-        }
-
         if (!undo.empty()) {
             redo.push(undo.pop());
         }
     }
 
-    //@Override
+    @Override
     public void redo() {
         if (!redo.empty()) {
             undo.push(redo.pop());

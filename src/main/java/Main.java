@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        PersistentArray<Integer> pa = new PersistentArray<>(5);
+        PersistentArray<Integer> pa = new PersistentArray<>(100);
         System.out.println("Max count: " + pa.maxSize);
 
         testUndoRedo(pa);
@@ -17,19 +17,19 @@ public class Main {
     }
 
     private static void testCascades() {
-        PersistentArray<PersistentArray<Integer>> parentPA = new PersistentArray<>(5);
-
-        PersistentArray<Integer> childPA1 = new PersistentArray<>(5);
-        childPA1.add(7);
-        childPA1.add(3);
-
-        PersistentArray<Integer> childPA2 = new PersistentArray<>(5);
-        childPA1.add(8);
-        childPA1.add(4);
-
-        parentPA.add(childPA1);
-        parentPA.add(childPA2);
-        parentPA.undo();
+//        PersistentArray<PersistentArray<Integer>> parentPA = new PersistentArray<>(5);
+//
+//        PersistentArray<Integer> childPA1 = new PersistentArray<>(5);
+//        childPA1.add(7);
+//        childPA1.add(3);
+//
+//        PersistentArray<Integer> childPA2 = new PersistentArray<>(5);
+//        childPA2.add(8);
+//        childPA2.add(4);
+//
+//        parentPA.add(childPA1);
+//        parentPA.add(childPA2);
+//        parentPA.undo();
 
     }
 
@@ -40,9 +40,10 @@ public class Main {
         printArray(pa);
         System.out.println(Arrays.toString(
                 pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
+        pa.undo();
 
         System.out.println(Arrays.toString(
-                pa.undo().stream().map(i -> i * 2).filter(x -> x>10).toArray()));
+                pa.stream().map(i -> i * 2).filter(x -> x>10).toArray()));
 
         for (Integer integer : pa) {
             System.out.print(integer + " ");

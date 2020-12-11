@@ -40,19 +40,19 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
         return newLast;
     }
 
-//    @Override
-//    public void undo() {
-//        if (!undo.empty()) {
-//            redo.push(undo.pop());
-//        }
-//    }
-//
-//    @Override
-//    public void redo() {
-//        if (!redo.empty()) {
-//            undo.push(redo.pop());
-//        }
-//    }
+    @Override
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    @Override
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
+    }
 
     @Override
     public boolean add(E element) {
