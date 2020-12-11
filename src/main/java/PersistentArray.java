@@ -14,6 +14,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     }
 
     public PersistentArray(int depth, boolean foo) {
+        super(depth);
         Head<E> head = new Head<>();
         undo.push(head);
     }
@@ -161,11 +162,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     }
 
     private Pair<Node<E>, Integer> copyNode(Head<E> head, int insertIndex)
-        }
-
-        return new Pair<>(currentNode, insertIndex & mask);
-    }
-
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -403,7 +399,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return null;
     }
 
-    public class PersistentArrayIterator<E> implements Iterator<E> {
+    public class PersistentArrayIterator<E> implements java.util.Iterator<E> {
 
         int index = 0;
 
