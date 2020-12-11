@@ -145,11 +145,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         Head<E> oldHead = getCurrentHead();
-        printLeafs(oldHead);
+        //printLeafs(oldHead);
 
         Pair<Node<E>, Integer> copedNodeP = copyLeaf(oldHead, index);
         Head<E> newHead = getCurrentHead();
-        printLeafs(newHead);
+        //printLeafs(newHead);
 
         int leafIndex = copedNodeP.getValue();
         Node<E> copedNode = copedNodeP.getKey();
@@ -166,7 +166,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             add(newHead, get(oldHead, i));
         }
 
-        printLeafs(newHead);
+        //printLeafs(newHead);
 
     }
 
