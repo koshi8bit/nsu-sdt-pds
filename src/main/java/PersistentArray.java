@@ -89,15 +89,16 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     public boolean assoc(int index, E value)
     {
-        if (getCurrentHead().size == maxSize) {
-            return false;
+        if (index >= getCurrentHead().size) {
+            throw new IndexOutOfBoundsException();
         }
 
         Head<E> oldHead = getCurrentHead();
-        Node<E> copedNode = copyNode(oldHead, index, +1);
+        Pair<Node<E>, Integer> copedNodeP = copyNode(oldHead, index, +1);
+        Node<E> copedNode = copedNodeP.getKey();
 
-        copedNode.value.add(index, value);
-        if (copedNode.value.size() > Node.width)
+        copedNode.value.add(copedNodeP.getValue(), value);
+        if (copedNode.value.size() == Node.width)
         {
             copedNode.value.remove(copedNode.value.size()-1);
             for (int i = index+1; i<oldHead.size; i++)
@@ -106,10 +107,12 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             }
         }
 
+
+
         return true;
     }
 
-    private Node<E> copyNode(Head<E> head, int insertIndex, int sizeDelta)
+    private Pair<Node<E>, Integer> copyNode(Head<E> head, int insertIndex, int sizeDelta)
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -137,7 +140,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             level -= Node.bit_na_pu;
         }
 
-        return currentNode;
+        return new Pair<>(currentNode, insertIndex & mask);
     }
 
     public boolean conj(E newElement)
