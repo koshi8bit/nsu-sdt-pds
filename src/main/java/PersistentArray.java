@@ -23,6 +23,27 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         this((int)Math.ceil(log(maxSize, (int)Math.pow(2, Node.bit_na_pu))), false);
     }
 
+    public int calcUniqueLeafs()
+    {
+        LinkedList<Node<E>> list = new LinkedList<>();
+        calcUniqueLeafs(list, undo);
+        calcUniqueLeafs(list, redo);
+
+        return list.size();
+    }
+
+    private void calcUniqueLeafs(LinkedList<Node<E>> list, Stack<Head<E>> undo1) {
+        for (Head<E> head : undo1)
+        {
+            for (int i=0; i<head.size; i++)
+            {
+                Node<E> leaf = getLeaf(head, i);
+                if (!list.contains(leaf))
+                    list.add(leaf);
+            }
+        }
+    }
+
     @Override
     public void undo() {
         if (!undo.empty()) {
@@ -94,7 +115,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     {
         for (int i=0; i<head.size; i++)
         {
-            System.out.print(i + ":" + String.format("%09d", getLeaf(head.root, i).hashCode()) + "; ");
+            System.out.print(i + ":" + String.format("%09d", getLeaf(head, i).hashCode()) + "; ");
         }
         System.out.println();
     }
@@ -227,10 +248,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return conj(newElement);
     }
 
-    private Node<E> getLeaf(Node<E> root, int index)
+    private Node<E> getLeaf(Head<E> head, int index)
     {
         int level = bit_dlya_rasc_ur - Node.bit_na_pu;
-        Node<E> node = root;
+        Node<E> node = head.root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
@@ -243,7 +264,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     private E get(Head<E> head, int index)
     {
-        return getLeaf(head.root, index).value.get(index & mask);
+        return getLeaf(head, index).value.get(index & mask);
     }
 
     @Override

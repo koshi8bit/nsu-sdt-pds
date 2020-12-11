@@ -1,7 +1,6 @@
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Stack;
 
 public class Main {
     final static Random random = new Random();
@@ -19,14 +18,36 @@ public class Main {
         testAPI();
         testCascades();
         testAssoc();
+        testUniqueLeafs();
+
     }
 
-    private static PersistentArray<Integer> testBegin(String section, int size)
+    private static void testUniqueLeafs() {
+        PersistentArray<Integer> pa = testBegin("testUniqueLists", 4, 3);
+        pa.add(4);
+        printArray(pa);
+        pa.add(5);
+        printArray(pa);
+
+
+    }
+
+    private static PersistentArray<Integer> testBegin(String section, int fillSize, int depth)
+    {
+        System.out.println("\n" + section);
+        PersistentArray<Integer> pa = new PersistentArray<>(depth, false);
+        System.out.println("Max count: " + pa.maxSize);
+        fill(pa, fillSize);
+        printArray(pa);
+        return pa;
+    }
+
+    private static PersistentArray<Integer> testBegin(String section, int fillSize)
     {
         System.out.println("\n" + section);
         PersistentArray<Integer> pa = new PersistentArray<>(100);
         System.out.println("Max count: " + pa.maxSize);
-        fill(pa, size);
+        fill(pa, fillSize);
         printArray(pa);
         return pa;
     }
@@ -145,7 +166,8 @@ public class Main {
 
     private static void printArray(PersistentArray<Integer> array)
     {
-        System.out.print("size: "+ array.size() + "   ");
+        System.out.print("size: " + array.size() + "; unique leafs: "
+                + array.calcUniqueLeafs() + "; array: ");
 
         for (Integer integer : array) {
             System.out.print(integer + " ");
