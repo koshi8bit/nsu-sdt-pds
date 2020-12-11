@@ -23,6 +23,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         this((int)Math.ceil(log(maxSize, (int)Math.pow(2, Node.bit_na_pu))), false);
     }
 
+    public int getVersionCount()
+    {
+        return undo.size() + redo.size();
+    }
+
     public int calcUniqueLeafs()
     {
         LinkedList<Node<E>> list = new LinkedList<>();
@@ -365,7 +370,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E set(int index, E element) {
-        return null;
+
+
+        return element;
     }
 
 
@@ -409,7 +416,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         @Override
-        public E next() {
+        public E next()
+        {
+            //if (index == getC)
             return (E) get(index++); // TODO WTF
         }
 
