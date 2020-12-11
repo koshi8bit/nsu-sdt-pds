@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PersistentArrayTest" tests="8" skipped="0" failures="5" errors="0" timestamp="2020-12-11T09:27:00" hostname="ASUS-T" time="0.017">
+<testsuite name="PersistentArrayTest" tests="8" skipped="0" failures="4" errors="0" timestamp="2020-12-11T11:35:04" hostname="DESKTOP-4ES4BNO" time="0.014">
   <properties/>
-  <testcase name="testPersistentArrayForEach" classname="PersistentArrayTest" time="0.005">
-    <failure message="org.junit.ComparisonFailure: expected:&lt;AB[C]&gt; but was:&lt;AB[]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;AB[C]&gt; but was:&lt;AB[]&gt;
+  <testcase name="testPersistentArrayForEach" classname="PersistentArrayTest" time="0.008">
+    <failure message="org.junit.ComparisonFailure: expected:&lt;A[BC]&gt; but was:&lt;A[CA]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;A[BC]&gt; but was:&lt;A[CA]&gt;
 	at org.junit.Assert.assertEquals(Assert.java:115)
 	at org.junit.Assert.assertEquals(Assert.java:144)
 	at PersistentArrayTest.testPersistentArrayForEach(PersistentArrayTest.java:97)
@@ -56,14 +56,14 @@
 	at java.lang.Thread.run(Thread.java:748)
 </failure>
   </testcase>
-  <testcase name="testPersistentArrayIterator" classname="PersistentArrayTest" time="0.004"/>
-  <testcase name="testPersistentArraySize" classname="PersistentArrayTest" time="0.0">
-    <failure message="java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;3&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;3&gt;
-	at org.junit.Assert.fail(Assert.java:88)
-	at org.junit.Assert.failNotEquals(Assert.java:834)
-	at org.junit.Assert.assertEquals(Assert.java:645)
-	at org.junit.Assert.assertEquals(Assert.java:631)
-	at PersistentArrayTest.testPersistentArraySize(PersistentArrayTest.java:55)
+  <testcase name="testPersistentArrayIterator" classname="PersistentArrayTest" time="0.002"/>
+  <testcase name="testPersistentArraySize" classname="PersistentArrayTest" time="0.0"/>
+  <testcase name="testPersistentArrayPop" classname="PersistentArrayTest" time="0.003"/>
+  <testcase name="testPersistentArrayAddAndGet" classname="PersistentArrayTest" time="0.0">
+    <failure message="org.junit.ComparisonFailure: expected:&lt;[B]&gt; but was:&lt;[C]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[B]&gt; but was:&lt;[C]&gt;
+	at org.junit.Assert.assertEquals(Assert.java:115)
+	at org.junit.Assert.assertEquals(Assert.java:144)
+	at PersistentArrayTest.testPersistentArrayAddAndGet(PersistentArrayTest.java:38)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -114,67 +114,15 @@
 	at java.lang.Thread.run(Thread.java:748)
 </failure>
   </testcase>
-  <testcase name="testPersistentArrayPop" classname="PersistentArrayTest" time="0.005"/>
-  <testcase name="testPersistentArrayAddAndGet" classname="PersistentArrayTest" time="0.001">
-    <failure message="org.junit.ComparisonFailure: expected:&lt;[C]&gt; but was:&lt;[A]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[C]&gt; but was:&lt;[A]&gt;
-	at org.junit.Assert.assertEquals(Assert.java:115)
-	at org.junit.Assert.assertEquals(Assert.java:144)
-	at PersistentArrayTest.testPersistentArrayAddAndGet(PersistentArrayTest.java:39)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
-	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:118)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157)
-	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
-	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
-	at java.lang.Thread.run(Thread.java:748)
-</failure>
-  </testcase>
-  <testcase name="testPersistentArrayUndoRedo" classname="PersistentArrayTest" time="0.001">
-    <failure message="org.junit.ComparisonFailure: expected:&lt;[]&gt; but was:&lt;[A]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[]&gt; but was:&lt;[A]&gt;
-	at org.junit.Assert.assertEquals(Assert.java:115)
-	at org.junit.Assert.assertEquals(Assert.java:144)
-	at PersistentArrayTest.testPersistentArrayUndoRedo(PersistentArrayTest.java:70)
+  <testcase name="testPersistentArrayUndoRedo" classname="PersistentArrayTest" time="0.0">
+    <failure message="java.lang.IndexOutOfBoundsException: Index: 1, Size: 1" type="java.lang.IndexOutOfBoundsException">java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(ArrayList.java:659)
+	at java.util.ArrayList.get(ArrayList.java:435)
+	at PersistentArray.get(PersistentArray.java:275)
+	at PersistentArray.get(PersistentArray.java:280)
+	at PersistentArray$PersistentArrayIterator.next(PersistentArray.java:413)
+	at PersistentArrayTest.valuesToString(PersistentArrayTest.java:27)
+	at PersistentArrayTest.testPersistentArrayUndoRedo(PersistentArrayTest.java:73)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -227,7 +175,7 @@
   </testcase>
   <testcase name="testPersistentArrayIsEmpty" classname="PersistentArrayTest" time="0.0"/>
   <testcase name="testPersistentArrayToArray" classname="PersistentArrayTest" time="0.0">
-    <failure message="org.junit.ComparisonFailure: expected:&lt;[A, B[, C]]&gt; but was:&lt;[A, B[]]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[A, B[, C]]&gt; but was:&lt;[A, B[]]&gt;
+    <failure message="org.junit.ComparisonFailure: expected:&lt;[A, [B, C]]&gt; but was:&lt;[A, [C, A]]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;[A, [B, C]]&gt; but was:&lt;[A, [C, A]]&gt;
 	at org.junit.Assert.assertEquals(Assert.java:115)
 	at org.junit.Assert.assertEquals(Assert.java:144)
 	at PersistentArrayTest.testPersistentArrayToArray(PersistentArrayTest.java:48)
@@ -282,9 +230,9 @@
 </failure>
   </testcase>
   <system-out><![CDATA[A
-B
+C
 A
-B
+A
 Add
 To array0
 ]]></system-out>
