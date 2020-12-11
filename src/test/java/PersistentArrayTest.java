@@ -103,5 +103,4 @@ public class PersistentArrayTest {
         System.out.println(stringPersistentArray.pop());
     }
 
-
 }

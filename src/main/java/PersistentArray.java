@@ -370,7 +370,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E set(int index, E element) {
-        return null;
+
+
+        return element;
     }
 
 
