@@ -27,7 +27,7 @@ public class Main {
         pa.add(7);
         pa.add(6);
         pa.add(3);
-        pa.add(1, 0);
+        pa.add(0, 0);
         printArray(pa);
 
 

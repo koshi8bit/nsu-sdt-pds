@@ -154,18 +154,18 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         int leafIndex = copedNodeP.getValue();
         Node<E> copedNode = copedNodeP.getKey();
 
-        copedNode.value.add(leafIndex, value);
-        //newHead.size += 1;
-
-        if (copedNode.value.size() > Node.width)
-        {
-            copedNode.value.remove(copedNode.value.size()-1);
-            for (int i = index; i<oldHead.size; i++)
-            {
-                add(newHead, get(oldHead, i));
-                System.out.println(this);
-            }
+        copedNode.value.set(leafIndex, value);
+        int count = Node.width - leafIndex - 1;
+        for (int i=0; i<count; i++) {
+            newHead.size--;
+            copedNode.value.remove(copedNode.value.size() - 1);
         }
+
+        for (int i = index; i<oldHead.size; i++)
+        {
+            add(newHead, get(oldHead, i));
+        }
+
         printLeafs(newHead);
 
     }
@@ -282,6 +282,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     private E get(Head<E> head, int index)
     {
+        if (index >= head.size) {
+            throw new IndexOutOfBoundsException();
+        }
         return getLeaf(head, index).value.get(index & mask);
     }
 
