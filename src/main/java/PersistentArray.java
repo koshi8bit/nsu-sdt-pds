@@ -95,6 +95,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         Head<E> oldHead = getCurrentHead();
         Pair<Node<E>, Integer> copedNodeP = copyNode(oldHead, index, +1);
+        Head<E> newHead = getCurrentHead();
         Node<E> copedNode = copedNodeP.getKey();
 
         copedNode.value.add(copedNodeP.getValue(), value);
