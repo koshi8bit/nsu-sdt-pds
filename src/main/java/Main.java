@@ -22,7 +22,7 @@ public class Main {
 
     private static void testIntAsString2() {
         System.out.println("\n" + "testIntAsString2");
-        PersistentArray<Integer> pa = new PersistentArray<>(20);
+        PersistentArray<Integer> pa = new PersistentArray<>(3, false);
         pa.add(1);
         pa.add(7);
         pa.add(6);
@@ -30,8 +30,8 @@ public class Main {
         printArray(pa);
         pa.add(0, 0);
         printArray(pa);
-        pa.add(1, 8);
-        printArray(pa);
+//        pa.add(1, 8);
+//        printArray(pa);
 
 
 
