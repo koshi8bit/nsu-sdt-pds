@@ -409,7 +409,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         @Override
-        public E next() {
+        public E next()
+        {
+            //if (index == getC)
             return (E) get(index++); // TODO WTF
         }
 

@@ -16,10 +16,27 @@ public class Main {
         testUniqueLeafs();
         testString();
         testIntAsString();
+        testIntAsString2();
 
     }
 
+    private static void testIntAsString2() {
+        System.out.println("\n" + "testIntAsString2");
+        PersistentArray<Integer> pa = new PersistentArray<>(20);
+        pa.add(1);
+        pa.add(2);
+        pa.add(3);
+        printArray(pa);
+        pa.undo();
+        printArray(pa);
+        pa.add(4);
+        printArray(pa);
+        pa.add(0, 5);
+        printArray(pa);
+    }
+
     private static void testIntAsString() {
+        System.out.println("\n" + "testIntAsString");
         PersistentArray<Integer> pa = new PersistentArray<>(20);
         pa.add(1);
         pa.add(2);
@@ -38,6 +55,7 @@ public class Main {
     }
 
     private static void testString() {
+        System.out.println("\n" + "testString");
         PersistentArray<String> pa = new PersistentArray<>(20);
         pa.add("A");
         pa.add("B");
