@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class Main {
@@ -12,6 +13,12 @@ public class Main {
         testAPI(pa);
 
         testPersistentHashMap();
+        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
+        phm.put("Petya", 1);
+        phm.put("Petya", 2);
+        phm.put("Petya", 2);
+        System.out.println(phm.get("Petya"));
+
     }
 
     private static void testAPI(PersistentArray<Integer> pa) {

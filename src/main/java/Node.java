@@ -8,7 +8,7 @@ public class Node<E> {
     public List<Node<E>> child;
     public List<E> value;
 
-    public Node() {    }
+    public Node() {}
 
     public Node(Node<E> other) {
         if (other.child != null) {
