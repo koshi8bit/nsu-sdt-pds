@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class PersistentArrayTest {
 
-    PersistentArray<String> stringPersistentArray = new PersistentArray<>(2);
+    PersistentArray<String> stringPersistentArray = new PersistentArray<>(32);
 
 
     @After
@@ -102,6 +102,5 @@ public class PersistentArrayTest {
         addABC();
         System.out.println(stringPersistentArray.pop());
     }
-
 
 }
