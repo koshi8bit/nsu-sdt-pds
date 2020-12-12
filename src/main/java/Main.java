@@ -18,7 +18,30 @@ public class Main {
         testIntAsString();
         //testIntAsString2();
         testVasya();
+        testAllInOne();
 
+    }
+
+    private static void testAllInOne() {
+        System.out.println("\n" + "testAllInOne");
+        PersistentArray<Integer> pa = new PersistentArray<>(100);
+        System.out.println("Max count: " + pa.maxSize);
+        pa.add(1);
+        pa.add(2);
+        pa.add(3);
+        pa.add(4);
+
+        printArray(pa);
+        System.out.println("pop=" + pa.pop());
+        printArray(pa);
+        System.out.println("pop=" + pa.pop());
+        printArray(pa);
+        pa.undo();
+        pa.undo();
+        printArray(pa);
+        pa.redo();
+        pa.redo();
+        printArray(pa);
     }
 
     private static void testVasya() {
