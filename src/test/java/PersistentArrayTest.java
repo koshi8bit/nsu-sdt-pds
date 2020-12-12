@@ -10,7 +10,6 @@ public class PersistentArrayTest {
 
     PersistentArray<String> stringPersistentArray = new PersistentArray<>(32);
 
-
     @After
     public void clear() {
         stringPersistentArray.clear();
@@ -22,17 +21,16 @@ public class PersistentArrayTest {
         stringPersistentArray.add("C");
     }
 
-    private String valuesToString() {
+    private <E> String valuesToString(PersistentArray<E> array) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (String string : stringPersistentArray) {
-            stringBuilder.append(string);
+        for (E e : array) {
+            stringBuilder.append(e.toString());
         }
         return stringBuilder.toString();
     }
 
     @Test
     public void testPersistentArrayAddAndGet() {
-        System.out.println("Add");
         addABC();
         assertEquals("A", stringPersistentArray.get(0));
         assertEquals("B", stringPersistentArray.get(1));
@@ -41,7 +39,6 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayToArray() {
-        System.out.println("To array" + stringPersistentArray.size());
         addABC();
         String[] strings = new String[stringPersistentArray.size()];
         stringPersistentArray.toArray(strings);
@@ -67,86 +64,70 @@ public class PersistentArrayTest {
         addABC();
         stringPersistentArray.undo();
         stringPersistentArray.undo();
-        assertEquals(valuesToString(), "A");
+        assertEquals(valuesToString(stringPersistentArray), "A");
 
         stringPersistentArray.redo();
-        assertEquals(valuesToString(), "AB");
+        assertEquals(valuesToString(stringPersistentArray), "AB");
 
         stringPersistentArray.undo();
         stringPersistentArray.undo();
-        assertEquals(valuesToString(), "");
+        assertEquals(valuesToString(stringPersistentArray), "");
 
         stringPersistentArray.redo();
         stringPersistentArray.redo();
         stringPersistentArray.redo();
-        assertEquals(valuesToString(), "ABC");
+        assertEquals(valuesToString(stringPersistentArray), "ABC");
     }
 
     @Test
     public void testPersistentArrayIterator() {
         addABC();
         Iterator<String> i = stringPersistentArray.iterator();
-        System.out.println(i.next());
-        System.out.println(i.next());
-        System.out.println(i.next());
+        assertEquals("A", i.next());
+        assertEquals("B", i.next());
+        assertEquals("C", i.next());
+        assertFalse(i.hasNext());
     }
 
     @Test
     public void testPersistentArrayForEach() {
         addABC();
-        assertEquals("ABC", valuesToString());
+        assertEquals("ABC", valuesToString(stringPersistentArray));
     }
 
     @Test
     public void testPersistentArrayPop() {
         addABC();
-        System.out.println(stringPersistentArray.pop());
+        assertEquals("C", stringPersistentArray.pop());
+        assertEquals("B", stringPersistentArray.pop());
+        stringPersistentArray.undo();
+        stringPersistentArray.undo();
+        assertEquals("C", stringPersistentArray.pop());
     }
 
     @Test
     public void testPersistentArraySet() {
-        PersistentArray<String> pa = new PersistentArray<>(20);
-        pa.add("0");
-        pa.add("1");
-        printArrayS(pa);
-        pa.set(0, "9");
-        printArrayS(pa);
-        assertEquals("9", pa.get(0));
-        pa.undo();
-        assertEquals("0", pa.get(0));
-
+        addABC();
+        assertEquals("ABC", valuesToString(stringPersistentArray));
+        stringPersistentArray.set(0, "Q");
+        stringPersistentArray.set(1, "W");
+        stringPersistentArray.set(2, "E");
+        assertEquals("QWE", valuesToString(stringPersistentArray));
+        stringPersistentArray.undo();
+        stringPersistentArray.undo();
+        stringPersistentArray.undo();
+        assertEquals("ABC", valuesToString(stringPersistentArray));
     }
 
-    private static void printArrayI(PersistentArray<Integer> array)
-    {
-        System.out.print("size: " + array.size() + "; unique leafs: "
-                + array.calcUniqueLeafs() + "; array: ");
+    @Test
+    public void testPersistentArrayCascade() {
+        addABC();
+        PersistentArray<String> v2 = stringPersistentArray.conj("D");
+        assertEquals("ABC", valuesToString(stringPersistentArray));
+        assertEquals("ABCD", valuesToString(v2));
 
-        for (Integer e : array) {
-            System.out.print(e + " ");
-        }
+        PersistentArray<String> v3 = v2.assoc(0, "G");
 
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.print(array.get(i) + " ");
-//        }
-
-        System.out.println();
+        assertEquals("GBCD", valuesToString(v3));
     }
-
-    private static void printArrayS(PersistentArray<String> array)
-    {
-        System.out.print("size: " + array.size() + "; unique leafs: "
-                + array.calcUniqueLeafs() + "; array: ");
-
-        for (String e : array) {
-            System.out.print(e + " ");
-        }
-
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.print(array.get(i) + " ");
-//        }
-
-        System.out.println();
-    }
-
 }

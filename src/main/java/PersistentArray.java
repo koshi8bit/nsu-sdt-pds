@@ -404,7 +404,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E set(int index, E element) {
-
         Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index);
         pair.getKey().value.set(pair.getValue(), element);
         return get(index);

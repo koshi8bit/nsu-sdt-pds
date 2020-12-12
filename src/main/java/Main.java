@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Random;
 
@@ -58,8 +59,6 @@ public class Main {
         System.out.println(v1);
         System.out.println(v2);
         System.out.println(v3);
-
-
     }
 
     private static void testIntAsString2() {
