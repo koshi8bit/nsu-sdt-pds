@@ -9,7 +9,11 @@ public class Main {
         pa.add(6);
         pa.add(9);
         pa.add(1);
+        pa.add(2);
+        System.out.println(pa.drawGraph());
         pa.add(2, 8);
+        System.out.println(pa.drawGraph());
+        System.out.println(pa);
 
         //System.out.println(pa.getCurrentHead().root.drawGraph());
 

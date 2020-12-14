@@ -147,6 +147,10 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
                 + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray(head));
     }
 
+    public String drawGraph() {
+        return getCurrentHead().root.drawGraph();
+    }
+
     @Override
     public String toString() {
         return toString(getCurrentHead());
@@ -161,18 +165,22 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         Head<E> oldHead = getCurrentHead();
         //printLeafs(oldHead);
+        System.out.println("-A-");
         System.out.println(oldHead.root.drawGraph());
-        System.out.println("---");
 
         Pair<Node<E>, Integer> copedNodeP = copyLeafInsert(oldHead, index);
         Head<E> newHead = getCurrentHead();
         //printLeafs(newHead);
+        System.out.println("-B-");
         System.out.println(newHead.root.drawGraph());
 
         int leafIndex = copedNodeP.getValue();
         Node<E> copedNode = copedNodeP.getKey();
 
         copedNode.value.set(leafIndex, value);
+        System.out.println("-C-");
+        System.out.println(newHead.root.drawGraph());
+
 //        System.out.println(this);
 //        int count = width - leafIndex - 1;
 //        for (int i=0; i<count; i++) {
@@ -186,6 +194,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         //printLeafs(newHead);
+        System.out.println("-D-");
+        System.out.println(newHead.root.drawGraph());
 
     }
 
@@ -357,9 +367,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return get(getCurrentHead(), index);
     }
 
-    public Head<E> getCurrentHead() {
+    private Head<E> getCurrentHead() {
         return this.undo.peek();
     }
+
+
 
 
     /////////////////////////////////////////////////////
