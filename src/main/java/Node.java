@@ -84,13 +84,14 @@ public class Node<E> {
         }
         else
         {
+            result
+                    .append(drawTab(level))
+                    .append(hash)
+                    .append("\n");
+            
             for (Node<E> n : node.child)
             {
-                result
-                        .append(drawTab(level))
-                        .append(hash)
-                        .append("\n")
-                        .append(drawGraph(n, level + 1));
+                result.append(drawGraph(n, level + 1));
             }
         }
         return result.toString();
