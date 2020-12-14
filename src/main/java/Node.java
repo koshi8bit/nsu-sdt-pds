@@ -1,3 +1,6 @@
+import com.sun.org.apache.xpath.internal.objects.XString;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,5 +53,48 @@ public class Node<E> {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "N" + hashCode() + "[\n"
+                + "  child=" + child + "\n"
+                + "  value=" + value + "\n]";
+    }
+
+    private String drawTab(int count)
+    {
+        String s = "";
+        for(int i=0; i<count; i++)
+        {
+            s += " ";
+        }
+        return s;
+    }
+
+    private String drawGraph(Node<E> node, int level)
+    {
+        String result = "";
+        if (node.child == null)
+        {
+            if (node.value == null)
+                return "";
+            else
+                return drawTab(level) + node.value.toString();
+        }
+        else
+        {
+            for (Node<E> n : node.child)
+            {
+                result += drawGraph(n, level+1) + "\n";
+            }
+        }
+        return result;
+    }
+
+    public String drawGraph()
+    {
+        return  drawGraph(this, 0);
+    }
+
 
 }

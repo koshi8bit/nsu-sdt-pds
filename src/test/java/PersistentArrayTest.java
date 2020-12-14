@@ -173,12 +173,21 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayAddInTheMiddle() {
+        pa = new PersistentArray<>(3, 1);
         pa.add("3");
         pa.add("7");
         pa.add("6");
         pa.add("9");
         pa.add("1");
         pa.add(3, "8");
+        //assertEquals("376891", valuesToString(pa));
+
+    }
+
+    @Test
+    public void testPersistentArrayToString() {
+        addABC();
+        assertEquals("size: 3; unique leafs: 3; array: [A, B, C]", pa.toString());
         //assertEquals("376891", valuesToString(pa));
 
     }

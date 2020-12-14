@@ -204,13 +204,15 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         //System.out.print(newElement + "   ");
         while (level > 0)
         {
+            System.out.println(currentNode);
             int widthIndex = (index >> level) & mask;
+            int widthIndexNext = (index >> (level - bit_na_pu)) & mask;
             //System.out.print(index);
             Node<E> tmp, newNode;
 
             tmp = currentNode.child.get(widthIndex);
             if (insert)
-                newNode = new Node<>(tmp, widthIndex);
+                newNode = new Node<>(tmp, widthIndexNext);
             else
                 newNode = new Node<>(tmp);
             currentNode.child.set(widthIndex, newNode);
@@ -321,7 +323,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return get(getCurrentHead(), index);
     }
 
-    private Head<E> getCurrentHead() {
+    public Head<E> getCurrentHead() {
         return this.undo.peek();
     }
 

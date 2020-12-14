@@ -3,6 +3,39 @@ public class Main {
     public static void main(String[] args) {
 
         arrayPresentation();
+        PersistentArray<Integer> pa = new PersistentArray<>(3, 1);
+        pa.add(1);
+        pa.add(2);
+        pa.add(3);
+        System.out.println(pa.getCurrentHead().root.drawGraph());
+
+//        Node{
+//            child=[
+//                    Node{
+//                        child=[
+//                                Node{
+//                                    child=null,
+//                                    value=[3, 7]
+//                                },
+//                                Node{
+//                                    child=null,
+//                                    value=[6, 9]
+//                                }
+//                        ],
+//                        value=null
+//                    },
+//                    Node{
+//                        child=[
+//                                Node{
+//                                    child=null,
+//                                    value=[1]
+//                                }
+//                        ],
+//                        value=null
+//                    }],
+//            value=null}
+
+        //Node{child=[Node{child=[Node{child=null, value=[3, 7]}, Node{child=null, value=[6, 9]}], value=null}, Node{child=[Node{child=null, value=[1]}], value=null}], value=null}
     }
 
     private static void arrayPresentation() {
