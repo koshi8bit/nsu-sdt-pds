@@ -3,15 +3,20 @@ public class Main {
     public static void main(String[] args) {
 
         //arrayPresentation();
+
+        //TODO make tests ЗНАЧЕНИЯ ДОБАВЬ ОДИН В ОДИН,
+        // тк я их описал в файлике, будет проще показывать
+        // и конструктор 1 в 1 сделай
+        // в тесте сделай пограничные значения индекса, в середине
+        // и вне диапазона: -1 и 9999
         PersistentArray<Integer> pa = new PersistentArray<>(3, 1);
         pa.add(3);
         pa.add(7);
         pa.add(6);
         pa.add(9);
         pa.add(1);
-        pa.add(2);
         System.out.println(pa.drawGraph());
-        pa.add(2, 8);
+        pa.add(3, 8);
         System.out.println(pa.drawGraph());
         System.out.println(pa);
 
