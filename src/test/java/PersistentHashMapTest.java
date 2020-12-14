@@ -33,6 +33,7 @@ public class PersistentHashMapTest {
         assertTrue(phm.keySet().toString().contains("A"));
         assertTrue(phm.keySet().toString().contains("B"));
         assertTrue(phm.keySet().toString().contains("C"));
+        assertFalse(phm.keySet().toString().contains("D"));
     }
 
     @Test

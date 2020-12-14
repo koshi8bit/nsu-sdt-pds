@@ -152,9 +152,5 @@ public class PersistentArrayTest {
         assertEquals("[12]", Arrays.toString(
                 pa.stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
 
-//TODO
-//        for (Integer integer : pa) {
-//            System.out.print(integer + " ");
-//        }
     }
 }
