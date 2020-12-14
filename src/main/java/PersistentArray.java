@@ -7,29 +7,28 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     private Stack<Head<E>> undo = new Stack<>();
     private Stack<Head<E>> redo = new Stack<>();
 
-
-
     public PersistentArray() {
-        this(6, false);
+        this(6, 5);
+    }
+
+    public PersistentArray(int maxSize) {
+        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, 5))), 5);
+    }
+
+    public PersistentArray(int depth, int bit_na_pu) {
+        super(depth, bit_na_pu);
+        Head<E> head = new Head<>();
+        undo.push(head);
     }
 
     public PersistentArray(PersistentArray<E> other)
     {
-        this(other.depth, false);
+        this(other.depth, other.bit_na_pu);
 
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
     }
 
-    public PersistentArray(int depth, boolean foo) {
-        super(depth);
-        Head<E> head = new Head<>();
-        undo.push(head);
-    }
-
-    public PersistentArray(int maxSize) {
-        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, Node.bit_na_pu))), false);
-    }
 
     public int getVersionCount()
     {
@@ -90,7 +89,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         redo.clear();
         LinkedList<Pair<Node<E>, Integer>> path = new LinkedList<>();
         path.add(new Pair<>(newHead.root, 0));
-        int level = Node.bit_na_pu * (depth - 1);
+        int level = bit_na_pu * (depth - 1);
 
         //System.out.print("index=" + getCurrentHead().size + "   ");
         while (level > 0)
@@ -104,7 +103,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             path.getLast().getKey().child.set(index, newNode);
 
             path.add(new Pair<>(newNode, index));
-            level -= Node.bit_na_pu;
+            level -= bit_na_pu;
         }
 
         int index = newHead.size & mask;
@@ -167,7 +166,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         Node<E> copedNode = copedNodeP.getKey();
 
         copedNode.value.set(leafIndex, value);
-        int count = Node.width - leafIndex - 1;
+        int count = width - leafIndex - 1;
 //        for (int i=0; i<count; i++) {
 //            newHead.size--;
 //            copedNode.value.remove(copedNode.value.size() - 1);
@@ -193,7 +192,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         undo.push(newHead);
         redo.clear();
         Node<E> currentNode = newHead.root;
-        int level = Node.bit_na_pu * (depth - 1);
+        int level = bit_na_pu * (depth - 1);
 
         //System.out.print(newElement + "   ");
         while (level > 0)
@@ -207,7 +206,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             currentNode.child.set(_index, newNode);
 
             currentNode = newNode;
-            level -= Node.bit_na_pu;
+            level -= bit_na_pu;
         }
 
         return new Pair<>(currentNode, index & mask);
@@ -230,7 +229,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         head.size += 1;
 
         Node<E> currentNode = head.root;
-        int level = Node.bit_na_pu * (depth - 1);
+        int level = bit_na_pu * (depth - 1);
 
         //System.out.print(newElement + "   ");
         while (level > 0)
@@ -261,7 +260,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             }
 
             currentNode = newNode;
-            level -= Node.bit_na_pu;
+            level -= bit_na_pu;
         }
 
         if (currentNode.value == null)
@@ -287,13 +286,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         if (index >= head.size)
             throw new IndexOutOfBoundsException();
 
-        int level = bit_dlya_rasc_ur - Node.bit_na_pu;
+        int level = bit_dlya_rasc_ur - bit_na_pu;
         Node<E> node = head.root;
 
         while (level > 0) {
             int tempIndex = (index >> level) & mask;
             node = node.child.get(tempIndex);
-            level -= Node.bit_na_pu;
+            level -= bit_na_pu;
         }
 
         return node;

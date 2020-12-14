@@ -10,7 +10,7 @@ public class PersistentList<E> extends AbstractPersistentCollection<E> {
     public LinkedData<E> last;
 
     public PersistentList(int depth) {
-        super(depth);
+        super(depth, 5);
 //        head = new Head<>();
 //        undo.push(head);
 //        createBranch(head.root, depth);

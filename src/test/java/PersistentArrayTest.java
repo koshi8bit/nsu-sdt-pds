@@ -153,4 +153,24 @@ public class PersistentArrayTest {
                 pa.stream().map(i -> i * 2).filter(x -> x > 10).toArray()));
 
     }
+
+    @Test
+    public void testPersistentArrayConstructor() {
+        PersistentArray<String> pa1 = new PersistentArray<>(27);
+        assertEquals(pa1.maxSize, 32);
+        assertEquals(pa1.depth, 1);
+        assertEquals(pa1.width, 32);
+
+        PersistentArray<String> pa2 = new PersistentArray<>(33);
+        assertEquals(pa2.maxSize, 1024);
+        assertEquals(pa2.depth, 2);
+        assertEquals(pa2.width, 32);
+
+        PersistentArray<String> pa3 = new PersistentArray<>(3, 1);
+        assertEquals(pa3.maxSize, 8);
+        assertEquals(pa3.depth, 3);
+        assertEquals(pa3.width, 2);
+
+
+    }
 }

@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Node<E> {
-    public static int bit_na_pu = 1;
-    public static int width = (int) Math.pow(2, bit_na_pu);
 
     public List<Node<E>> child;
     public List<E> value;
