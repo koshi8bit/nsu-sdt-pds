@@ -20,6 +20,21 @@ public class Node<E> {
         }
     }
 
+    public Node(Node<E> other, int maxIndex) {
+        if (other.child != null) {
+            child = new ArrayList<>();
+            for (int i=0; i<=maxIndex; i++)
+                child.add(other.child.get(i));
+
+        }
+
+        if (other.value != null) {
+            value = new ArrayList<>();
+            for (int i=0; i<=maxIndex; i++)
+                value.add(other.value.get(i));
+        }
+    }
+
     public boolean isEmpty()
     {
         if ((child == null) && (value == null))

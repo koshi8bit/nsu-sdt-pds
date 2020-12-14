@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class PersistentArrayTest {
 
@@ -114,9 +115,7 @@ public class PersistentArrayTest {
         assertEquals("ABC", valuesToString(pa));
         pa.set(0, "Q");
         pa.set(1, "W");
-        pa.set(2, "E");
-        assertEquals("QWE", valuesToString(pa));
-        pa.undo();
+        assertEquals("QWC", valuesToString(pa));
         pa.undo();
         pa.undo();
         assertEquals("ABC", valuesToString(pa));
@@ -170,7 +169,17 @@ public class PersistentArrayTest {
         assertEquals(pa3.maxSize, 8);
         assertEquals(pa3.depth, 3);
         assertEquals(pa3.width, 2);
+    }
 
+    @Test
+    public void testPersistentArrayAddInTheMiddle() {
+        pa.add("3");
+        pa.add("7");
+        pa.add("6");
+        pa.add("9");
+        pa.add("1");
+        pa.add(3, "8");
+        //assertEquals("376891", valuesToString(pa));
 
     }
 }

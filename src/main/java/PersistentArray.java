@@ -142,10 +142,14 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         System.out.println();
     }
 
+    private String toString(Head<E> head) {
+        return "size: " + size(head) + "; unique leafs: "
+                + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray(head));
+    }
+
     @Override
     public String toString() {
-        return "size: " + size() + "; unique leafs: "
-                + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray());
+        return toString(getCurrentHead());
     }
 
     @Override
@@ -158,7 +162,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         Head<E> oldHead = getCurrentHead();
         //printLeafs(oldHead);
 
-        Pair<Node<E>, Integer> copedNodeP = copyLeaf(oldHead, index);
+        Pair<Node<E>, Integer> copedNodeP = copyLeaf(oldHead, index, true);
         Head<E> newHead = getCurrentHead();
         //printLeafs(newHead);
 
@@ -166,7 +170,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         Node<E> copedNode = copedNodeP.getKey();
 
         copedNode.value.set(leafIndex, value);
-        int count = width - leafIndex - 1;
+//        System.out.println(this);
+//        int count = width - leafIndex - 1;
 //        for (int i=0; i<count; i++) {
 //            newHead.size--;
 //            copedNode.value.remove(copedNode.value.size() - 1);
@@ -181,7 +186,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     }
 
-    private Pair<Node<E>, Integer> copyLeaf(Head<E> head, int index)
+    private Pair<Node<E>, Integer> copyLeaf(Head<E> head, int index, boolean insert)
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -189,6 +194,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         Head<E> newHead = new Head<>(head, 0);
+        if (insert)
+            newHead.size = index+1;
         undo.push(newHead);
         redo.clear();
         Node<E> currentNode = newHead.root;
@@ -197,13 +204,16 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         //System.out.print(newElement + "   ");
         while (level > 0)
         {
-            int _index = (index >> level) & mask;
+            int widthIndex = (index >> level) & mask;
             //System.out.print(index);
             Node<E> tmp, newNode;
 
-            tmp = currentNode.child.get(_index);
-            newNode = new Node<>(tmp);
-            currentNode.child.set(_index, newNode);
+            tmp = currentNode.child.get(widthIndex);
+            if (insert)
+                newNode = new Node<>(tmp, widthIndex);
+            else
+                newNode = new Node<>(tmp);
+            currentNode.child.set(widthIndex, newNode);
 
             currentNode = newNode;
             level -= bit_na_pu;
@@ -318,9 +328,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     /////////////////////////////////////////////////////
 
+    public int size(Head<E> head) {
+        return head.size;
+    }
+
     @Override
     public int size() {
-        return getCurrentHead().size;
+        return size(getCurrentHead());
     }
 
     @Override
@@ -338,13 +352,17 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return new PersistentArrayIterator<E>();
     }
 
-    @Override
-    public Object[] toArray() {
-        Object[] objects = new Object[getCurrentHead().size];
+    private Object[] toArray(Head<E> head) {
+        Object[] objects = new Object[head.size];
         for (int i = 0; i < objects.length; i++) {
-            objects[i] = this.get(i);
+            objects[i] = this.get(head, i);
         }
         return objects;
+    }
+
+    @Override
+    public Object[] toArray() {
+        return toArray(getCurrentHead());
     }
 
     @SuppressWarnings("unchecked")
@@ -403,7 +421,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E set(int index, E element) {
-        Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index);
+        Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index, false);
         pair.getKey().value.set(pair.getValue(), element);
         return get(index);
     }
