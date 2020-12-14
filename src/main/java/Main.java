@@ -4,8 +4,6 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class Main {
-    final static Random random = new Random();
-
     public static void main(String[] args) {
 
         arrayPresentation();
