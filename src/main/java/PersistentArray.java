@@ -164,7 +164,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         System.out.println(oldHead.root.drawGraph());
         System.out.println("---");
 
-        Pair<Node<E>, Integer> copedNodeP = copyLeaf(oldHead, index, true);
+        Pair<Node<E>, Integer> copedNodeP = copyLeafInsert(oldHead, index);
         Head<E> newHead = getCurrentHead();
         //printLeafs(newHead);
         System.out.println(newHead.root.drawGraph());
@@ -189,7 +189,44 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     }
 
-    private Pair<Node<E>, Integer> copyLeaf(Head<E> head, int index, boolean insert)
+    private Pair<Node<E>, Integer> copyLeafInsert(Head<E> head, int index)
+    {
+        //TODO SMART COPY OF ROOT
+        if (getCurrentHead().size == maxSize) {
+            throw new IllegalStateException("array is full");
+            //return null;
+        }
+
+        int level = bit_na_pu * (depth - 1);
+        Head<E> newHead = new Head<>(
+                head,
+                index+1,
+                (index >> level) & mask);
+
+        undo.push(newHead);
+        redo.clear();
+        Node<E> currentNode = newHead.root;
+
+        //System.out.print(newElement + "   ");
+        while (level > 0)
+        {
+            int widthIndex = (index >> level) & mask;
+            int widthIndexNext = (index >> (level - bit_na_pu)) & mask;
+            //System.out.print(index);
+            Node<E> tmp, newNode;
+
+            tmp = currentNode.child.get(widthIndex);
+            newNode = new Node<>(tmp, widthIndexNext);
+            currentNode.child.set(widthIndex, newNode);
+
+            currentNode = newNode;
+            level -= bit_na_pu;
+        }
+
+        return new Pair<>(currentNode, index & mask);
+    }
+
+    private Pair<Node<E>, Integer> copyLeaf(Head<E> head, int index)
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -197,8 +234,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
         Head<E> newHead = new Head<>(head, 0);
-        if (insert)
-            newHead.size = index+1;
         undo.push(newHead);
         redo.clear();
         Node<E> currentNode = newHead.root;
@@ -213,10 +248,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
             Node<E> tmp, newNode;
 
             tmp = currentNode.child.get(widthIndex);
-            if (insert)
-                newNode = new Node<>(tmp, widthIndexNext);
-            else
-                newNode = new Node<>(tmp);
+            newNode = new Node<>(tmp);
             currentNode.child.set(widthIndex, newNode);
 
             currentNode = newNode;
@@ -425,7 +457,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     @Override
     public E set(int index, E element) {
-        Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index, false);
+        Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index);
         pair.getKey().value.set(pair.getValue(), element);
         return get(index);
     }
