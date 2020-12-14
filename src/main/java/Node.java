@@ -73,22 +73,27 @@ public class Node<E> {
 
     private String drawGraph(Node<E> node, int level)
     {
-        String result = "";
+        String hash =  String.format("%09x", node.hashCode()) + " ";
+        StringBuilder result = new StringBuilder();
         if (node.child == null)
         {
             if (node.value == null)
-                return "";
+                return drawTab(level) + hash + "\n";
             else
-                return drawTab(level) + node.value.toString();
+                return drawTab(level) + hash + node.value.toString() + "\n";
         }
         else
         {
             for (Node<E> n : node.child)
             {
-                result += drawGraph(n, level+1) + "\n";
+                result
+                        .append(drawTab(level))
+                        .append(hash)
+                        .append("\n")
+                        .append(drawGraph(n, level + 1));
             }
         }
-        return result;
+        return result.toString();
     }
 
     public String drawGraph()

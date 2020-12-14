@@ -7,6 +7,9 @@ public class Main {
         pa.add(1);
         pa.add(2);
         pa.add(3);
+        pa.add(4);
+        pa.add(5);
+        pa.add(6);
         System.out.println(pa.getCurrentHead().root.drawGraph());
 
 //        Node{
