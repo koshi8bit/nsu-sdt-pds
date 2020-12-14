@@ -66,7 +66,7 @@ public class Node<E> {
         String s = "";
         for(int i=0; i<count; i++)
         {
-            s += " ";
+            s += "  ";
         }
         return s;
     }

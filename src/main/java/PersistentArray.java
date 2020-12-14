@@ -161,10 +161,13 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         Head<E> oldHead = getCurrentHead();
         //printLeafs(oldHead);
+        System.out.println(oldHead.root.drawGraph());
+        System.out.println("---");
 
         Pair<Node<E>, Integer> copedNodeP = copyLeaf(oldHead, index, true);
         Head<E> newHead = getCurrentHead();
         //printLeafs(newHead);
+        System.out.println(newHead.root.drawGraph());
 
         int leafIndex = copedNodeP.getValue();
         Node<E> copedNode = copedNodeP.getKey();
@@ -204,7 +207,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         //System.out.print(newElement + "   ");
         while (level > 0)
         {
-            System.out.println(currentNode);
             int widthIndex = (index >> level) & mask;
             int widthIndexNext = (index >> (level - bit_na_pu)) & mask;
             //System.out.print(index);

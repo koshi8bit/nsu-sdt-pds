@@ -2,15 +2,16 @@
 public class Main {
     public static void main(String[] args) {
 
-        arrayPresentation();
+        //arrayPresentation();
         PersistentArray<Integer> pa = new PersistentArray<>(3, 1);
-        pa.add(1);
-        pa.add(2);
         pa.add(3);
-        pa.add(4);
-        pa.add(5);
+        pa.add(7);
         pa.add(6);
-        System.out.println(pa.getCurrentHead().root.drawGraph());
+        pa.add(9);
+        pa.add(1);
+        pa.add(3, 8);
+
+        //System.out.println(pa.getCurrentHead().root.drawGraph());
 
 //        Node{
 //            child=[
