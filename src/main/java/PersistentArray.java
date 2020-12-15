@@ -159,7 +159,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
     @Override
     public void add(int index, E value)
     {
-        if (index >= getCurrentHead().size) {
+        if (index >= getCurrentHead().size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 

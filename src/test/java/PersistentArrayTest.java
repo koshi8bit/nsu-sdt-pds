@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersistentArrayTest {
 
@@ -155,31 +155,30 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayConstructor() {
-
         PersistentArray<String> pa0 = new PersistentArray<>();
-        assertEquals(pa0.maxSize, 1073741824);
-        assertEquals(pa0.depth, 6);
-        assertEquals(pa0.width, 32);
+        assertEquals(1073741824, pa0.maxSize);
+        assertEquals(6, pa0.depth);
+        assertEquals(32, pa0.width);
 
         PersistentArray<String> pa1 = new PersistentArray<>(27);
-        assertEquals(pa1.maxSize, 32);
-        assertEquals(pa1.depth, 1);
-        assertEquals(pa1.width, 32);
+        assertEquals(32, pa1.maxSize);
+        assertEquals(1, pa1.depth);
+        assertEquals(32, pa1.width);
 
         PersistentArray<String> pa2 = new PersistentArray<>(32);
-        assertEquals(pa2.maxSize, 32);
-        assertEquals(pa2.depth, 1);
-        assertEquals(pa2.width, 32);
+        assertEquals(32, pa2.maxSize);
+        assertEquals(1, pa2.depth);
+        assertEquals(32, pa2.width);
 
         PersistentArray<String> pa3 = new PersistentArray<>(33);
-        assertEquals(pa3.maxSize, 1024);
-        assertEquals(pa3.depth, 2);
-        assertEquals(pa3.width, 32);
+        assertEquals(1024, pa3.maxSize);
+        assertEquals(2, pa3.depth);
+        assertEquals(32, pa3.width);
 
         PersistentArray<String> pa4 = new PersistentArray<>(3, 1);
-        assertEquals(pa4.maxSize, 8);
-        assertEquals(pa4.depth, 3);
-        assertEquals(pa4.width, 2);
+        assertEquals(8, pa4.maxSize);
+        assertEquals(3, pa4.depth);
+        assertEquals(2, pa4.width);
     }
 
     @Test
@@ -193,9 +192,8 @@ public class PersistentArrayTest {
         assertEquals("37691", valuesToString(pa));
         pa.add(3, "8");
         assertEquals("376891", valuesToString(pa));
-        pa.add(-1, "8");
-        pa.add(9999, "8");
-
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.add(9999, "8"));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.add(-1, "8"));
     }
 
     @Test
