@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
+public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRedo {
 
     private PersistentArray<LinkedList<Pair<K, V>>> table;
 
@@ -29,7 +29,15 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
 
     @Override
     public V remove(Object key) {
-        //TODO: Не забыть добавить позже
+        for (LinkedList<Pair<K, V>> pairs : table) {
+            for (int j = 0; j < pairs.size(); j++) {
+                if (pairs.get(j).key.equals(key)) {
+                    V value = pairs.get(j).getValue();
+                    pairs.remove(j);
+                    return value;
+                }
+            }
+        }
         return null;
     }
 
@@ -42,7 +50,9 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
 
     @Override
     public void clear() {
-        //TODO: Не забыть добавить позже
+        for (LinkedList<Pair<K, V>> pairs : table) {
+            pairs.clear();
+        }
     }
 
     @Override
@@ -79,8 +89,8 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
     }
 
     @Override
-    public Set<Map.Entry<K,V>> entrySet() {
-        Set<Map.Entry<K,V>> es = new HashSet<>();
+    public Set<Map.Entry<K, V>> entrySet() {
+        Set<Map.Entry<K, V>> es = new HashSet<>();
         for (LinkedList<Pair<K, V>> pairs : table) {
             es.addAll(pairs);
         }
@@ -89,6 +99,9 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
 
     @Override
     public String toString() {
+        if (isEmpty()) {
+            return "[]";
+        }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (Map.Entry<K, V> entry : this.entrySet()) {
@@ -104,7 +117,17 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
         return hashcode & (table.maxSize - 1);
     }
 
-    static class Pair<K,V> implements Map.Entry<K,V> {
+    @Override
+    public void undo() {
+        //TODO: Сделать!
+    }
+
+    @Override
+    public void redo() {
+        //TODO: Сделать!
+    }
+
+    static class Pair<K, V> implements Map.Entry<K, V> {
         private K key;
         private V value;
 
@@ -115,10 +138,14 @@ public class PersistentHashMap<K, V> extends AbstractMap<K,V>{
 
 
         @Override
-        public K getKey() { return key; }
+        public K getKey() {
+            return key;
+        }
 
         @Override
-        public V getValue() { return value; }
+        public V getValue() {
+            return value;
+        }
 
         @Override
         public String toString() {
