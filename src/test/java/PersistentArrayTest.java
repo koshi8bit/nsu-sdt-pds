@@ -201,4 +201,14 @@ public class PersistentArrayTest {
         addABC();
         assertEquals("size: 3; unique leafs: 3; array: [A, B, C]", pa.toString());
     }
+
+    @Test
+    public void testPersistentArrayRemove() {
+        addABC();
+        assertEquals("B", pa.remove(1));
+        assertEquals("AC", valuesToString(pa));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(2));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(999));
+    }
 }

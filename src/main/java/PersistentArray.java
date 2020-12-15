@@ -125,22 +125,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         return result;
     }
 
-//    public boolean add(int index, E value)
-//    {
-//        return assoc(index, value);
-//    }
-
-
-
-
-    private void printLeafs(Head<E> head)
-    {
-        for (int i=0; i<head.size; i++)
-        {
-            System.out.print(i + ":" + String.format("%09d", getLeaf(head, i).hashCode()) + "; ");
-        }
-        System.out.println();
-    }
 
     private String toString(Head<E> head) {
         return "size: " + size(head) + "; unique leafs: "
