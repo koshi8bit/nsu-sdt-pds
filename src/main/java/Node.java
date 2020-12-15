@@ -88,7 +88,7 @@ public class Node<E> {
                     .append(drawTab(level))
                     .append(hash)
                     .append("\n");
-            
+
             for (Node<E> n : node.child)
             {
                 result.append(drawGraph(n, level + 1));
