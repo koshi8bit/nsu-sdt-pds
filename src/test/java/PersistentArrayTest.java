@@ -155,20 +155,31 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayConstructor() {
+
+        PersistentArray<String> pa0 = new PersistentArray<>();
+        assertEquals(pa0.maxSize, 1073741824);
+        assertEquals(pa0.depth, 6);
+        assertEquals(pa0.width, 32);
+
         PersistentArray<String> pa1 = new PersistentArray<>(27);
         assertEquals(pa1.maxSize, 32);
         assertEquals(pa1.depth, 1);
         assertEquals(pa1.width, 32);
 
-        PersistentArray<String> pa2 = new PersistentArray<>(33);
-        assertEquals(pa2.maxSize, 1024);
-        assertEquals(pa2.depth, 2);
+        PersistentArray<String> pa2 = new PersistentArray<>(32);
+        assertEquals(pa2.maxSize, 32);
+        assertEquals(pa2.depth, 1);
         assertEquals(pa2.width, 32);
 
-        PersistentArray<String> pa3 = new PersistentArray<>(3, 1);
-        assertEquals(pa3.maxSize, 8);
-        assertEquals(pa3.depth, 3);
-        assertEquals(pa3.width, 2);
+        PersistentArray<String> pa3 = new PersistentArray<>(33);
+        assertEquals(pa3.maxSize, 1024);
+        assertEquals(pa3.depth, 2);
+        assertEquals(pa3.width, 32);
+
+        PersistentArray<String> pa4 = new PersistentArray<>(3, 1);
+        assertEquals(pa4.maxSize, 8);
+        assertEquals(pa4.depth, 3);
+        assertEquals(pa4.width, 2);
     }
 
     @Test
@@ -179,8 +190,11 @@ public class PersistentArrayTest {
         pa.add("6");
         pa.add("9");
         pa.add("1");
+        assertEquals("37691", valuesToString(pa));
         pa.add(3, "8");
-        //assertEquals("376891", valuesToString(pa));
+        assertEquals("376891", valuesToString(pa));
+        pa.add(-1, "8");
+        pa.add(9999, "8");
 
     }
 
@@ -188,7 +202,5 @@ public class PersistentArrayTest {
     public void testPersistentArrayToString() {
         addABC();
         assertEquals("size: 3; unique leafs: 3; array: [A, B, C]", pa.toString());
-        //assertEquals("376891", valuesToString(pa));
-
     }
 }
