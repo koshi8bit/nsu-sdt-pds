@@ -7,10 +7,18 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersistentArrayTest {
+    PersistentArray<String> pa;
 
-    PersistentArray<String> pa = new PersistentArray<>(32);
 
     private void addABC() {
+        pa = new PersistentArray<>(32);
+        pa.add("A");
+        pa.add("B");
+        pa.add("C");
+    }
+
+    private void addABC(int depth, int bit_na_pu) {
+        pa = new PersistentArray<>(depth, bit_na_pu);
         pa.add("A");
         pa.add("B");
         pa.add("C");
@@ -42,13 +50,17 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArraySize() {
+        pa = new PersistentArray<>(32);
         assertEquals(pa.size(), 0);
-        addABC();
+        pa.add("A");
+        pa.add("B");
+        pa.add("C");
         assertEquals(pa.size(), 3);
     }
 
     @Test
     public void testPersistentArrayIsEmpty() {
+        pa = new PersistentArray<>(32);
         assertTrue(pa.isEmpty());
         pa.add("A");
         assertFalse(pa.isEmpty());
@@ -123,6 +135,7 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayCascade() {
+        pa = new PersistentArray<>(32);
         pa.add("A");
 
         PersistentArray<String> v2 = pa.conj("B");
@@ -192,8 +205,9 @@ public class PersistentArrayTest {
         assertEquals("37691", valuesToString(pa));
         pa.add(3, "8");
         assertEquals("376891", valuesToString(pa));
-        assertThrows(IndexOutOfBoundsException.class, () -> pa.add(9999, "8"));
         assertThrows(IndexOutOfBoundsException.class, () -> pa.add(-1, "8"));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.add(6, "8"));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.add(9999, "8"));
     }
 
     @Test
@@ -204,17 +218,24 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayRemove() {
-        pa = new PersistentArray<>(3, 1);
-        pa.add("A");
-        pa.add("B");
-        pa.add("C");
+        addABC(3, 1);
+
+        assertEquals(3, pa.calcUniqueLeafs());
         assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(-1));
         assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(3));
         assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(999));
+
         assertEquals("B", pa.remove(1));
         assertEquals("AC", valuesToString(pa));
+        assertEquals(4, pa.calcUniqueLeafs());
+
         assertEquals("C", pa.remove(1));
+        assertEquals("A", valuesToString(pa));
+        assertEquals(5, pa.calcUniqueLeafs());
+
         assertEquals("A", pa.remove(0));
+        assertEquals("", valuesToString(pa));
+        assertEquals(5, pa.calcUniqueLeafs());
         assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(0));
     }
 
@@ -222,7 +243,20 @@ public class PersistentArrayTest {
     public void testPersistentArrayClear() {
         addABC();
         pa.clear();
+        assertEquals("", valuesToString(pa));
         pa.undo();
         assertEquals("ABC", valuesToString(pa));
     }
+
+    @Test
+    public void testPersistentArrayUniqueLeafs() {
+        pa = new PersistentArray<>(3, 1);
+        assertEquals(0, pa.calcUniqueLeafs());
+        pa.add("A");
+        assertEquals(1, pa.calcUniqueLeafs());
+        pa.add("B");
+        assertEquals(2, pa.calcUniqueLeafs());
+    }
+
+
 }

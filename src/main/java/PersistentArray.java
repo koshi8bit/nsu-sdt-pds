@@ -19,6 +19,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         super(depth, bit_na_pu);
         Head<E> head = new Head<>();
         undo.push(head);
+        redo.clear();
     }
 
     public PersistentArray(PersistentArray<E> other)
@@ -163,8 +164,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
         else
         {
-            copyLeafInsert(oldHead, index-1);
+            Pair<Node<E>, Integer> copedNodeP = copyLeafInsert(oldHead, index);
             newHead = getCurrentHead();
+            int ind = copedNodeP.getValue();
+            copedNodeP.getKey().value.remove(ind);
+            newHead.size += -1;
         }
 
         for (int i = index+1; i<oldHead.size; i++)
@@ -200,7 +204,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
     }
 
-    private Pair<Node<E>, Integer> copyLeafInsert(Head<E> head, int index)
+    private Pair<Node<E>, Integer> copyLeafInsert(Head<E> oldHead, int index)
     {
         if (getCurrentHead().size == maxSize) {
             throw new IllegalStateException("array is full");
@@ -208,7 +212,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
         int level = bit_na_pu * (depth - 1);
         Head<E> newHead = new Head<>(
-                head,
+                oldHead,
                 index+1,
                 (index >> level) & mask);
 

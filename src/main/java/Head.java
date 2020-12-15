@@ -16,4 +16,9 @@ public class Head<E> {
         this.root = new Node<>(other.root, maxIndex);
         this.size = newSize;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%09x", root.hashCode());
+    }
 }

@@ -2,6 +2,7 @@ import com.sun.org.apache.xpath.internal.objects.XString;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Node<E> {
@@ -38,6 +39,16 @@ public class Node<E> {
         }
     }
 
+    @Override
+    public String toString() {
+        String childs = child == null ? "[null]" : Arrays.toString(child.toArray());
+        String values = value == null ? "[null]" : Arrays.toString(value.toArray());
+        return String.format("%09x %s %s",
+                hashCode(),
+                childs,
+                values);
+    }
+
     public boolean isEmpty()
     {
         if ((child == null) && (value == null))
@@ -67,6 +78,7 @@ public class Node<E> {
     private String drawGraph(Node<E> node, int level)
     {
         String hash =  String.format("%09x", node.hashCode()) + " ";
+        //String hash =  String.format("%010d", node.hashCode()) + " ";
         StringBuilder result = new StringBuilder();
         if (node.child == null)
         {

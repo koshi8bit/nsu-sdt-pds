@@ -2,53 +2,10 @@
 public class Main {
     public static void main(String[] args) {
 
-        //arrayPresentation();
-
-        //TODO make tests ЗНАЧЕНИЯ ДОБАВЬ ОДИН В ОДИН,
-        // тк я их описал в файлике, будет проще показывать
-        // и конструктор 1 в 1 сделай
-        // в тесте сделай пограничные значения индекса, в середине
-        // и вне диапазона: -1 и 9999
-        PersistentArray<Integer> pa = new PersistentArray<>(3, 1);
-        pa.add(3);
-        pa.add(7);
-        pa.add(6);
-        pa.add(9);
-        pa.add(1);
-        System.out.println(pa.drawGraph());
-        pa.add(3, 8);
-        System.out.println(pa.drawGraph());
-        System.out.println(pa);
+        arrayPresentation();
 
         //System.out.println(pa.getCurrentHead().root.drawGraph());
 
-//        Node{
-//            child=[
-//                    Node{
-//                        child=[
-//                                Node{
-//                                    child=null,
-//                                    value=[3, 7]
-//                                },
-//                                Node{
-//                                    child=null,
-//                                    value=[6, 9]
-//                                }
-//                        ],
-//                        value=null
-//                    },
-//                    Node{
-//                        child=[
-//                                Node{
-//                                    child=null,
-//                                    value=[1]
-//                                }
-//                        ],
-//                        value=null
-//                    }],
-//            value=null}
-
-        //Node{child=[Node{child=[Node{child=null, value=[3, 7]}, Node{child=null, value=[6, 9]}], value=null}, Node{child=[Node{child=null, value=[1]}], value=null}], value=null}
     }
 
     private static void arrayPresentation() {
@@ -62,7 +19,10 @@ public class Main {
         System.out.println("pop=" + pa.pop());
         System.out.println(pa);
         pa.undo();
+        System.out.println(pa);
 
+
+        System.out.println("\n---Vasya-Cooper-Abdula---");
         PersistentArray<String> v1 = new PersistentArray<>(3, 1);
         System.out.println("maxSize = " + v1.maxSize);
         v1.add("Vasya");
@@ -76,6 +36,12 @@ public class Main {
         System.out.println(v1);
         System.out.println(v2);
         System.out.println(v3);
+
+        v3.add("3");
+        v3.add("4");
+        System.out.println(v3.drawGraph());
+        v3.remove(2);
+        System.out.println(v3.drawGraph());
 
     }
 
