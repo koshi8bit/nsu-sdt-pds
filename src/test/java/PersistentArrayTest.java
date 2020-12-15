@@ -204,11 +204,25 @@ public class PersistentArrayTest {
 
     @Test
     public void testPersistentArrayRemove() {
-        addABC();
+        pa = new PersistentArray<>(3, 1);
+        pa.add("A");
+        pa.add("B");
+        pa.add("C");
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(3));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(999));
         assertEquals("B", pa.remove(1));
         assertEquals("AC", valuesToString(pa));
-        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(-1));
-        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(2));
-        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(999));
+        assertEquals("C", pa.remove(1));
+        assertEquals("A", pa.remove(0));
+        assertThrows(IndexOutOfBoundsException.class, () -> pa.remove(0));
+    }
+
+    @Test
+    public void testPersistentArrayClear() {
+        addABC();
+        pa.clear();
+        pa.undo();
+        assertEquals("ABC", valuesToString(pa));
     }
 }

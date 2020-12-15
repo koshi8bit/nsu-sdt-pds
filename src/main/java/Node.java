@@ -54,13 +54,6 @@ public class Node<E> {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "N" + hashCode() + "[\n"
-                + "  child=" + child + "\n"
-                + "  value=" + value + "\n]";
-    }
-
     private String drawTab(int count)
     {
         String s = "";
