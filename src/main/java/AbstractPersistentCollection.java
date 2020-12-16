@@ -1,12 +1,31 @@
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
-public abstract class AbstractPersistentCollection<E> implements UndoRedo, List<E> {
+public abstract class AbstractPersistentCollection<E, H> implements UndoRedo, List<E> {
     public final int depth;
     public final int bit_dlya_rasc_ur;
     public final int mask;
     public final int maxSize;
     public final int bit_na_pu;
     public final int width;
+
+    protected final Stack<H> undo = new Stack<>();
+    protected final Stack<H> redo = new Stack<>();
+
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
+    }
+
+
 
 
     public AbstractPersistentCollection(int depth, int bit_na_pu) {
@@ -29,5 +48,21 @@ public abstract class AbstractPersistentCollection<E> implements UndoRedo, List<
         return (Math.log(N) / Math.log(newBase));
     }
 
+    protected Node<E> getLeaf(Head<E> head, int index)
+    {
+        if (index >= head.size)
+            throw new IndexOutOfBoundsException();
+
+        int level = bit_dlya_rasc_ur - bit_na_pu;
+        Node<E> node = head.root;
+
+        while (level > 0) {
+            int tempIndex = (index >> level) & mask;
+            node = node.child.get(tempIndex);
+            level -= bit_na_pu;
+        }
+
+        return node;
+    }
 
 }

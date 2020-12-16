@@ -2,10 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends AbstractPersistentCollection<E> {
-
-    private Stack<Head<E>> undo = new Stack<>();
-    private Stack<Head<E>> redo = new Stack<>();
+public class PersistentArray<E> extends UndoRedoHead<E> {
 
     public PersistentArray() {
         this(6, 5);
@@ -57,26 +54,6 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
         }
 
     }
-
-
-
-    @Override
-    public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
-        }
-    }
-
-    @Override
-    public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
-        }
-    }
-
-
-
-
 
     public E pop() throws NoSuchElementException
     {
@@ -341,22 +318,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> {
 
 
 
-    private Node<E> getLeaf(Head<E> head, int index)
-    {
-        if (index >= head.size)
-            throw new IndexOutOfBoundsException();
 
-        int level = bit_dlya_rasc_ur - bit_na_pu;
-        Node<E> node = head.root;
-
-        while (level > 0) {
-            int tempIndex = (index >> level) & mask;
-            node = node.child.get(tempIndex);
-            level -= bit_na_pu;
-        }
-
-        return node;
-    }
 
     private E get(Head<E> head, int index)
     {
