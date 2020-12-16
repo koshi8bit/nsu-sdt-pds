@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends AbstractPersistentCollection<E>{
+public class PersistentArray<E> extends AbstractPersistentCollection<E> implements List<E>{
 
     public PersistentArray() {
         super();

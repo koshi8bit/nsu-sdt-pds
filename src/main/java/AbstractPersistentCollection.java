@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public abstract class AbstractPersistentCollection<E> implements List<E>{
+public abstract class AbstractPersistentCollection<E> {
     public final int depth;
     public final int bit_dlya_rasc_ur;
     public final int mask;
@@ -36,13 +36,7 @@ public abstract class AbstractPersistentCollection<E> implements List<E>{
         redo.clear();
     }
 
-    public AbstractPersistentCollection(PersistentLinkedList<E> other)
-    {
-        this(other.depth, other.bit_na_pu);
 
-        this.undo.addAll(other.undo);
-        this.redo.addAll(other.redo);
-    }
 
     public void undo() {
         if (!undo.empty()) {

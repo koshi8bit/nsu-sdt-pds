@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PersistentLinkedList<E> extends AbstractPersistentCollection<E>{
+public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
 
 
     public PersistentLinkedList() {
