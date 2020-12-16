@@ -55,12 +55,12 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     @Override
     public boolean add(E e) {
-        //Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0); todo
-        //undo.push(newHead); TODO
+        Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0);
+        undo.push(newHead);
         redo.clear();
 
-        //return add(newHead, e); todo
-        return false;
+        return add(newHead, e);
+        //return false;
     }
 
     private boolean add(Head<PLLE<E>> head, E newElement)
