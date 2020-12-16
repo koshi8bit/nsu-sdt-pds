@@ -2,28 +2,7 @@ import java.util.*;
 
 public class PersistentLinkedList<E> extends UndoRedoHead<E>{
 
-    public PersistentLinkedList() {
-        this(6, 5);
-    }
 
-    public PersistentLinkedList(int maxSize) {
-        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, 5))), 5);
-    }
-
-    public PersistentLinkedList(int depth, int bit_na_pu) {
-        super(depth, bit_na_pu);
-        Head<E> head = new Head<>();
-        undo.push(head);
-        redo.clear();
-    }
-
-    public PersistentLinkedList(PersistentLinkedList<E> other)
-    {
-        this(other.depth, other.bit_na_pu);
-
-        this.undo.addAll(other.undo);
-        this.redo.addAll(other.redo);
-    }
 
 
 

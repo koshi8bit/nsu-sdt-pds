@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public abstract class AbstractPersistentCollection<E, H> implements UndoRedo, List<E> {
+public abstract class AbstractPersistentCollection<E, H> implements UndoRedo {
     public final int depth;
     public final int bit_dlya_rasc_ur;
     public final int mask;

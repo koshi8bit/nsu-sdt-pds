@@ -4,29 +4,24 @@ import java.util.*;
 
 public class PersistentArray<E> extends UndoRedoHead<E> {
 
+
     public PersistentArray() {
-        this(6, 5);
+        super();
     }
 
     public PersistentArray(int maxSize) {
-        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, 5))), 5);
+        super(maxSize);
     }
 
     public PersistentArray(int depth, int bit_na_pu) {
         super(depth, bit_na_pu);
-        Head<E> head = new Head<>();
-        undo.push(head);
-        redo.clear();
     }
 
-    public PersistentArray(PersistentArray<E> other)
-    {
-        this(other.depth, other.bit_na_pu);
-
+    public PersistentArray(PersistentArray<E> other) {
+        super(other.depth, other.bit_na_pu);
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
     }
-
 
     public int getVersionCount()
     {
