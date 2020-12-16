@@ -50,4 +50,12 @@ public abstract class UndoRedoHead<E> extends AbstractPersistentCollection<E, He
         }
 
     }
+
+    public int size(Head<E> head) {
+        return head.size;
+    }
+
+    protected Head<E> getCurrentHead() {
+        return this.undo.peek();
+    }
 }

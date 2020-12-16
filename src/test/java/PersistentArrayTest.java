@@ -59,6 +59,16 @@ public class PersistentArrayTest {
     }
 
     @Test
+    public void testPersistentAdd() {
+        pa = new PersistentArray<>(1, 1);
+        assertEquals(2, pa.maxSize);
+
+        assertTrue(pa.add("A"));
+        assertTrue(pa.add("B"));
+        assertFalse(pa.add("C"));
+    }
+
+    @Test
     public void testPersistentArrayIsEmpty() {
         pa = new PersistentArray<>(32);
         assertTrue(pa.isEmpty());

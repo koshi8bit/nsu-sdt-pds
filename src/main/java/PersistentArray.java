@@ -4,7 +4,6 @@ import java.util.*;
 
 public class PersistentArray<E> extends UndoRedoHead<E> {
 
-
     public PersistentArray() {
         super();
     }
@@ -252,6 +251,9 @@ public class PersistentArray<E> extends UndoRedoHead<E> {
 
     @Override
     public boolean add(E newElement) {
+        if (getCurrentHead().size == maxSize) {
+            return false;
+        }
         Head<E> newHead = new Head<>(getCurrentHead(), 0);
         undo.push(newHead);
         redo.clear();
@@ -328,18 +330,14 @@ public class PersistentArray<E> extends UndoRedoHead<E> {
         return get(getCurrentHead(), index);
     }
 
-    private Head<E> getCurrentHead() {
-        return this.undo.peek();
-    }
+
 
 
 
 
     /////////////////////////////////////////////////////
 
-    public int size(Head<E> head) {
-        return head.size;
-    }
+
 
     @Override
     public int size() {
