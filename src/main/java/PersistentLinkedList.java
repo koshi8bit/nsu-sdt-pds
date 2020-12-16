@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PersistentLinkedList<E> extends UndoRedoHead<PLLE<E>> implements List<E>{
+public class PersistentLinkedList<E> extends AbstractPersistentCollection<E>{
 
 
     public PersistentLinkedList() {
@@ -55,11 +55,12 @@ public class PersistentLinkedList<E> extends UndoRedoHead<PLLE<E>> implements Li
 
     @Override
     public boolean add(E e) {
-        Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0);
-        undo.push(newHead);
+        //Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0); todo
+        //undo.push(newHead); TODO
         redo.clear();
 
-        return add(newHead, e);
+        //return add(newHead, e); todo
+        return false;
     }
 
     private boolean add(Head<PLLE<E>> head, E newElement)

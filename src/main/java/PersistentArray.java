@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends UndoRedoHead<E> implements List<E>{
+public class PersistentArray<E> extends AbstractPersistentCollection<E>{
 
     public PersistentArray() {
         super();
