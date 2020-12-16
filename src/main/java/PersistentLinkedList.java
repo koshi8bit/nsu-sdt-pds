@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PersistentLinkedList<E> extends UndoRedoHead<E>{
+public class PersistentLinkedList<E> extends UndoRedoHead<PLLE<E>> implements List<E>{
 
 
     public PersistentLinkedList() {
@@ -55,14 +55,14 @@ public class PersistentLinkedList<E> extends UndoRedoHead<E>{
 
     @Override
     public boolean add(E e) {
-        Head<E> newHead = new Head<>(getCurrentHead(), 0);
+        Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0);
         undo.push(newHead);
         redo.clear();
 
         return add(newHead, e);
     }
 
-    private boolean add(Head<E> head, E newElement)
+    private boolean add(Head<PLLE<E>> head, E newElement)
     {
         if (head.size+1 >= maxSize) {
             return false;
@@ -70,7 +70,7 @@ public class PersistentLinkedList<E> extends UndoRedoHead<E>{
 
         head.size += 1;
 
-        Node<E> currentNode = head.root;
+        Node<PLLE<E>> currentNode = head.root;
         int level = bit_na_pu * (depth - 1);
 
         //System.out.print(newElement + "   ");
@@ -78,7 +78,7 @@ public class PersistentLinkedList<E> extends UndoRedoHead<E>{
         {
             int index = ((head.size - 1) >> level) & mask;
             //System.out.print(index);
-            Node<E> tmp, newNode;
+            Node<PLLE<E>> tmp, newNode;
 
             if (currentNode.child == null)
             {
@@ -108,7 +108,7 @@ public class PersistentLinkedList<E> extends UndoRedoHead<E>{
         if (currentNode.value == null)
             currentNode.value = new ArrayList<>();
 
-        currentNode.value.add(newElement);
+        //currentNode.value.add(newElement);
         //System.out.println();
 
         return true;

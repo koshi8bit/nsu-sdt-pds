@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
-public abstract class UndoRedoHead<E> extends AbstractPersistentCollection<E, Head<E>> implements List<E> {
+public abstract class UndoRedoHead<E> extends AbstractPersistentCollection<E, Head<E>> {
 
     public UndoRedoHead() {
         this(6, 5);

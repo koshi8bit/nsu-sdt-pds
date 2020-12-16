@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends UndoRedoHead<E> {
+public class PersistentArray<E> extends UndoRedoHead<E> implements List<E>{
 
     public PersistentArray() {
         super();
@@ -223,12 +223,9 @@ public class PersistentArray<E> extends UndoRedoHead<E> {
         Node<E> currentNode = newHead.root;
         int level = bit_na_pu * (depth - 1);
 
-        //System.out.print(newElement + "   ");
         while (level > 0)
         {
             int widthIndex = (index >> level) & mask;
-            int widthIndexNext = (index >> (level - bit_na_pu)) & mask;
-            //System.out.print(index);
             Node<E> tmp, newNode;
 
             tmp = currentNode.child.get(widthIndex);
@@ -356,7 +353,7 @@ public class PersistentArray<E> extends UndoRedoHead<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new PersistentArrayIterator<E>();
+        return new PersistentArrayIterator<>();
     }
 
     private Object[] toArray(Head<E> head) {
