@@ -10,8 +10,7 @@ public abstract class AbstractPersistentCollection<E> {
     public final int bit_na_pu;
     public final int width;
 
-    protected final Stack<HeadArray<E>> undo = new Stack<>();
-    protected final Stack<HeadArray<E>> redo = new Stack<>();
+
 
     public AbstractPersistentCollection() {
         this(6, 5);
@@ -31,24 +30,11 @@ public abstract class AbstractPersistentCollection<E> {
 
         width = (int) Math.pow(2, bit_na_pu);
 
-        HeadArray<E> head = new HeadArray<>();
+        H head = new H() ;
         undo.push(head);
         redo.clear();
     }
 
-
-
-    public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
-        }
-    }
-
-    public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
-        }
-    }
 
     public static double log(int N, int newBase)
     {
@@ -104,33 +90,7 @@ public abstract class AbstractPersistentCollection<E> {
 
     }
 
-    public int size(HeadArray<E> head) {
-        return head.size;
-    }
 
-    protected HeadArray<E> getCurrentHead() {
-        return this.undo.peek();
-    }
-
-    public boolean isIndexValid(int index)
-    {
-        return isIndexValid(getCurrentHead(), index);
-    }
-
-    public boolean isIndexValid(HeadArray<E> head, int index)
-    {
-        return (index >= 0) && (index < head.size);
-    }
-
-    public boolean isFull()
-    {
-        return isFull(getCurrentHead());
-    }
-
-    public boolean isFull(HeadArray<E> head)
-    {
-        return head.size >= maxSize;
-    }
 
     protected Node<E> add2(HeadArray<E> head)
     {

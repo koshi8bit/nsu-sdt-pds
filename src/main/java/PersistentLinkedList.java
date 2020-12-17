@@ -2,6 +2,20 @@ import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
 
+    protected final Stack<HeadList<E>> redo = new Stack<>();
+    protected final Stack<HeadList<E>> undo = new Stack<>();
+
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
+    }
 
     public PersistentLinkedList() {
         super();
@@ -19,6 +33,10 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         super(other.depth, other.bit_na_pu);
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
+    }
+
+    protected HeadList<E> getCurrentHead() {
+        return this.undo.peek();
     }
 
     @Override
@@ -94,7 +112,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (isFull()) {
             return false;
         }
-        HeadArray<PLLE<E>> newHead = new HeadArray<>(getCurrentHead());
+        HeadList<PLLE<E>> newHead = new HeadList<>(getCurrentHead());
         undo.push(newHead);
         redo.clear();
 
@@ -153,7 +171,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        return currentNode;
 //    }
 
-    private boolean add(HeadArray<PLLE<E>> head, E newValue)
+    private boolean add(HeadList<PLLE<E>> head, E newValue)
     {
         // todo check if tree is full
         PLLE<E> element = new PLLE<>(newValue, head.first, head.last);

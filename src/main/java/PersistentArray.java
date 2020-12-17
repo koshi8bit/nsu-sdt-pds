@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends AbstractPersistentCollection<E> implements List<E>{
+public class PersistentArray<E> extends AbstractPersistentCollection<E, HeadArray<E>> implements List<E>{
 
     public PersistentArray() {
         super();
@@ -20,6 +20,21 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         super(other.depth, other.bit_na_pu);
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
+    }
+
+    protected final Stack<HeadArray<E>> redo = new Stack<>();
+    protected final Stack<HeadArray<E>> undo = new Stack<>();
+
+    public void undo() {
+        if (!undo.empty()) {
+            redo.push(undo.pop());
+        }
+    }
+
+    public void redo() {
+        if (!redo.empty()) {
+            undo.push(redo.pop());
+        }
     }
 
     public int getVersionCount()
@@ -101,6 +116,34 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
     private String toString(HeadArray<E> head) {
         return "size: " + size(head) + "; unique leafs: "
                 + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray(head));
+    }
+
+    public int size(HeadArray<E> head) {
+        return head.size;
+    }
+
+    protected HeadArray<E> getCurrentHead() {
+        return this.undo.peek();
+    }
+
+    public boolean isIndexValid(int index)
+    {
+        return isIndexValid(getCurrentHead(), index);
+    }
+
+    public static boolean isIndexValid(HeadArray<E> head, int index)
+    {
+        return (index >= 0) && (index < head.size);
+    }
+
+    public boolean isFull()
+    {
+        return isFull(getCurrentHead());
+    }
+
+    public boolean isFull(HeadArray<E> head)
+    {
+        return head.size >= maxSize;
     }
 
 
