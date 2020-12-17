@@ -32,8 +32,14 @@ public class HeadList<E> extends HeadArray<E> {
     @Override
     public String toString() {
         //return String.format("%09x", root.hashCode());
-        return String.format("%09x s: %d; S: %d; F: %d; L: %d",
-                root.hashCode(),
+//        return String.format("%09x s: %d; S: %d; F: %d; L: %d",
+//                root.hashCode(),
+//                size,
+//                sizeTree,
+//                first,
+//                last
+//        );
+        return String.format("s: %d; S: %d; F: %d; L: %d",
                 size,
                 sizeTree,
                 first,

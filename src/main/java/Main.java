@@ -15,8 +15,11 @@ public class Main {
         pl.add(1);
         pl.add(2);
         pl.add(3);
+        //System.out.println(pl.calcUniqueLeafs());
         System.out.println(pl.drawGraph());
         pl.undo();
+        System.out.println(pl.drawGraph());
+        pl.add(4);
         System.out.println(pl.drawGraph());
 
     }

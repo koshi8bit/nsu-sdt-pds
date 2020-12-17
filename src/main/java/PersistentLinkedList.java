@@ -42,6 +42,28 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
     }
 
+    public int calcUniqueLeafs()
+    {
+        LinkedList<Node<PLLE<E>>> list = new LinkedList<>();
+        calcUniqueLeafs(list, undo);
+        calcUniqueLeafs(list, redo);
+
+        return list.size();
+    }
+
+    private void calcUniqueLeafs(LinkedList<Node<PLLE<E>>> list, Stack<HeadList<PLLE<E>>> undo1) {
+        for (HeadList<PLLE<E>> head : undo1)
+        {
+            for (int i=0; i<head.size; i++)
+            {
+                Node<PLLE<E>> leaf = getLeaf(head, i);
+                if (!list.contains(leaf))
+                    list.add(leaf);
+            }
+        }
+
+    }
+
 
     protected HeadList<PLLE<E>> getCurrentHead() {
         return this.undo.peek();
@@ -194,10 +216,65 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private boolean add(HeadList<PLLE<E>> head, E newValue)
     {
-        // todo check if tree is full
+        if (isFull()) {
+            return false;
+        }
         PLLE<E> element = new PLLE<>(newValue, head.first, head.last);
-        //add2(head).value.add(element);
+        add2(head).value.add(element);
         return true;
+    }
+
+    protected Node<PLLE<E>> add2(HeadList<PLLE<E>> head)
+    {
+        if (isFull(head)) {
+            throw new IndexOutOfBoundsException("collection is full");
+        }
+
+        head.size += 1;
+        head.sizeTree += 1;
+
+        Node<PLLE<E>> currentNode = head.root;
+        int level = bit_na_pu * (depth - 1);
+
+        //System.out.print(newElement + "   ");
+        while (level > 0)
+        {
+            int index = ((head.size - 1) >> level) & mask;
+            //System.out.print(index);
+            Node<PLLE<E>> tmp, newNode;
+
+            if (currentNode.child == null)
+            {
+                currentNode.child = new LinkedList<>();
+                newNode = new Node<>();
+                currentNode.child.add(newNode);
+            }
+            else
+            {
+                if (index == currentNode.child.size())
+                {
+                    newNode = new Node<>();
+                    currentNode.child.add(newNode);
+                }
+                else
+                {
+                    tmp = currentNode.child.get(index);
+                    newNode = new Node<>(tmp);
+                    currentNode.child.set(index, newNode);
+                }
+            }
+
+            currentNode = newNode;
+            level -= bit_na_pu;
+        }
+
+        if (currentNode.value == null)
+            currentNode.value = new ArrayList<>();
+
+        //currentNode.value.add(new PLLE<>(newValue));
+        //System.out.println();
+
+        return currentNode;
     }
 
     @Override
@@ -260,9 +337,17 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return node;
     }
 
-    public String drawGraph() {
-        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
+    public int getVersionCount()
+    {
+        return undo.size() + redo.size();
     }
+
+    public String drawGraph() {
+        return "unique: " + calcUniqueLeafs() + "; ver: " + getVersionCount()+ "\n"
+                + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
+    }
+
+
 
     @Override
     public E get(int index) {
