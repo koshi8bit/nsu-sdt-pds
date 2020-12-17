@@ -124,7 +124,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public boolean isFull(HeadList<PLLE<E>> head)
     {
-        return head.size >= maxSize;
+        return head.sizeTree >= maxSize;
     }
 
 
