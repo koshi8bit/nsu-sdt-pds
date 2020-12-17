@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -110,6 +111,78 @@ public abstract class AbstractPersistentCollection<E> {
 
     protected Head<E> getCurrentHead() {
         return this.undo.peek();
+    }
+
+    public boolean isIndexValid(int index)
+    {
+        return isIndexValid(getCurrentHead(), index);
+    }
+
+    public boolean isIndexValid(Head<E> head, int index)
+    {
+        return (index >= 0) && (index < head.size);
+    }
+
+    public boolean isFull()
+    {
+        return isFull(getCurrentHead());
+    }
+
+    public boolean isFull(Head<E> head)
+    {
+        return head.size >= maxSize;
+    }
+
+    protected Node<E> add2(Head<E> head)
+    {
+        if (isFull(head)) {
+            throw new IndexOutOfBoundsException("collection is full");
+        }
+
+        head.size += 1;
+
+        Node<E> currentNode = head.root;
+        int level = bit_na_pu * (depth - 1);
+
+        //System.out.print(newElement + "   ");
+        while (level > 0)
+        {
+            int index = ((head.size - 1) >> level) & mask;
+            //System.out.print(index);
+            Node<E> tmp, newNode;
+
+            if (currentNode.child == null)
+            {
+                currentNode.child = new LinkedList<>();
+                newNode = new Node<>();
+                currentNode.child.add(newNode);
+            }
+            else
+            {
+                if (index == currentNode.child.size())
+                {
+                    newNode = new Node<>();
+                    currentNode.child.add(newNode);
+                }
+                else
+                {
+                    tmp = currentNode.child.get(index);
+                    newNode = new Node<>(tmp);
+                    currentNode.child.set(index, newNode);
+                }
+            }
+
+            currentNode = newNode;
+            level -= bit_na_pu;
+        }
+
+        if (currentNode.value == null)
+            currentNode.value = new ArrayList<>();
+
+        //currentNode.value.add(new PLLE<>(newValue));
+        //System.out.println();
+
+        return currentNode;
     }
 
 }
