@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,10 +18,17 @@ public class Main {
         pl.add(3);
         pl.add(4);
         pl.add(6);
+        pl.add(0);
+        pl.add(7);
         System.out.println(pl.drawGraph());
 
-        pl.add(1, 9);
+        pl.add(3, 9);
         System.out.println(pl.drawGraph());
+        System.out.println(Arrays.toString(pl.toArray()));
+//        pl.undo();
+//        System.out.println(pl.drawGraph());
+//        pl.redo();
+//        System.out.println(pl.drawGraph());
 
 //        pl.add(1, 7);
 //        System.out.println(pl.drawGraph());

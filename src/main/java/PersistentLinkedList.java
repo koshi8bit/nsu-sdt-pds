@@ -340,7 +340,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (!((index < head.size) && (index>=0))) {
             throw new IndexOutOfBoundsException();
         }
-        return getLeaf(head, index).getKey().value.get(index & mask).value;
+        int treeIndex = getTreeIndex(index);
+        return getLeaf(head, treeIndex).getKey().value.get(treeIndex & mask).value;
     }
 
     protected Pair<Node<PLLE<E>>, Integer> getLeaf(HeadList<PLLE<E>> head, int index)
