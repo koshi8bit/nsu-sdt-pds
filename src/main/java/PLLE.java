@@ -7,10 +7,17 @@ public class PLLE<E> {
         this.value = value;
     }
 
+
     public PLLE(E value, int prev, int next) {
         this.next = next;
         this.prev = prev;
         this.value = value;
+    }
+
+    public PLLE(PLLE<E> other) {
+        this.next = other.next;
+        this.prev = other.prev;
+        this.value = other.value;
     }
 
     @Override

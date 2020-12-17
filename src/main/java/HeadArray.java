@@ -27,4 +27,9 @@ public class HeadArray<E> {
         return String.format("%09x %d", root.hashCode(), size);
     }
 
+    public void copyTree(HeadList<E> other)
+    {
+
+    }
+
 }
