@@ -161,33 +161,36 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         PLLE<E> element;
 
         HeadList<PLLE<E>> prevHead = getCurrentHead();
-        HeadList<PLLE<E>> head;
+        HeadList<PLLE<E>> newHead;
 
         if (getCurrentHead().size == 0)
         {
-            head = new HeadList<>(prevHead);
-            undo.push(head);
+            newHead = new HeadList<>(prevHead);
+            undo.push(newHead);
             redo.clear();
             element = new PLLE<>(newValue, -1, -1);
-            head.first = head.sizeTree;
+            newHead.first = newHead.sizeTree;
         }
         else
         {
             element = new PLLE<>(newValue, prevHead.last, -1);
-            Pair<Node<PLLE<E>>, Integer> pair = copyLeaf(prevHead, prevHead.last);
-            head = getCurrentHead();
-            PLLE<E> prev = new PLLE<>(pair.getKey().value.get(pair.getValue()));
-            prev.next = head.sizeTree;
-            pair.getKey().value.set(pair.getValue(), prev);
+            CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
+                    = copyLeaf(prevHead, prevHead.last);
+            newHead = tmp.head;
+            PLLE<E> prev = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
+            prev.next = newHead.sizeTree;
+            tmp.leaf.value.set(tmp.leafInnerIndex, prev);
 
 
 //            Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, head.last);
 //            PLLE<E> prev = new PLLE<>(pair.getKey().value.get(pair.getValue()));
         }
-        head.last = head.sizeTree;
+        newHead.last = newHead.sizeTree;
 
+        undo.push(newHead);
+        redo.clear();
 
-        add2(head).value.add(element);
+        add2(newHead).value.add(element);
         return true;
     }
 
@@ -384,7 +387,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return new Pair<>(node, index & mask);
     }
 
-    private Pair<Node<PLLE<E>>, Integer> copyLeaf(HeadList<PLLE<E>> head, int index)
+    private CopyResult<PLLE<E>, HeadList<PLLE<E>>> copyLeaf(HeadList<PLLE<E>> head, int index)
     {
         if (isFull()) {
             throw new IllegalStateException("array is full");
@@ -392,8 +395,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
 
         HeadList<PLLE<E>> newHead = new HeadList<>(head, 0);
-        undo.push(newHead);
-        redo.clear();
         Node<PLLE<E>> currentNode = newHead.root;
         int level = bit_na_pu * (depth - 1);
 
@@ -410,7 +411,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             level -= bit_na_pu;
         }
 
-        return new Pair<>(currentNode, index & mask);
+        return new CopyResult<PLLE<E>, HeadList<PLLE<E>>>(currentNode, index & mask, newHead);
     }
 
     public int getVersionCount()
