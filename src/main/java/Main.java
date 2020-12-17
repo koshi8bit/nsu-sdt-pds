@@ -15,20 +15,17 @@ public class Main {
 
         //TODO tests results are different, wtf?
         pl.add(3);
-        System.out.println(pl.drawGraph());
-
         pl.add(4);
-        System.out.println(pl.drawGraph());
-
         pl.add(6);
         System.out.println(pl.drawGraph());
 
-        pl.add(9);
+        pl.add(1, 9);
         System.out.println(pl.drawGraph());
 
-        pl.undo();
-        System.out.println(pl.drawGraph());
-
+//        pl.add(1, 7);
+//        System.out.println(pl.drawGraph());
+//
+//        pl.add(8);
 
 
 
