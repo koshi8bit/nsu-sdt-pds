@@ -105,7 +105,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private boolean add(Head<PLLE<E>> head, E newValue)
     {
-        PLLE<E> element = new PLLE<>(newValue);
+        PLLE<E> element = new PLLE<>(newValue, head.first, head.last);
         add2(head).value.add(element);
         return true;
     }
