@@ -14,14 +14,12 @@ public class Main {
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
         System.out.println(pl.drawGraph());
 
-        pl.add(1);
-        System.out.println(pl.drawGraph());
-
-        pl.add(2);
-        System.out.println(pl.drawGraph());
-
         pl.add(3);
         System.out.println(pl.drawGraph());
+
+        pl.add(7);
+        System.out.println(pl.drawGraph());
+
         //System.out.println(pl.calcUniqueLeafs());
 //        System.out.println(pl.drawGraph());
 //        pl.undo();

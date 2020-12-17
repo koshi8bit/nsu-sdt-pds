@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
@@ -230,8 +232,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         else
         {
             element = new PLLE<>(newValue, head.last, -1);
+            Node<PLLE<E>> leaf = getLeaf(head, head.last);
+
+
+
         }
         head.last = head.sizeTree;
+
 
         add2(head).value.add(element);
         return true;
@@ -348,6 +355,35 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
 
         return node;
+    }
+
+    private Pair<Node<PLLE<E>>, Integer> copyLeaf(HeadList<PLLE<E>> head, int index)
+    {
+        if (isFull()) {
+            throw new IllegalStateException("array is full");
+            //return null;
+        }
+
+        HeadList<PLLE<E>> newHead = new HeadList<>(head, 0);
+        undo.push(newHead);
+        redo.clear();
+        Node<PLLE<E>> currentNode = newHead.root;
+        int level = bit_na_pu * (depth - 1);
+
+        while (level > 0)
+        {
+            int widthIndex = (index >> level) & mask;
+            Node<PLLE<E>> tmp, newNode;
+
+            tmp = currentNode.child.get(widthIndex);
+            newNode = new Node<>(tmp);
+            currentNode.child.set(widthIndex, newNode);
+
+            currentNode = newNode;
+            level -= bit_na_pu;
+        }
+
+        return new Pair<>(currentNode, index & mask);
     }
 
     public int getVersionCount()

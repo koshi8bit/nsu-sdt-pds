@@ -69,6 +69,23 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
 
     }
 
+    protected Node<E> getLeaf(HeadArray<E> head, int index)
+    {
+        if (index >= head.size)
+            throw new IndexOutOfBoundsException();
+
+        int level = bit_dlya_rasc_ur - bit_na_pu;
+        Node<E> node = head.root;
+
+        while (level > 0) {
+            int tempIndex = (index >> level) & mask;
+            node = node.child.get(tempIndex);
+            level -= bit_na_pu;
+        }
+
+        return node;
+    }
+
     public E pop() throws NoSuchElementException
     {
         if (getCurrentHead().size == 0)
@@ -236,7 +253,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
 
     private Pair<Node<E>, Integer> copyLeaf(HeadArray<E> head, int index)
     {
-        if (getCurrentHead().size == maxSize) {
+        if (isFull()) {
             throw new IllegalStateException("array is full");
             //return null;
         }
@@ -387,22 +404,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
     }
 
-    protected Node<E> getLeaf(HeadArray<E> head, int index)
-    {
-        if (index >= head.size)
-            throw new IndexOutOfBoundsException();
 
-        int level = bit_dlya_rasc_ur - bit_na_pu;
-        Node<E> node = head.root;
-
-        while (level > 0) {
-            int tempIndex = (index >> level) & mask;
-            node = node.child.get(tempIndex);
-            level -= bit_na_pu;
-        }
-
-        return node;
-    }
 
     /////////////////////////////////////////////////////
 
