@@ -115,7 +115,7 @@ public class PersistentLinkedListTest {
         pl.add(3);
         pl.add(4);
         pl.add(6);
-        
+
         assertEquals(3, pl.getUniqueLeafsSize());
         assertEquals(4, pl.getVersionCount());
         assertEquals(0, pl.getCurrentHead().first);

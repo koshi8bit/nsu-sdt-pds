@@ -21,29 +21,15 @@ public class Main {
         pl.add(0);
         pl.add(7);
         System.out.println(pl.drawGraph());
+        System.out.println(Arrays.toString(pl.toArray()));
 
         pl.add(3, 9);
         System.out.println(pl.drawGraph());
         System.out.println(Arrays.toString(pl.toArray()));
-//        pl.undo();
-//        System.out.println(pl.drawGraph());
-//        pl.redo();
-//        System.out.println(pl.drawGraph());
 
-//        pl.add(1, 7);
-//        System.out.println(pl.drawGraph());
-//
-//        pl.add(8);
-
-
-
-        //System.out.println(pl.calcUniqueLeafs());
-//        System.out.println(pl.drawGraph());
-//        pl.undo();
-//        System.out.println(pl.drawGraph());
-//        pl.add(4);
-//        System.out.println(pl.drawGraph());
-
+        pl.undo();
+        System.out.println(pl.drawGraph());
+        System.out.println(Arrays.toString(pl.toArray()));
     }
 
     private static void arrayPresentation() {
