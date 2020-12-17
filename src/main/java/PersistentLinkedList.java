@@ -126,21 +126,48 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     @Override
-    public void add(int index, E element) {
+    public void add(int index, E value) {
         if (isFull()) {
             throw new IllegalStateException("array is full");
         }
 
+        HeadList<PLLE<E>> head = getCurrentHead();
+
+        if (index==0)
+        {
+            return;
+        }
+
+        if (index==head.size-1)
+        {
+            return;
+        }
+
+        int indexBefore = getTreeIndex(index-1);
+        int indexAfter = getTreeIndex(index);
+
+        CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(head, indexBefore);
+        CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(before.head, indexAfter);
+
+        undo.push(after.head);
+        redo.clear();
+
+        PLLE<E> element = new PLLE<>(value);
+
+        addLeaf(after.head).value.add(element);
+
 
 
     }
 
-    private int getTreePosition(int listIndex)
+
+
+    private int getTreeIndex(int listIndex)
     {
-        return getTreePosition(getCurrentHead(), listIndex);
+        return getTreeIndex(getCurrentHead(), listIndex);
     }
 
-    private int getTreePosition(HeadList<PLLE<E>> head, int listIndex)
+    private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
         //todo need to test
         //todo add exception on too big index and neg index
