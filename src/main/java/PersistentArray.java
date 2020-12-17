@@ -2,7 +2,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class PersistentArray<E> extends AbstractPersistentCollection<E, HeadArray<E>> implements List<E>{
+public class PersistentArray<E> extends AbstractPersistentCollection<E> implements List<E>{
 
     public PersistentArray() {
         super();
@@ -13,13 +13,23 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E, HeadArra
     }
 
     public PersistentArray(int depth, int bit_na_pu) {
+
         super(depth, bit_na_pu);
     }
 
     public PersistentArray(PersistentArray<E> other) {
         super(other.depth, other.bit_na_pu);
+        this.undo.clear();
+        this.redo.clear();
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
+    }
+
+    @Override
+    protected void configureUndoRedo() {
+        HeadArray<E> head = new HeadArray<>();
+        undo.push(head);
+        redo.clear();
     }
 
     protected final Stack<HeadArray<E>> redo = new Stack<>();
@@ -131,7 +141,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E, HeadArra
         return isIndexValid(getCurrentHead(), index);
     }
 
-    public static boolean isIndexValid(HeadArray<E> head, int index)
+    public boolean isIndexValid(HeadArray<E> head, int index)
     {
         return (index >= 0) && (index < head.size);
     }
@@ -325,10 +335,79 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E, HeadArra
         return get(getCurrentHead(), index);
     }
 
+    protected Node<E> add2(HeadArray<E> head)
+    {
+        if (isFull(head)) {
+            throw new IndexOutOfBoundsException("collection is full");
+        }
+
+        head.size += 1;
+
+        Node<E> currentNode = head.root;
+        int level = bit_na_pu * (depth - 1);
+
+        //System.out.print(newElement + "   ");
+        while (level > 0)
+        {
+            int index = ((head.size - 1) >> level) & mask;
+            //System.out.print(index);
+            Node<E> tmp, newNode;
+
+            if (currentNode.child == null)
+            {
+                currentNode.child = new LinkedList<>();
+                newNode = new Node<>();
+                currentNode.child.add(newNode);
+            }
+            else
+            {
+                if (index == currentNode.child.size())
+                {
+                    newNode = new Node<>();
+                    currentNode.child.add(newNode);
+                }
+                else
+                {
+                    tmp = currentNode.child.get(index);
+                    newNode = new Node<>(tmp);
+                    currentNode.child.set(index, newNode);
+                }
+            }
+
+            currentNode = newNode;
+            level -= bit_na_pu;
+        }
+
+        if (currentNode.value == null)
+            currentNode.value = new ArrayList<>();
+
+        //currentNode.value.add(new PLLE<>(newValue));
+        //System.out.println();
+
+        return currentNode;
+    }
 
 
+    public String drawGraph() {
+        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
+    }
 
+    protected Node<E> getLeaf(HeadArray<E> head, int index)
+    {
+        if (index >= head.size)
+            throw new IndexOutOfBoundsException();
 
+        int level = bit_dlya_rasc_ur - bit_na_pu;
+        Node<E> node = head.root;
+
+        while (level > 0) {
+            int tempIndex = (index >> level) & mask;
+            node = node.child.get(tempIndex);
+            level -= bit_na_pu;
+        }
+
+        return node;
+    }
 
     /////////////////////////////////////////////////////
 

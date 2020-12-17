@@ -2,8 +2,8 @@ import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
 
-    protected final Stack<HeadList<E>> redo = new Stack<>();
-    protected final Stack<HeadList<E>> undo = new Stack<>();
+    protected final Stack<HeadList<PLLE<E>>> redo = new Stack<>();
+    protected final Stack<HeadList<PLLE<E>>> undo = new Stack<>();
 
     public void undo() {
         if (!undo.empty()) {
@@ -15,6 +15,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (!redo.empty()) {
             undo.push(redo.pop());
         }
+    }
+
+    @Override
+    protected void configureUndoRedo() {
+        HeadList<PLLE<E>> head = new HeadList<>();
+        undo.push(head);
+        redo.clear();
     }
 
     public PersistentLinkedList() {
@@ -35,8 +42,12 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         this.redo.addAll(other.redo);
     }
 
-    protected HeadList<E> getCurrentHead() {
+    protected HeadList<PLLE<E>> getCurrentHead() {
         return this.undo.peek();
+    }
+
+    public int size(HeadList<PLLE<E>> head) {
+        return head.size;
     }
 
     @Override
@@ -60,7 +71,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return null;
     }
 
-    private Object[] toArray(HeadArray<PLLE<E>> head) {
+    private Object[] toArray(HeadList<PLLE<E>> head) {
         Object[] objects = new Object[head.size];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = this.get(head, i);
@@ -105,6 +116,15 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //
     ///////////
 
+    public boolean isFull()
+    {
+        return isFull(getCurrentHead());
+    }
+
+    public boolean isFull(HeadList<PLLE<E>> head)
+    {
+        return head.size >= maxSize;
+    }
 
 
     @Override
@@ -175,7 +195,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     {
         // todo check if tree is full
         PLLE<E> element = new PLLE<>(newValue, head.first, head.last);
-        add2(head).value.add(element);
+        //add2(head).value.add(element);
         return true;
     }
 
@@ -214,12 +234,33 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
-    private E get(HeadArray<PLLE<E>> head, int index)
+    private E get(HeadList<PLLE<E>> head, int index)
     {
         if (!((index < head.size) && (index>=0))) {
             throw new IndexOutOfBoundsException();
         }
         return getLeaf(head, index).value.get(index & mask).value;
+    }
+
+    protected Node<PLLE<E>> getLeaf(HeadList<PLLE<E>> head, int index)
+    {
+        if (index >= head.size)
+            throw new IndexOutOfBoundsException();
+
+        int level = bit_dlya_rasc_ur - bit_na_pu;
+        Node<PLLE<E>> node = head.root;
+
+        while (level > 0) {
+            int tempIndex = (index >> level) & mask;
+            node = node.child.get(tempIndex);
+            level -= bit_na_pu;
+        }
+
+        return node;
+    }
+
+    public String drawGraph() {
+        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
     }
 
     @Override

@@ -1,8 +1,11 @@
-import com.sun.xml.internal.ws.api.message.HeaderList;
 
 public class HeadList<E> extends HeadArray<E> {
     public int first = 0;
     public int last = 0;
+
+    public HeadList() {
+        super();
+    }
 
     public HeadList(HeadList<E> other) {
         super(other);
