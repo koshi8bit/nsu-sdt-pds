@@ -1,7 +1,7 @@
 
 public class HeadList<E> extends HeadArray<E> {
-    public int first = 0;
-    public int last = 0;
+    public int first = -1;
+    public int last = -1;
     public int sizeTree = 0;
 
     public HeadList() {

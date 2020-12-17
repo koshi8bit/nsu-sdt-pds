@@ -219,7 +219,20 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (isFull()) {
             return false;
         }
-        PLLE<E> element = new PLLE<>(newValue, head.first, head.last);
+
+        PLLE<E> element;
+
+        if (head.size == 0)
+        {
+            element = new PLLE<>(newValue, -1, -1);
+            head.first = head.sizeTree;
+        }
+        else
+        {
+            element = new PLLE<>(newValue, head.last, -1);
+        }
+        head.last = head.sizeTree;
+
         add2(head).value.add(element);
         return true;
     }
