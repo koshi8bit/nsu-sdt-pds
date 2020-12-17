@@ -12,15 +12,22 @@ public class Main {
     private static void listPresentation() {
         System.out.println("\n" + "list");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        System.out.println(pl.drawGraph());
+
         pl.add(1);
+        System.out.println(pl.drawGraph());
+
         pl.add(2);
+        System.out.println(pl.drawGraph());
+
         pl.add(3);
+        System.out.println(pl.drawGraph());
         //System.out.println(pl.calcUniqueLeafs());
-        System.out.println(pl.drawGraph());
-        pl.undo();
-        System.out.println(pl.drawGraph());
-        pl.add(4);
-        System.out.println(pl.drawGraph());
+//        System.out.println(pl.drawGraph());
+//        pl.undo();
+//        System.out.println(pl.drawGraph());
+//        pl.add(4);
+//        System.out.println(pl.drawGraph());
 
     }
 

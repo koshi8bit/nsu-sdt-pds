@@ -15,6 +15,6 @@ public class PLLE<E> {
 
     @Override
     public String toString() {
-        return "{P" + prev + ", " + value + ", N" + next + "}";
+        return String.format("%09x", hashCode()) + "{P" + prev + ", " + value + ", N" + next + "}";
     }
 }

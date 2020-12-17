@@ -201,7 +201,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
 
     private Pair<Node<E>, Integer> copyLeafInsert(HeadArray<E> oldHead, int index)
     {
-        if (getCurrentHead().size == maxSize) {
+        if (isFull(oldHead)) {
             throw new IllegalStateException("array is full");
         }
 
