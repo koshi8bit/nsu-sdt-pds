@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Stack;
 
 public abstract class AbstractPersistentCollection<E> {
@@ -11,8 +10,8 @@ public abstract class AbstractPersistentCollection<E> {
     public final int bit_na_pu;
     public final int width;
 
-    protected final Stack<Head<E>> undo = new Stack<>();
-    protected final Stack<Head<E>> redo = new Stack<>();
+    protected final Stack<HeadArray<E>> undo = new Stack<>();
+    protected final Stack<HeadArray<E>> redo = new Stack<>();
 
     public AbstractPersistentCollection() {
         this(6, 5);
@@ -32,7 +31,7 @@ public abstract class AbstractPersistentCollection<E> {
 
         width = (int) Math.pow(2, bit_na_pu);
 
-        Head<E> head = new Head<>();
+        HeadArray<E> head = new HeadArray<>();
         undo.push(head);
         redo.clear();
     }
@@ -64,7 +63,7 @@ public abstract class AbstractPersistentCollection<E> {
         return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
     }
 
-    protected Node<E> getLeaf(Head<E> head, int index)
+    protected Node<E> getLeaf(HeadArray<E> head, int index)
     {
         if (index >= head.size)
             throw new IndexOutOfBoundsException();
@@ -92,8 +91,8 @@ public abstract class AbstractPersistentCollection<E> {
 
 
 
-    private void calcUniqueLeafs(LinkedList<Node<E>> list, Stack<Head<E>> undo1) {
-        for (Head<E> head : undo1)
+    private void calcUniqueLeafs(LinkedList<Node<E>> list, Stack<HeadArray<E>> undo1) {
+        for (HeadArray<E> head : undo1)
         {
             for (int i=0; i<head.size; i++)
             {
@@ -105,11 +104,11 @@ public abstract class AbstractPersistentCollection<E> {
 
     }
 
-    public int size(Head<E> head) {
+    public int size(HeadArray<E> head) {
         return head.size;
     }
 
-    protected Head<E> getCurrentHead() {
+    protected HeadArray<E> getCurrentHead() {
         return this.undo.peek();
     }
 
@@ -118,7 +117,7 @@ public abstract class AbstractPersistentCollection<E> {
         return isIndexValid(getCurrentHead(), index);
     }
 
-    public boolean isIndexValid(Head<E> head, int index)
+    public boolean isIndexValid(HeadArray<E> head, int index)
     {
         return (index >= 0) && (index < head.size);
     }
@@ -128,12 +127,12 @@ public abstract class AbstractPersistentCollection<E> {
         return isFull(getCurrentHead());
     }
 
-    public boolean isFull(Head<E> head)
+    public boolean isFull(HeadArray<E> head)
     {
         return head.size >= maxSize;
     }
 
-    protected Node<E> add2(Head<E> head)
+    protected Node<E> add2(HeadArray<E> head)
     {
         if (isFull(head)) {
             throw new IndexOutOfBoundsException("collection is full");
