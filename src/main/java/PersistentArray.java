@@ -5,31 +5,26 @@ import java.util.*;
 public class PersistentArray<E> extends AbstractPersistentCollection<E> implements List<E>{
 
     public PersistentArray() {
-        super();
+        this(6, 5);
     }
 
     public PersistentArray(int maxSize) {
-        super(maxSize);
+        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, 5))), 5);
     }
 
     public PersistentArray(int depth, int bit_na_pu) {
 
         super(depth, bit_na_pu);
+
+        HeadArray<E> head = new HeadArray<>();
+        undo.push(head);
+        redo.clear();
     }
 
     public PersistentArray(PersistentArray<E> other) {
         super(other.depth, other.bit_na_pu);
-        this.undo.clear();
-        this.redo.clear();
         this.undo.addAll(other.undo);
         this.redo.addAll(other.redo);
-    }
-
-    @Override
-    protected void configureUndoRedo() {
-        HeadArray<E> head = new HeadArray<>();
-        undo.push(head);
-        redo.clear();
     }
 
     protected final Stack<HeadArray<E>> redo = new Stack<>();

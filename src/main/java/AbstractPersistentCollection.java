@@ -30,11 +30,7 @@ public abstract class AbstractPersistentCollection<E> {
 
         width = (int) Math.pow(2, bit_na_pu);
 
-        configureUndoRedo();
     }
-
-    protected abstract void configureUndoRedo();
-
 
     public static double log(int N, int newBase)
     {

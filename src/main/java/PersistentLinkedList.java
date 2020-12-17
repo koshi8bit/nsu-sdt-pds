@@ -5,6 +5,31 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     protected final Stack<HeadList<PLLE<E>>> redo = new Stack<>();
     protected final Stack<HeadList<PLLE<E>>> undo = new Stack<>();
 
+
+    public PersistentLinkedList() {
+        this(6, 5);
+    }
+
+    public PersistentLinkedList(int maxSize) {
+        this((int)Math.ceil(log(maxSize, (int)Math.pow(2, 5))), 5);
+    }
+
+    public PersistentLinkedList(int depth, int bit_na_pu) {
+
+        super(depth, bit_na_pu);
+
+        HeadList<PLLE<E>> head = new HeadList<>();
+        undo.push(head);
+        redo.clear();
+    }
+
+    public PersistentLinkedList(PersistentLinkedList<E> other) {
+        super(other.depth, other.bit_na_pu);
+        this.undo.addAll(other.undo);
+        this.redo.addAll(other.redo);
+    }
+
+
     public void undo() {
         if (!undo.empty()) {
             redo.push(undo.pop());
@@ -17,30 +42,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
     }
 
-    @Override
-    protected void configureUndoRedo() {
-        HeadList<PLLE<E>> head = new HeadList<>();
-        undo.push(head);
-        redo.clear();
-    }
-
-    public PersistentLinkedList() {
-        super();
-    }
-
-    public PersistentLinkedList(int maxSize) {
-        super(maxSize);
-    }
-
-    public PersistentLinkedList(int depth, int bit_na_pu) {
-        super(depth, bit_na_pu);
-    }
-
-    public PersistentLinkedList(PersistentLinkedList<E> other) {
-        super(other.depth, other.bit_na_pu);
-        this.undo.addAll(other.undo);
-        this.redo.addAll(other.redo);
-    }
 
     protected HeadList<PLLE<E>> getCurrentHead() {
         return this.undo.peek();
