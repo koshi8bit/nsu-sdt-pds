@@ -61,7 +61,7 @@ public abstract class AbstractPersistentCollection<E> {
     }
 
     public String drawGraph() {
-        return getCurrentHead().root.drawGraph();
+        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
     }
 
     protected Node<E> getLeaf(Head<E> head, int index)
