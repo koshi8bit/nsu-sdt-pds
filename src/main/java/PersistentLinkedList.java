@@ -147,12 +147,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         int indexAfter = getTreeIndex(index);
 
         CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(head, indexBefore);
+        PLLE<E> beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
+        beforeE.next = head.sizeTree;
+        before.leaf.value.set(before.leafInnerIndex, beforeE);
+
         CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(before.head, indexAfter);
+        PLLE<E> afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
+        afterE.prev = head.sizeTree;
+        after.leaf.value.set(after.leafInnerIndex, afterE);
 
         undo.push(after.head);
         redo.clear();
 
-        PLLE<E> element = new PLLE<>(value);
+        PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
 
         addLeaf(after.head).value.add(element);
 
