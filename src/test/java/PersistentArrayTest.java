@@ -79,20 +79,29 @@ public class PersistentArrayTest {
     @Test
     public void testPersistentArrayUndoRedo() {
         addABC();
+        assertEquals(4, pa.getVersionCount());
         pa.undo();
+        assertEquals(4, pa.getVersionCount());
         pa.undo();
+        assertEquals(4, pa.getVersionCount());
         assertEquals("A", valuesToString(pa));
 
         pa.redo();
+        assertEquals(4, pa.getVersionCount());
         assertEquals("AB", valuesToString(pa));
 
         pa.undo();
+        assertEquals(4, pa.getVersionCount());
         pa.undo();
+        assertEquals(4, pa.getVersionCount());
         assertEquals("", valuesToString(pa));
 
         pa.redo();
+        assertEquals(4, pa.getVersionCount());
         pa.redo();
+        assertEquals(4, pa.getVersionCount());
         pa.redo();
+        assertEquals(4, pa.getVersionCount());
         assertEquals("ABC", valuesToString(pa));
     }
 

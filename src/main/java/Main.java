@@ -16,6 +16,9 @@ public class Main {
         pl.add(2);
         pl.add(3);
         System.out.println(pl.drawGraph());
+        pl.undo();
+        System.out.println(pl.drawGraph());
+
     }
 
     private static void arrayPresentation() {

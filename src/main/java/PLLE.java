@@ -9,6 +9,6 @@ public class PLLE<E> {
 
     @Override
     public String toString() {
-        return "[P" + prev + ", V" + value + ", N" + next + "]";
+        return "[P" + prev + ", " + value + ", N" + next + "]";
     }
 }
