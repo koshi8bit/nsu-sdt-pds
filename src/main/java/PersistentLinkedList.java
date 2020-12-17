@@ -1,3 +1,5 @@
+import javafx.util.Pair;
+
 import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
@@ -60,8 +62,40 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return null;
     }
 
+    ////////////
+//    @Override
+//    public void add(int index, E value)
+//    {
+//        if (!isIndexValid(index)) {
+//            throw new IndexOutOfBoundsException();
+//        }
+//
+//        Head<E> oldHead = getCurrentHead();
+//
+//        Pair<Node<E>, Integer> copedNodeP = copyLeafInsert(oldHead, index);
+//        Head<E> newHead = getCurrentHead();
+//
+//        int leafIndex = copedNodeP.getValue();
+//        Node<E> copedNode = copedNodeP.getKey();
+//
+//        copedNode.value.set(leafIndex, value);
+//
+//        for (int i = index; i<oldHead.size; i++)
+//        {
+//            add(newHead, get(oldHead, i));
+//        }
+//
+//    }
+//
+    ///////////
+
+
+
     @Override
     public boolean add(E e) {
+        if (isFull()) {
+            return false;
+        }
         Head<PLLE<E>> newHead = new Head<>(getCurrentHead());
         undo.push(newHead);
         redo.clear();
@@ -71,53 +105,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private boolean add(Head<PLLE<E>> head, E newValue)
     {
-        if (head.size+1 >= maxSize) {
-            return false;
-        }
-
-        head.size += 1;
-
-        Node<PLLE<E>> currentNode = head.root;
-        int level = bit_na_pu * (depth - 1);
-
-        //System.out.print(newElement + "   ");
-        while (level > 0)
-        {
-            int index = ((head.size - 1) >> level) & mask;
-            //System.out.print(index);
-            Node<PLLE<E>> tmp, newNode;
-
-            if (currentNode.child == null)
-            {
-                currentNode.child = new LinkedList<>();
-                newNode = new Node<>();
-                currentNode.child.add(newNode);
-            }
-            else
-            {
-                if (index == currentNode.child.size())
-                {
-                    newNode = new Node<>();
-                    currentNode.child.add(newNode);
-                }
-                else
-                {
-                    tmp = currentNode.child.get(index);
-                    newNode = new Node<>(tmp);
-                    currentNode.child.set(index, newNode);
-                }
-            }
-
-            currentNode = newNode;
-            level -= bit_na_pu;
-        }
-
-        if (currentNode.value == null)
-            currentNode.value = new ArrayList<>();
-
-        currentNode.value.add(new PLLE<>(newValue));
-        //System.out.println();
-
+        add2(head).value.add(new PLLE<>(newValue));
         return true;
     }
 
