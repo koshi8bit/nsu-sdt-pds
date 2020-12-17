@@ -24,7 +24,7 @@ public class HeadArray<E> {
 
     @Override
     public String toString() {
-        return String.format("%09x", root.hashCode());
+        return String.format("%09x %d", root.hashCode(), size);
     }
 
 }
