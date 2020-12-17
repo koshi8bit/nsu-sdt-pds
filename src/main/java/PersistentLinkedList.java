@@ -44,16 +44,16 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
     }
 
-    public int calcUniqueLeafs()
+    public int getUniqueLeafsSize()
     {
         LinkedList<Node<PLLE<E>>> list = new LinkedList<>();
-        calcUniqueLeafs(list, undo);
-        calcUniqueLeafs(list, redo);
+        getUniqueLeafsSize(list, undo);
+        getUniqueLeafsSize(list, redo);
 
         return list.size();
     }
 
-    private void calcUniqueLeafs(LinkedList<Node<PLLE<E>>> list, Stack<HeadList<PLLE<E>>> undo1) {
+    private void getUniqueLeafsSize(LinkedList<Node<PLLE<E>>> list, Stack<HeadList<PLLE<E>>> undo1) {
         for (HeadList<PLLE<E>> head : undo1)
         {
             for (int i=0; i<head.size; i++)
@@ -174,7 +174,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         else
         {
             element = new PLLE<>(newValue, prevHead.last, -1);
-            System.out.println("last" + prevHead.last);
             Pair<Node<PLLE<E>>, Integer> pair = copyLeaf(prevHead, prevHead.last);
             head = getCurrentHead();
             PLLE<E> prev = new PLLE<>(pair.getKey().value.get(pair.getValue()));
@@ -420,7 +419,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     public String drawGraph() {
-        return "unique:" + calcUniqueLeafs() + "; ver:" + getVersionCount()+ "\n"
+        return "unique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
                 + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
     }
 
