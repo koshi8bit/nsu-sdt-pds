@@ -13,6 +13,7 @@ public class Main {
         System.out.println("\n" + "list");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
 
+        //TODO tests results are different, wtf?
         pl.add(3);
         System.out.println(pl.drawGraph());
 
