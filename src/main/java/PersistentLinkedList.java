@@ -174,10 +174,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         else
         {
             element = new PLLE<>(newValue, prevHead.last, -1);
+            System.out.println("last" + prevHead.last);
             Pair<Node<PLLE<E>>, Integer> pair = copyLeaf(prevHead, prevHead.last);
             head = getCurrentHead();
-            PLLE<E> prev = pair.getKey().value.get(pair.getValue());
+            PLLE<E> prev = new PLLE<>(pair.getKey().value.get(pair.getValue()));
             prev.next = head.sizeTree;
+            pair.getKey().value.set(pair.getValue(), prev);
+
 
 //            Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, head.last);
 //            PLLE<E> prev = new PLLE<>(pair.getKey().value.get(pair.getValue()));
