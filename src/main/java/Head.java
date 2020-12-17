@@ -7,6 +7,12 @@ public class Head<E> {
         this.size = 0;
     }
 
+    public Head(Head<E> prevHead) {
+        this.root = new Node<>(prevHead.root);
+        this.size = prevHead.size;
+    }
+
+
     public Head(Head<E> prevHead, Integer sizeDelta) {
         this.root = new Node<>(prevHead.root);
         this.size = prevHead.size + sizeDelta;

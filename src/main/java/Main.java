@@ -2,10 +2,20 @@
 public class Main {
     public static void main(String[] args) {
 
-        arrayPresentation();
+        //arrayPresentation();
+        listPresentation();
 
         //System.out.println(pa.getCurrentHead().root.drawGraph());
 
+    }
+
+    private static void listPresentation() {
+        System.out.println("\n" + "list");
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        pl.add(1);
+        pl.add(2);
+        pl.add(3);
+        System.out.println(pl.drawGraph());
     }
 
     private static void arrayPresentation() {

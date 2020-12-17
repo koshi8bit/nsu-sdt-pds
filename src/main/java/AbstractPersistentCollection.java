@@ -59,6 +59,10 @@ public abstract class AbstractPersistentCollection<E> {
         return (Math.log(N) / Math.log(newBase));
     }
 
+    public String drawGraph() {
+        return getCurrentHead().root.drawGraph();
+    }
+
     protected Node<E> getLeaf(Head<E> head, int index)
     {
         if (index >= head.size)

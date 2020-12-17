@@ -103,9 +103,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
                 + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray(head));
     }
 
-    public String drawGraph() {
-        return getCurrentHead().root.drawGraph();
-    }
+
 
     @Override
     public String toString() {

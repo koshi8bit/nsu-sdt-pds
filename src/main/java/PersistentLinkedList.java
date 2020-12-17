@@ -42,10 +42,17 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return null;
     }
 
+    private Object[] toArray(Head<PLLE<E>> head) {
+        Object[] objects = new Object[head.size];
+        for (int i = 0; i < objects.length; i++) {
+            objects[i] = this.get(head, i);
+        }
+        return objects;
+    }
+
     @Override
     public Object[] toArray() {
-        //TODO
-        return new Object[0];
+        return toArray(getCurrentHead());
     }
 
     @Override
@@ -55,15 +62,14 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     @Override
     public boolean add(E e) {
-        Head<PLLE<E>> newHead = new Head<>(getCurrentHead(), 0);
+        Head<PLLE<E>> newHead = new Head<>(getCurrentHead());
         undo.push(newHead);
         redo.clear();
 
         return add(newHead, e);
-        //return false;
     }
 
-    private boolean add(Head<PLLE<E>> head, E newElement)
+    private boolean add(Head<PLLE<E>> head, E newValue)
     {
         if (head.size+1 >= maxSize) {
             return false;
@@ -109,7 +115,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (currentNode.value == null)
             currentNode.value = new ArrayList<>();
 
-        //currentNode.value.add(newElement);
+        currentNode.value.add(new PLLE<>(newValue));
         //System.out.println();
 
         return true;
@@ -150,9 +156,17 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
+    private E get(Head<PLLE<E>> head, int index)
+    {
+        if (!((index < head.size) && (index>=0))) {
+            throw new IndexOutOfBoundsException();
+        }
+        return getLeaf(head, index).value.get(index & mask).value;
+    }
+
     @Override
     public E get(int index) {
-        return null;
+        return get(getCurrentHead(), index);
     }
 
     @Override
