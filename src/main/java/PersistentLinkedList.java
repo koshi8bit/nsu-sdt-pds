@@ -148,10 +148,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
                 before.leaf.value.set(before.leafInnerIndex, beforeE);
                 newHead = before.head;
             }
-//            else
-//            {
-//                newHead.first = newHead.sizeTree-1;
-//            }
 
             if (index != prevHead.size - 1) {
                 indexAfter = getTreeIndex(index);
@@ -165,9 +161,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
 
         }
-        //
-
-        //todo move head.first/last
 
         undo.push(newHead);
         redo.clear();

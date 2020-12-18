@@ -163,15 +163,15 @@ public class PersistentLinkedListTest {
         pl.add(0, 4);
         assertEquals(4, pl.getUniqueLeafsSize());
         assertEquals(5, pl.getVersionCount());
-        assertEquals(0, pl.getCurrentHead().first);
+        assertEquals(3, pl.getCurrentHead().first);
         assertEquals(2, pl.getCurrentHead().last);
         assertEquals(4, pl.size());
-        assertEquals("0123", valuesToString(pl));
+        assertEquals("4123", valuesToString(pl));
 
         pl.add(0, 5);
         assertEquals(5, pl.getUniqueLeafsSize());
         assertEquals(6, pl.getVersionCount());
-        assertEquals(0, pl.getCurrentHead().first);
+        assertEquals(4, pl.getCurrentHead().first);
         assertEquals(2, pl.getCurrentHead().last);
         assertEquals(5, pl.size());
         assertEquals("54123", valuesToString(pl));
