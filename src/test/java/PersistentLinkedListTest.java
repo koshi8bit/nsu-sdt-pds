@@ -115,7 +115,6 @@ public class PersistentLinkedListTest {
         pl.add(3);
         pl.add(4);
         pl.add(6);
-
         assertEquals(3, pl.getUniqueLeafsSize());
         assertEquals(4, pl.getVersionCount());
         assertEquals(0, pl.getCurrentHead().first);
@@ -146,7 +145,35 @@ public class PersistentLinkedListTest {
         assertEquals(5, pl.getCurrentHead().last);
         assertEquals(6, pl.size());
         assertEquals("379468", valuesToString(pl));
+    }
 
+    @Test
+    public void insertIntoBeginAndEnd() {
+        init(0);
+        pl.add(1);
+        pl.add(2);
+        pl.add(3);
+        assertEquals(3, pl.getUniqueLeafsSize());
+        assertEquals(4, pl.getVersionCount());
+        assertEquals(0, pl.getCurrentHead().first);
+        assertEquals(2, pl.getCurrentHead().last);
+        assertEquals(3, pl.size());
+        assertEquals("123", valuesToString(pl));
 
+        pl.add(0, 4);
+        assertEquals(4, pl.getUniqueLeafsSize());
+        assertEquals(5, pl.getVersionCount());
+        assertEquals(0, pl.getCurrentHead().first);
+        assertEquals(2, pl.getCurrentHead().last);
+        assertEquals(4, pl.size());
+        assertEquals("0123", valuesToString(pl));
+
+        pl.add(0, 5);
+        assertEquals(5, pl.getUniqueLeafsSize());
+        assertEquals(6, pl.getVersionCount());
+        assertEquals(0, pl.getCurrentHead().first);
+        assertEquals(2, pl.getCurrentHead().last);
+        assertEquals(5, pl.size());
+        assertEquals("54123", valuesToString(pl));
     }
 }

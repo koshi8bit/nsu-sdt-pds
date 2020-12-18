@@ -131,39 +131,50 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             throw new IllegalStateException("array is full");
         }
 
-        HeadList<PLLE<E>> head = getCurrentHead();
+        HeadList<PLLE<E>> prevHead = getCurrentHead();
+        HeadList<PLLE<E>> newHead = null;
 
-        if (index==0)
-        {
-            return;
+        int indexBefore = -1;
+        int indexAfter = -1;
+
+        if (prevHead.size == 0) {
+            newHead = new HeadList<>(prevHead);
+        } else {
+            if (index != 0) {
+                indexBefore = getTreeIndex(index - 1);
+                CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(prevHead, indexBefore);
+                PLLE<E> beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
+                beforeE.next = prevHead.sizeTree;
+                before.leaf.value.set(before.leafInnerIndex, beforeE);
+                newHead = before.head;
+            }
+//            else
+//            {
+//                newHead.first = newHead.sizeTree-1;
+//            }
+
+            if (index != prevHead.size - 1) {
+                indexAfter = getTreeIndex(index);
+                HeadList<PLLE<E>> prevHead2 = newHead != null ? newHead : prevHead;
+                CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(prevHead2, indexAfter);
+                PLLE<E> afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
+                afterE.prev = prevHead.sizeTree;
+                after.leaf.value.set(after.leafInnerIndex, afterE);
+                newHead = after.head;
+            }
+
+
         }
+        //
 
-        if (index==head.size-1)
-        {
-            return;
-        }
+        //todo move head.first/last
 
-        int indexBefore = getTreeIndex(index-1);
-        int indexAfter = getTreeIndex(index);
-
-        CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(head, indexBefore);
-        PLLE<E> beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
-        beforeE.next = head.sizeTree;
-        before.leaf.value.set(before.leafInnerIndex, beforeE);
-
-        CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(before.head, indexAfter);
-        PLLE<E> afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
-        afterE.prev = head.sizeTree;
-        after.leaf.value.set(after.leafInnerIndex, afterE);
-
-        undo.push(after.head);
+        undo.push(newHead);
         redo.clear();
 
         PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
 
-        addLeaf(after.head).value.add(element);
-
-
+        addLeaf(newHead).value.add(element);
 
     }
 
@@ -341,6 +352,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             throw new IndexOutOfBoundsException();
         }
         int treeIndex = getTreeIndex(index);
+        if (treeIndex == -1)
+            throw new IndexOutOfBoundsException("getTreeIndex == -1");
+
         return getLeaf(head, treeIndex).getKey().value.get(treeIndex & mask).value;
     }
 

@@ -20,16 +20,21 @@ public class Main {
         pl.add(6);
         pl.add(0);
         pl.add(7);
-        System.out.println(pl.drawGraph());
         System.out.println(Arrays.toString(pl.toArray()));
+        System.out.println(pl.drawGraph());
 
         pl.add(3, 9);
-        System.out.println(pl.drawGraph());
         System.out.println(Arrays.toString(pl.toArray()));
+        System.out.println(pl.drawGraph());
 
-        pl.undo();
-        System.out.println(pl.drawGraph());
+        pl.add(0, 1);
         System.out.println(Arrays.toString(pl.toArray()));
+        System.out.println(pl.drawGraph());
+
+
+//        pl.undo();
+//        System.out.println(Arrays.toString(pl.toArray()));
+//        System.out.println(pl.drawGraph());
     }
 
     private static void arrayPresentation() {
