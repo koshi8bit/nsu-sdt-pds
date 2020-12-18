@@ -421,7 +421,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public String drawGraph() {
         return "unique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
-                + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
+                + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
     }
 
 
