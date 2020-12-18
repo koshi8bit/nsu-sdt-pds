@@ -174,7 +174,18 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
 
-        addLeaf(newHead).value.add(element);
+        if (indexBefore == -1)
+        {
+            newHead.first = newHead.sizeTree;
+        }
+
+        if (indexAfter == -1)
+        {
+            newHead.last = newHead.sizeTree;
+        }
+
+        findLeafForNewElement(newHead).value.add(element);
+
 
     }
 
@@ -248,12 +259,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         undo.push(newHead);
         redo.clear();
 
-        addLeaf(newHead).value.add(element);
+        findLeafForNewElement(newHead).value.add(element);
+
         return true;
     }
 
 
-    protected Node<PLLE<E>> addLeaf(HeadList<PLLE<E>> head)
+    protected Node<PLLE<E>> findLeafForNewElement(HeadList<PLLE<E>> head)
     {
         if (isFull(head)) {
             throw new IndexOutOfBoundsException("collection is full");

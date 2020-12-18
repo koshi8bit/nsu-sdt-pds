@@ -24,11 +24,11 @@ public class Main {
         System.out.println(pl.drawGraph());
 
         pl.add(3, 9);
-        System.out.println(Arrays.toString(pl.toArray()));
+        //System.out.println(Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
         pl.add(0, 1);
-        System.out.println(Arrays.toString(pl.toArray()));
+        //System.out.println(Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
 
