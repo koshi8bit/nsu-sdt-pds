@@ -1,9 +1,11 @@
+import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
 
-        //arrayPresentation();
+        arrayPresentation();
         listPresentation();
 
         //System.out.println(pa.getCurrentHead().root.drawGraph());
@@ -14,7 +16,6 @@ public class Main {
         System.out.println("\n" + "list");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
 
-        //TODO tests results are different, wtf?
         pl.add(3);
         pl.add(4);
         pl.add(6);
@@ -35,6 +36,11 @@ public class Main {
         System.out.println(Arrays.toString(pl.toArray()) + " undo");
         System.out.println(pl.drawGraph());
 
+//        pl.add(5, 2);
+//        System.out.println(Arrays.toString(pl.toArray()) + " add(6,2)");
+//        System.out.println(pl.drawGraph());
+//TODO tests results are different, wtf?
+
     }
 
     private static void arrayPresentation() {
@@ -51,7 +57,7 @@ public class Main {
         System.out.println(pa);
 
 
-        System.out.println("\n---Vasya-Cooper-Abdula---");
+        System.out.println("\n\n---Vasya-Cooper-Abdula---");
         PersistentArray<String> v1 = new PersistentArray<>(3, 1);
         System.out.println("maxSize = " + v1.maxSize);
         v1.add("Vasya");
