@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersistentLinkedListTest {
     PersistentLinkedList<Integer> pl;
@@ -149,11 +150,11 @@ public class PersistentLinkedListTest {
 
     @Test
     public void insertIntoBeginAndEnd() {
-        init(0);
+        init(0, 3, 1);
         pl.add(1);
         pl.add(2);
         pl.add(3);
-        assertEquals(3, pl.getUniqueLeafsSize());
+        assertEquals(4, pl.getUniqueLeafsSize());
         assertEquals(4, pl.getVersionCount());
         assertEquals(0, pl.getCurrentHead().first);
         assertEquals(2, pl.getCurrentHead().last);
@@ -161,7 +162,7 @@ public class PersistentLinkedListTest {
         assertEquals("123", valuesToString(pl));
 
         pl.add(0, 4);
-        assertEquals(4, pl.getUniqueLeafsSize());
+        assertEquals(6, pl.getUniqueLeafsSize());
         assertEquals(5, pl.getVersionCount());
         assertEquals(3, pl.getCurrentHead().first);
         assertEquals(2, pl.getCurrentHead().last);
@@ -169,11 +170,22 @@ public class PersistentLinkedListTest {
         assertEquals("4123", valuesToString(pl));
 
         pl.add(0, 5);
-        assertEquals(5, pl.getUniqueLeafsSize());
+        assertEquals(8, pl.getUniqueLeafsSize());
         assertEquals(6, pl.getVersionCount());
         assertEquals(4, pl.getCurrentHead().first);
         assertEquals(2, pl.getCurrentHead().last);
         assertEquals(5, pl.size());
         assertEquals("54123", valuesToString(pl));
+
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.add(5, 6));
+
+
+        pl.add(4, 7);
+        assertEquals(10, pl.getUniqueLeafsSize());
+        assertEquals(7, pl.getVersionCount());
+        assertEquals(4, pl.getCurrentHead().first);
+        assertEquals(5, pl.getCurrentHead().last);
+        assertEquals(6, pl.size());
+        assertEquals("541273", valuesToString(pl));
     }
 }

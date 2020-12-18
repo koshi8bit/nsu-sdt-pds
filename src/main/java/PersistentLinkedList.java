@@ -115,6 +115,17 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
 
+    public void checkIndex(int index)
+    {
+        checkIndex(index, getCurrentHead());
+    }
+
+    public void checkIndex(int index, HeadList<PLLE<E>> head)
+    {
+        if (!((index>=0) && (index<head.size)))
+            throw new IndexOutOfBoundsException("Invalid index");
+    }
+
     public boolean isFull()
     {
         return isFull(getCurrentHead());
@@ -131,8 +142,12 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             throw new IllegalStateException("array is full");
         }
 
+
         HeadList<PLLE<E>> prevHead = getCurrentHead();
         HeadList<PLLE<E>> newHead = null;
+
+        checkIndex(index, prevHead);
+
 
         int indexBefore = -1;
         int indexAfter = -1;
@@ -353,9 +368,12 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private E get(HeadList<PLLE<E>> head, int index)
     {
-        if (!((index < head.size) && (index>=0))) {
-            throw new IndexOutOfBoundsException();
-        }
+        checkIndex(index);
+
+//        if (!((index < head.size) && (index>=0))) {
+//            throw new IndexOutOfBoundsException();
+//        }
+
         int treeIndex = getTreeIndex(index);
         if (treeIndex == -1)
             throw new IndexOutOfBoundsException("getTreeIndex == -1");
@@ -365,6 +383,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     protected Pair<Node<PLLE<E>>, Integer> getLeaf(HeadList<PLLE<E>> head, int index)
     {
+        checkIndex(index, head);
+
         if (index >= head.size)
             throw new IndexOutOfBoundsException();
 
@@ -386,6 +406,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             throw new IllegalStateException("array is full");
             //return null;
         }
+        checkIndex(index, head);
 
         HeadList<PLLE<E>> newHead = new HeadList<>(head, 0);
         Node<PLLE<E>> currentNode = newHead.root;
