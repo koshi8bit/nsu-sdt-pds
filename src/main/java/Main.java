@@ -1,6 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
@@ -8,22 +6,6 @@ public class Main {
         arrayPresentation();
 //        listPresentation();
 
-        PersistentArray<PersistentArray<Integer>> pa = new PersistentArray<>();
-
-        PersistentArray<Integer> pa1 = new PersistentArray<>();
-        pa1.add(1);
-        pa1.add(2);
-
-        PersistentArray<Integer> pa2 = new PersistentArray<>();
-        pa2.add(3);
-        pa2.add(4);
-
-        pa.add(pa1);
-        pa.add(pa2);
-
-        pa1.set(1, 9);
-
-        //System.out.println(pa.getCurrentHead().root.drawGraph());
 
     }
 
@@ -59,19 +41,37 @@ public class Main {
     }
 
     private static void arrayPresentation() {
-        System.out.println("\n" + "array");
-        PersistentArray<String> pa = new PersistentArray<>(28);
-        System.out.println("maxSize = " + pa.maxSize);
+        simple();
+        vasyaCooperAbdula();
+        vlojennoct();
 
-        pa.add("1");
-        pa.add("2");
-        System.out.println(pa);
-        System.out.println("pop=" + pa.pop());
-        System.out.println(pa);
+    }
+
+    private static void vlojennoct() {
+        System.out.println("\nVlojennost");
+        //todo вложенность, о которой нас Саня спрашивал. Нужно проверить подписчиков/публицистов
+
+        PersistentArray<PersistentArray<Integer>> pa = new PersistentArray<>(3, 1);
+
+        PersistentArray<Integer> pa1 = new PersistentArray<>(3, 1);
+        pa1.add(1);
+        pa1.add(2);
+
+        PersistentArray<Integer> pa2 = new PersistentArray<>(3, 1);
+        pa2.add(3);
+        pa2.add(4);
+
+        pa.add(pa1);
+        pa.add(pa2);
+
+        System.out.println(pa.getCurrentHead().root.drawGraph());
+        pa1.set(1, 9);
+        System.out.println(pa.getCurrentHead().root.drawGraph());
         pa.undo();
-        System.out.println(pa);
+        System.out.println(pa.getCurrentHead().root.drawGraph());
+    }
 
-
+    private static void vasyaCooperAbdula() {
         System.out.println("\n\n---Vasya-Cooper-Abdula---");
         PersistentArray<String> v1 = new PersistentArray<>(3, 1);
         System.out.println("maxSize = " + v1.maxSize);
@@ -93,10 +93,21 @@ public class Main {
         System.out.println(v3.drawGraph());
         v3.remove(2);
         System.out.println(v3.drawGraph());
-
     }
 
+    private static void simple() {
+        System.out.println("\n" + "array");
+        PersistentArray<String> pa = new PersistentArray<>(28);
+        System.out.println("maxSize = " + pa.maxSize);
 
+        pa.add("1");
+        pa.add("2");
+        System.out.println(pa);
+        System.out.println("pop=" + pa.pop());
+        System.out.println(pa);
+        pa.undo();
+        System.out.println(pa);
+    }
 
 
 }
