@@ -6,7 +6,22 @@ public class Main {
     public static void main(String[] args) {
 
         arrayPresentation();
-        listPresentation();
+//        listPresentation();
+
+        PersistentArray<PersistentArray<Integer>> pa = new PersistentArray<>();
+
+        PersistentArray<Integer> pa1 = new PersistentArray<>();
+        pa1.add(1);
+        pa1.add(2);
+
+        PersistentArray<Integer> pa2 = new PersistentArray<>();
+        pa2.add(3);
+        pa2.add(4);
+
+        pa.add(pa1);
+        pa.add(pa2);
+
+        pa1.set(1, 9);
 
         //System.out.println(pa.getCurrentHead().root.drawGraph());
 
@@ -68,6 +83,7 @@ public class Main {
 
         PersistentArray<String> v3 = v2.assoc(0, "Abdula");
 
+        System.out.println();
         System.out.println(v1);
         System.out.println(v2);
         System.out.println(v3);

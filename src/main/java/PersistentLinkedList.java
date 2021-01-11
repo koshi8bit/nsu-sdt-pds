@@ -97,6 +97,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     private Object[] toArray(HeadList<PLLE<E>> head) {
+        //TODO 0(n^2)
         Object[] objects = new Object[head.size];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = this.get(head, i);
@@ -206,6 +207,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
+        //O(N)
         //todo need to test
         //todo add exception on too big index and neg index
 
@@ -220,6 +222,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        Node<PLLE<E>> current = pair.getKey();
         PLLE<E> current;
 
+        //o(n^2)
         for (int i=0; i<listIndex; i++)
         {
             Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, result);
