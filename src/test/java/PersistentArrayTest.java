@@ -141,6 +141,14 @@ public class PersistentArrayTest {
         parent.undo();
         assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 0;" +
                 " unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+
+        parent.get(0).set(0, "Я выживу!");
+        parent.get(0).set(1, "А я нет...");
+        assertEquals("size: 3; unique leafs: 5; array: [Я выживу!, А я нет..., 3]size: 0; " +
+                "unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+        parent.undo();
+        assertEquals("size: 3; unique leafs: 5; array: [Я выживу!, 2, 3]size: 0; " +
+                "unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
     }
 
     @Test

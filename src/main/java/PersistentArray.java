@@ -523,6 +523,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
     public E set(int index, E element) {
         Pair<Node<E>, Integer> pair = copyLeaf(getCurrentHead(), index);
         pair.getKey().value.set(pair.getValue(), element);
+        tryParentUndo(element);
         return get(index);
     }
 
