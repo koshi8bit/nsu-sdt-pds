@@ -27,18 +27,31 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         this.redo.addAll(other.redo);
     }
 
+    private PersistentArray<PersistentArray<?>> parent;
+    private Stack<PersistentArray<?>> insertedUndo = new Stack<>();
+    private Stack<PersistentArray<?>> insertedRedo = new Stack<>();
     protected final Stack<HeadArray<E>> redo = new Stack<>();
     protected final Stack<HeadArray<E>> undo = new Stack<>();
 
     public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
+        if (!insertedUndo.empty()) {
+            insertedUndo.peek().undo();
+            insertedRedo.push(insertedUndo.pop());
+        } else {
+            if (!undo.empty()) {
+                redo.push(undo.pop());
+            }
         }
     }
 
     public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
+        if (!insertedRedo.empty()) {
+            insertedRedo.peek().redo();
+            insertedUndo.push(insertedRedo.pop());
+        } else {
+            if (!redo.empty()) {
+                undo.push(redo.pop());
+            }
         }
     }
 
@@ -309,6 +322,18 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
             add(newHead, get(oldHead, i));
         }
 
+        tryUndo(value);
+
+    }
+
+    private void tryUndo(E value) {
+        if (value instanceof PersistentArray) {
+            ((PersistentArray) value).parent = this;
+        }
+
+        if (parent != null) {
+            parent.onEvent(this);
+        }
     }
 
     @Override
@@ -320,6 +345,8 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         undo.push(newHead);
         redo.clear();
 
+        tryUndo(newElement);
+
         return add(newHead, newElement);
     }
 
@@ -330,9 +357,9 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         return true;
     }
 
-
-
-
+    private void onEvent(PersistentArray<?> persistentArray) {
+        insertedUndo.push(persistentArray);
+    }
 
     private E get(HeadArray<E> head, int index)
     {

@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-
+        vlojennoct();
         //arrayPresentation();
         listPresentation();
 
@@ -65,7 +65,7 @@ public class Main {
         pa.add(pa2);
 
         System.out.println(pa.getCurrentHead().root.drawGraph());
-        pa1.set(1, 9);
+        pa1.add(1, 9);
         System.out.println(pa.getCurrentHead().root.drawGraph());
         pa.undo();
         System.out.println(pa.getCurrentHead().root.drawGraph());

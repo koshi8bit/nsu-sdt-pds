@@ -106,6 +106,39 @@ public class PersistentArrayTest {
     }
 
     @Test
+    public void testPersistentArrayInsertedUndoRedo() {
+        PersistentArray<PersistentArray<String>> parent = new PersistentArray<>();
+        PersistentArray<String> child1 = new PersistentArray<>();
+        PersistentArray<String> child2 = new PersistentArray<>();
+        PersistentArray<String> child3 = new PersistentArray<>();
+        parent.add(child1);
+        parent.add(child2);
+        parent.add(child3);
+
+        parent.get(0).add("1");
+        parent.get(0).add("2");
+        parent.get(0).add("3");
+
+        parent.get(1).add("11");
+        parent.get(1).add("22");
+        parent.get(1).add("33");
+
+        parent.get(2).add("111");
+        parent.get(2).add("222");
+        parent.get(2).add("333");
+
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; unique leafs: 3; array: [11, 22, 33]size: 3; unique leafs: 3; array: [111, 222, 333]", valuesToString(parent));
+        parent.undo();
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+
+        PersistentArray<String> child4 = new PersistentArray<>();
+        parent.add(1, child4);
+        parent.get(1).add("Меня выпилят :(");
+        parent.undo();
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 0; unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+    }
+
+    @Test
     public void testPersistentArrayIterator() {
         addABC();
         Iterator<String> i = pa.iterator();
