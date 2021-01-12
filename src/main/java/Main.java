@@ -2,7 +2,20 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        vlojennoct();
+        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
+        phm.put ("Vasya",10);
+        phm.put ("Petya", 11);
+        phm.put("Gosha", 12);
+        System.out.println(phm.toString());
+        phm.undo();
+        System.out.println(phm.toString());
+        phm.put("Vitya", 13);
+        System.out.println(phm.toString());
+        phm.undo();
+        System.out.println(phm.toString());
+        phm.redo();
+        System.out.println(phm.toString());
+        //vlojennoct();
         //arrayPresentation();
         //listPresentation();
 
