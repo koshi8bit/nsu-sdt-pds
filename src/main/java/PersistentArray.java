@@ -322,11 +322,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
             add(newHead, get(oldHead, i));
         }
 
-        tryUndo(value);
+        tryParentUndo(value);
 
     }
 
-    private void tryUndo(E value) {
+    private void tryParentUndo(E value) {
         if (value instanceof PersistentArray) {
             ((PersistentArray) value).parent = this;
         }
@@ -345,7 +345,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         undo.push(newHead);
         redo.clear();
 
-        tryUndo(newElement);
+        tryParentUndo(newElement);
 
         return add(newHead, newElement);
     }

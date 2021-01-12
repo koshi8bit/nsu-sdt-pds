@@ -127,15 +127,20 @@ public class PersistentArrayTest {
         parent.get(2).add("222");
         parent.get(2).add("333");
 
-        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; unique leafs: 3; array: [11, 22, 33]size: 3; unique leafs: 3; array: [111, 222, 333]", valuesToString(parent));
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; " +
+                "unique leafs: 3; array: [11, 22, 33]size: 3; unique leafs: 3; array: [111, 222, 333]", valuesToString(parent));
         parent.undo();
-        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 3; " +
+                "unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
 
         PersistentArray<String> child4 = new PersistentArray<>();
         parent.add(1, child4);
-        parent.get(1).add("Меня выпилят :(");
+        child4.add("Меня выпилят :(");
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 1;" +
+                " unique leafs: 1; array: [Меня выпилят :(]size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
         parent.undo();
-        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 0; unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
+        assertEquals("size: 3; unique leafs: 3; array: [1, 2, 3]size: 0;" +
+                " unique leafs: 1; array: []size: 3; unique leafs: 3; array: [11, 22, 33]size: 2; unique leafs: 3; array: [111, 222]", valuesToString(parent));
     }
 
     @Test
