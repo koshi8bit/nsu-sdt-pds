@@ -3,6 +3,7 @@ import java.util.*;
 public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRedo {
 
     private PersistentArray<LinkedList<Pair<K, V>>> table;
+    //TODO change to array
 
     public PersistentHashMap() {
         this.table = new PersistentArray<>(16);

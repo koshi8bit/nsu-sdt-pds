@@ -4,13 +4,13 @@ public class Main {
     public static void main(String[] args) {
         vlojennoct();
         //arrayPresentation();
-        listPresentation();
+        //listPresentation();
 
 
     }
 
     private static void listPresentation() {
-        System.out.println("\n" + "list");
+        System.out.println("\n\nlist");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
 
         pl.add(3);
@@ -48,8 +48,7 @@ public class Main {
     }
 
     private static void vlojennoct() {
-        System.out.println("\nVlojennost");
-        //todo вложенность, о которой нас Саня спрашивал. Нужно проверить подписчиков/публицистов
+        System.out.println("\n\nVlojennost");
 
         PersistentArray<PersistentArray<Integer>> pa = new PersistentArray<>(3, 1);
 
@@ -96,7 +95,7 @@ public class Main {
     }
 
     private static void simple() {
-        System.out.println("\n" + "array");
+        System.out.println("\n\narray");
         PersistentArray<String> pa = new PersistentArray<>(28);
         System.out.println("maxSize = " + pa.maxSize);
 
