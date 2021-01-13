@@ -12,9 +12,6 @@ public class Main {
         phm.put("Vasya",10);
         phm.put("Petya", 11);
         System.out.println("2 elem\t\t\t" + phm.toString());
-
-        phm.put("Gosha", 12);
-        System.out.println("add Gosha\t\t" + phm.toString());
         phm.undo();
         System.out.println("undo\t\t\t" + phm.toString());
         phm.redo();
@@ -26,12 +23,16 @@ public class Main {
         // but now
         // [Vasya=10]
         // OR setValue??
+        System.out.println();
+        phm.put("Gosha", 12);
+        System.out.println("add Gosha\t\t" + phm.toString());
         phm.put("Gosha", 1000);
         System.out.println("modify Gosha\t" + phm.toString());
         phm.undo();
         System.out.println("undo\t\t\t" + phm.toString());
 
         //todo Vova exist, but need to be removed
+        System.out.println();
         phm.put("Vova", -99);
         System.out.println("add Vova\t\t"+ phm.toString());
         phm.remove("Vova");
