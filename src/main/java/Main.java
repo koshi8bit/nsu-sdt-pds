@@ -24,7 +24,6 @@ public class Main {
 
         pl.add(3, 9);
         System.out.println(pl.drawGraph());
-        String s = pl.toString(); //todo last = 4? wtf??? need to be 5; add do not modify last?
         System.out.println("add(3,9) " + pl);
         System.out.println(pl.drawGraph());
 
