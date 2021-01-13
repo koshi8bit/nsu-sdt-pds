@@ -32,6 +32,7 @@ public class Main {
         // [Vasya=10 Gosha=12]
         // but now
         // [Vasya=10]
+        // OR setValue??
         phm.undo();
         System.out.println("undo\t\t\t" + phm.toString());
     }
