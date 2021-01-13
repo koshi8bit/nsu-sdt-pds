@@ -1,13 +1,44 @@
 import java.util.Arrays;
-import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
         //arrayPresentation();
-        listPresentation();
+        //listPresentation();
+        hashMapPresentation();
+    }
+
+    private static void hashMapPresentation() {
+        PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
+        phm.put("Vasya",10);
+        phm.put("Petya", 11);
+        System.out.println("2 elem\t\t\t" + phm.toString());
+        phm.undo();
+        System.out.println("undo\t\t\t" + phm.toString());
+        phm.redo();
+        System.out.println("redo\t\t\t"+ phm.toString());
 
 
+        //TODO need to be
+        // [Vasya=10 Gosha=12]
+        // but now
+        // [Vasya=10]
+        // OR setValue??
+        System.out.println();
+        phm.put("Gosha", 12);
+        System.out.println("add Gosha\t\t" + phm.toString());
+        phm.put("Gosha", 1000);
+        System.out.println("modify Gosha\t" + phm.toString());
+        phm.undo();
+        System.out.println("undo\t\t\t" + phm.toString());
 
+        //todo Vova exist, but need to be removed
+        System.out.println();
+        phm.put("Vova", -99);
+        System.out.println("add Vova\t\t"+ phm.toString());
+        phm.remove("Vova");
+        System.out.println("remove Vova\t\t"+ phm.toString());
+        phm.undo();
+        System.out.println("undo\t\t\t" + phm.toString());
     }
 
     private static void listPresentation() {
@@ -19,40 +50,25 @@ public class Main {
         pl.add(6);
         pl.add(0);
         pl.add(7);
-        System.out.println("filled " + pl);
+        System.out.println(Arrays.toString(pl.toArray()) + " fill");
         System.out.println(pl.drawGraph());
 
         pl.add(3, 9);
-        System.out.println(pl.drawGraph());
-        System.out.println("add(3,9) " + pl);
+        System.out.println(Arrays.toString(pl.toArray()) + " add(3,9)");
         System.out.println(pl.drawGraph());
 
         pl.add(0, 1);
-        System.out.println("add(0,1) " + pl);
+        System.out.println(Arrays.toString(pl.toArray()) + " add(0,1)");
         System.out.println(pl.drawGraph());
 
         pl.undo();
-        System.out.println("undo " + pl);
+        System.out.println(Arrays.toString(pl.toArray()) + " undo");
         System.out.println(pl.drawGraph());
 
-        //todo add to test
-        System.out.println("Iterator");
-        Iterator<Integer> i = pl.iterator();
-        System.out.println(i.hasNext());
-        System.out.println(i.next());
-        System.out.println(i.next());
-//        System.out.println(i.next());
-//        System.out.println(i.next());
-//        System.out.println(i.next());
-//        System.out.println(i.next());
-//        System.out.println(i.next());
-
 //        pl.add(5, 2);
-//        System.out.println("add(6,2)" + pl);
+//        System.out.println(Arrays.toString(pl.toArray()) + " add(6,2)");
 //        System.out.println(pl.drawGraph());
 //TODO tests results are different, wtf?
-
-
 
     }
 
