@@ -148,9 +148,18 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
     }
 
 
-    private String toString(HeadArray<E> head) {
+    private String debugInfo(HeadArray<E> head) {
         return "size: " + size(head) + "; unique leafs: "
-                + calcUniqueLeafs() + "; array: " +  Arrays.toString(toArray(head));
+                + calcUniqueLeafs() + "; array: " +  toString(head);
+    }
+
+    @Override
+    public String toString() {
+        return toString(getCurrentHead());
+    }
+
+    private String toString(HeadArray<E> head) {
+        return Arrays.toString(toArray(head));
     }
 
     public int size(HeadArray<E> head) {
@@ -183,10 +192,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
 
 
 
-    @Override
-    public String toString() {
-        return toString(getCurrentHead());
-    }
+
 
     @Override
     public boolean remove(Object o) {
@@ -567,7 +573,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         public E next()
         {
             //if (index == getC)
-            return (E) get(index++); // TODO WTF
+            return (E) get(index++); // TODO WTF cast err
         }
 
         @Override

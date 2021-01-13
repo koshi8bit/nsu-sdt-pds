@@ -2,9 +2,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        vlojennoct();
         //arrayPresentation();
-        //listPresentation();
+        listPresentation();
 
 
     }
@@ -18,25 +17,27 @@ public class Main {
         pl.add(6);
         pl.add(0);
         pl.add(7);
-        System.out.println(Arrays.toString(pl.toArray()) + " fill");
+        System.out.println("filled " + Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
         pl.add(3, 9);
-        System.out.println(Arrays.toString(pl.toArray()) + " add(3,9)");
+        System.out.println("add(3,9) " + Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
         pl.add(0, 1);
-        System.out.println(Arrays.toString(pl.toArray()) + " add(0,1)");
+        System.out.println("add(0,1) " + Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
         pl.undo();
-        System.out.println(Arrays.toString(pl.toArray()) + " undo");
+        System.out.println("undo " + Arrays.toString(pl.toArray()));
         System.out.println(pl.drawGraph());
 
 //        pl.add(5, 2);
-//        System.out.println(Arrays.toString(pl.toArray()) + " add(6,2)");
+//        System.out.println("add(6,2)\t\t\t" + Arrays.toString(pl.toArray()));
 //        System.out.println(pl.drawGraph());
 //TODO tests results are different, wtf?
+
+
 
     }
 

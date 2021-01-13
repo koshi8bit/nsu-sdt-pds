@@ -96,8 +96,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return null;
     }
 
+    @Override
+    public Object[] toArray() {
+        return toArray(getCurrentHead());
+    }
+
     private Object[] toArray(HeadList<PLLE<E>> head) {
-        //TODO 0(n^2)
+        //TODO 0(n^2) -> 0(n) use iterator?
         Object[] objects = new Object[head.size];
         for (int i = 0; i < objects.length; i++) {
             objects[i] = this.get(head, i);
@@ -105,10 +110,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return objects;
     }
 
-    @Override
-    public Object[] toArray() {
-        return toArray(getCurrentHead());
-    }
+
 
     @Override
     public <T> T[] toArray(T[] a) {
@@ -148,7 +150,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         HeadList<PLLE<E>> newHead = null;
 
         checkIndex(index, prevHead);
-
 
         int indexBefore = -1;
         int indexAfter = -1;
@@ -276,6 +277,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
 
+
     protected Node<PLLE<E>> findLeafForNewElement(HeadList<PLLE<E>> head)
     {
         if (isFull(head)) {
@@ -368,20 +370,20 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return get(getCurrentHead(), index);
     }
 
-
-    private E get(HeadList<PLLE<E>> head, int index)
+    private PLLE<E> getPLLE(HeadList<PLLE<E>> head, int index)
     {
         checkIndex(index);
-
-//        if (!((index < head.size) && (index>=0))) {
-//            throw new IndexOutOfBoundsException();
-//        }
 
         int treeIndex = getTreeIndex(index);
         if (treeIndex == -1)
             throw new IndexOutOfBoundsException("getTreeIndex == -1");
 
-        return getLeaf(head, treeIndex).getKey().value.get(treeIndex & mask).value;
+        return getLeaf(head, treeIndex).getKey().value.get(treeIndex & mask);
+    }
+
+    private E get(HeadList<PLLE<E>> head, int index)
+    {
+        return getPLLE(head, index).value;
     }
 
     protected Pair<Node<PLLE<E>>, Integer> getLeaf(HeadList<PLLE<E>> head, int index)
@@ -479,5 +481,27 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+    public class PersistentListIterator<E2> implements java.util.Iterator<E2> {
+
+        PLLE<E> current = getPLLE(getCurrentHead(), 0);
+
+        @Override
+        public boolean hasNext() {
+            return current.next != -1;
+        }
+
+        @Override
+        public E2 next()
+        {
+            current = getPLLE(getCurrentHead(), current.next);
+            return (E2) current.value; // TODO WTF cast err
+        }
+
+        @Override
+        public void remove() {
+
+        }
     }
 }
