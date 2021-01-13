@@ -2,24 +2,38 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
+        //arrayPresentation();
+        //listPresentation();
+        hashMapPresentation();
+    }
+
+    private static void hashMapPresentation() {
         PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
         phm.put ("Vasya",10);
         phm.put ("Petya", 11);
+        System.out.println("2 elem\t\t\t" + phm.toString());
+
+        phm.undo();
+        System.out.println("undo\t\t\t" + phm.toString());
+
         phm.put("Gosha", 12);
-        System.out.println(phm.toString());
+        System.out.println("add Gosha\t\t" + phm.toString());
+
         phm.undo();
-        System.out.println(phm.toString());
-        phm.put("Vitya", 13);
-        System.out.println(phm.toString());
-        phm.undo();
-        System.out.println(phm.toString());
+        System.out.println("undo\t\t\t" + phm.toString());
+
         phm.redo();
-        System.out.println(phm.toString());
-        //vlojennoct();
-        //arrayPresentation();
-        //listPresentation();
+        System.out.println("redo\t\t\t"+ phm.toString());
 
+        phm.put("Gosha", 1000);
+        System.out.println("modify Gosha\t" + phm.toString());
 
+        //TODO need to be
+        // [Vasya=10 Gosha=12]
+        // but now
+        // [Vasya=10]
+        phm.undo();
+        System.out.println("undo\t\t\t" + phm.toString());
     }
 
     private static void listPresentation() {
