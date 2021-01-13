@@ -221,6 +221,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
         //O(N) 100%
+        //do we still need it? iterator are better!
+
         //todo need to test
         checkIndex(listIndex, head);
 
@@ -233,7 +235,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        Node<PLLE<E>> current = pair.getKey();
         PLLE<E> current;
 
-        //o(n^2) here or toArray?
+
         for (int i=0; i<listIndex; i++)
         {
             Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, result);
