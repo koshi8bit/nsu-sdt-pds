@@ -92,8 +92,20 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     @Override
     public Iterator<E> iterator() {
-        //TODO
-        return null;
+        return new PersistentListIterator<>();
+    }
+
+    public Iterator<E> iterator(HeadList<PLLE<E>> head) {
+        return new PersistentListIterator<>(head);
+    }
+
+    @Override
+    public String toString() {
+        return toString(getCurrentHead());
+    }
+
+    private String toString(HeadList<PLLE<E>>  head) {
+        return Arrays.toString(toArray(head));
     }
 
     @Override
@@ -103,9 +115,16 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private Object[] toArray(HeadList<PLLE<E>> head) {
         //TODO 0(n^2) -> 0(n) use iterator?
+//        Object[] objects = new Object[head.size];
+//        for (int i = 0; i < objects.length; i++) {
+//            objects[i] = this.get(head, i);
+//        }
+//        return objects;
+
         Object[] objects = new Object[head.size];
+        Iterator<E> iterator = iterator(head);
         for (int i = 0; i < objects.length; i++) {
-            objects[i] = this.get(head, i);
+            objects[i] = iterator.next();
         }
         return objects;
     }
@@ -154,7 +173,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         int indexBefore = -1;
         int indexAfter = -1;
 
-        if (prevHead.size == 0) {
+        if (prevHead.sizeTree == 0) { //todo size or sizeTree
             newHead = new HeadList<>(prevHead);
         } else {
             if (index != 0) {
@@ -208,22 +227,20 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
-        //O(N)
+        //O(N) 100%
         //todo need to test
-        //todo add exception on too big index and neg index
-
-        int result = -1;
+        checkIndex(listIndex, head);
 
         if (head.size == 0)
-            return result;
+            return -1;
 
-        result = head.first;
+        int result = head.first;
 
 //        Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, head.first);
 //        Node<PLLE<E>> current = pair.getKey();
         PLLE<E> current;
 
-        //o(n^2)
+        //o(n^2) here or toArray?
         for (int i=0; i<listIndex; i++)
         {
             Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, result);
@@ -372,6 +389,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private PLLE<E> getPLLE(HeadList<PLLE<E>> head, int index)
     {
+        //O(log(width, N)) 100%
         checkIndex(index);
 
         int treeIndex = getTreeIndex(index);
@@ -388,6 +406,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     protected Pair<Node<PLLE<E>>, Integer> getLeaf(HeadList<PLLE<E>> head, int index)
     {
+        //O(log(width, N)) 100%
         checkIndex(index, head);
 
         if (index >= head.size)
@@ -407,6 +426,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private CopyResult<PLLE<E>, HeadList<PLLE<E>>> copyLeaf(HeadList<PLLE<E>> head, int index)
     {
+        //O(log(width, N)) 100%
         if (isFull()) {
             throw new IllegalStateException("array is full");
             //return null;
@@ -485,7 +505,18 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public class PersistentListIterator<E2> implements java.util.Iterator<E2> {
 
-        PLLE<E> current = getPLLE(getCurrentHead(), 0);
+        PLLE<E> current;
+        HeadList<PLLE<E>> head;
+
+        public PersistentListIterator(HeadList<PLLE<E>> head) {
+            this.head = head;
+            current = new PLLE<E>(head.first);
+        }
+
+        public PersistentListIterator() {
+            this.head = getCurrentHead();
+            current = new PLLE<E>(head.first);
+        }
 
         @Override
         public boolean hasNext() {
@@ -495,7 +526,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         @Override
         public E2 next()
         {
-            current = getPLLE(getCurrentHead(), current.next);
+            //O(log(width, N)) 100%
+            Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, current.next);
+            current = tmp.getKey().value.get(tmp.getValue());
             return (E2) current.value; // TODO WTF cast err
         }
 

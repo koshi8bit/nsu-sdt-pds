@@ -1,9 +1,11 @@
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
         //arrayPresentation();
         listPresentation();
+
 
 
     }
@@ -17,23 +19,37 @@ public class Main {
         pl.add(6);
         pl.add(0);
         pl.add(7);
-        System.out.println("filled " + Arrays.toString(pl.toArray()));
+        System.out.println("filled " + pl);
         System.out.println(pl.drawGraph());
 
         pl.add(3, 9);
-        System.out.println("add(3,9) " + Arrays.toString(pl.toArray()));
+        System.out.println(pl.drawGraph());
+        String s = pl.toString(); //todo last = 4? wtf??? need to be 5; add do not modify last?
+        System.out.println("add(3,9) " + pl);
         System.out.println(pl.drawGraph());
 
         pl.add(0, 1);
-        System.out.println("add(0,1) " + Arrays.toString(pl.toArray()));
+        System.out.println("add(0,1) " + pl);
         System.out.println(pl.drawGraph());
 
         pl.undo();
-        System.out.println("undo " + Arrays.toString(pl.toArray()));
+        System.out.println("undo " + pl);
         System.out.println(pl.drawGraph());
 
+        //todo add to test
+        System.out.println("Iterator");
+        Iterator<Integer> i = pl.iterator();
+        System.out.println(i.hasNext());
+        System.out.println(i.next());
+        System.out.println(i.next());
+//        System.out.println(i.next());
+//        System.out.println(i.next());
+//        System.out.println(i.next());
+//        System.out.println(i.next());
+//        System.out.println(i.next());
+
 //        pl.add(5, 2);
-//        System.out.println("add(6,2)\t\t\t" + Arrays.toString(pl.toArray()));
+//        System.out.println("add(6,2)" + pl);
 //        System.out.println(pl.drawGraph());
 //TODO tests results are different, wtf?
 

@@ -14,6 +14,10 @@ public class PLLE<E> {
         this.value = value;
     }
 
+    public PLLE(int next) {
+        this.next = next;
+    }
+
     public PLLE(PLLE<E> other) {
         this.next = other.next;
         this.prev = other.prev;
