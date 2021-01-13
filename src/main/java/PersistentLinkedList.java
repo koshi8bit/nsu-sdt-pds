@@ -114,13 +114,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     private Object[] toArray(HeadList<PLLE<E>> head) {
-        //TODO 0(n^2) -> 0(n) use iterator?
-//        Object[] objects = new Object[head.size];
-//        for (int i = 0; i < objects.length; i++) {
-//            objects[i] = this.get(head, i);
-//        }
-//        return objects;
-
         Object[] objects = new Object[head.size];
         Iterator<E> iterator = iterator(head);
         for (int i = 0; i < objects.length; i++) {
