@@ -467,14 +467,15 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return drawGraph(true);
     }
 
-    public String drawGraph(boolean toStr) {
-        return (toStr?toString():"") + "\nunique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
+    public String drawGraph(boolean printAllData) {
+
+        return (printAllData?(toString() + "\nunique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"):"")
                 + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
     }
 
-    public String drawGraphClear() {
-        return getCurrentHead().root.drawGraph();
-    }
+//    public String drawGraphClear() {
+//        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
+//    }
 
 
 
@@ -489,7 +490,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     public E remove(int index) {
         return remove(getCurrentHead(), index);
     }
-
 
     private E remove(HeadList<PLLE<E>> head, int index)
     {
@@ -530,14 +530,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newNextPLLE.prev = -1;
 
             newHead.first = getTreeIndex(nextIndex);
-            newHead.size--;
         }
 
         if (mid.next == -1)
         {
             int prevIndex = index-1;
             CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
-                    = copyLeaf(prevHead, prevIndex);
+                    = copyLeaf(newHead==null?prevHead:newHead, prevIndex);
             newHead = prevLeaf.head;
 
             PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
@@ -546,10 +545,10 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             prevLeaf.leaf.value.set(prevLeaf.leafInnerIndex, newPrevPLLE);
             newPrevPLLE.next = -1;
 
-            newHead.first = getTreeIndex(prevIndex);
+            newHead.last = getTreeIndex(prevIndex);
         }
 
-        
+
 
 
 
