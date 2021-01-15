@@ -201,4 +201,61 @@ public class PersistentLinkedListTest {
         assertEquals(Integer.valueOf(3), i.next());
         assertFalse(i.hasNext());
     }
+
+    @Test
+    public void testPersistentLinkedListRemove() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+        pl.remove(0);
+        assertEquals("[1, 2]", pl.toString());
+        pl.remove(0);
+        assertEquals("[2]", pl.toString());
+        assertEquals(1, pl.size());
+        pl.add(3);
+        pl.add(4);
+        pl.add(5);
+        assertEquals("[2, 3, 4, 5]", pl.toString());
+        pl.remove(2);
+        assertEquals("[2, 3, 5]", pl.toString());
+        assertEquals(3, pl.size());
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10));
+    }
+
+    @Test
+    public void testPersistentLinkedListSet() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+        pl.set(1, -1);
+        assertEquals("[0, -1, 2]", pl.toString());
+        pl.set(2, -2);
+        assertEquals("[0, -1, -2]", pl.toString());
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10));
+    }
+
+    @Test
+    public void testPersistentLinkedListUndoRedo() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+
+        pl.add(3);
+        assertEquals("[0, 1, 2, 3]", pl.toString());
+        pl.undo();
+        assertEquals("[0, 1, 2]", pl.toString());
+        pl.redo();
+        assertEquals("[0, 1, 2, 3]", pl.toString());
+
+        pl.set(1, -1);
+        assertEquals("[0, -1, 2, 3]", pl.toString());
+        pl.undo();
+        assertEquals("[0, 1, 2, 3]", pl.toString());
+        pl.redo();
+        assertEquals("[0, -1, 2, 3]", pl.toString());
+
+        pl.remove(2);
+        assertEquals("[0, -1, 3]", pl.toString());
+        pl.undo();
+        assertEquals("[0, -1, 2, 3]", pl.toString());
+        pl.redo();
+        assertEquals("[0, -1, 3]", pl.toString());
+    }
 }
