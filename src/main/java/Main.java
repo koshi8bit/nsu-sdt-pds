@@ -10,7 +10,7 @@ public class Main {
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
         pl.add(3);
         pl.add(4);
-        
+
 
         //todo
 //        System.out.println(pl.drawGraph());
