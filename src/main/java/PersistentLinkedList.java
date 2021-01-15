@@ -137,18 +137,29 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public void checkIndex(int index, HeadList<PLLE<E>> head)
     {
-        if (!((index>=0) && (index<head.size)))
+        //if (!((index>=0) && (index<head.size)))
+        if (!((index>=0) && (index<head.sizeTree)))
             throw new IndexOutOfBoundsException("Invalid index");
     }
 
     public boolean isFull()
     {
-        return isFull(getCurrentHead());
+        return isFull(getCurrentHead(), 0);
+    }
+
+    public boolean isFull(int extra)
+    {
+        return isFull(getCurrentHead(), extra);
     }
 
     public boolean isFull(HeadList<PLLE<E>> head)
     {
-        return head.sizeTree >= maxSize;
+        return isFull(head, 0);
+    }
+
+    public boolean isFull(HeadList<PLLE<E>> head, int extra)
+    {
+        return head.sizeTree + extra > maxSize;
     }
 
     @Override
@@ -221,7 +232,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
         //O(N) 100%
-        //do we still need it? iterator are better!
 
         //todo need to test
         checkIndex(listIndex, head);
@@ -404,8 +414,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         //O(log(width, N)) 100%
         checkIndex(index, head);
 
-        if (index >= head.size)
-            throw new IndexOutOfBoundsException();
+//        if (index >= head.size)
+//            throw new IndexOutOfBoundsException();
 
         int level = bit_dlya_rasc_ur - bit_na_pu;
         Node<PLLE<E>> node = head.root;
@@ -454,7 +464,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     public String drawGraph() {
-        return "unique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
+        return drawGraph(true);
+    }
+
+    public String drawGraph(boolean toStr) {
+        return toStr?toString():"" + "\nunique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
                 + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
     }
 
@@ -467,10 +481,98 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
 
-
     @Override
     public E remove(int index) {
-        return null;
+        return remove(getCurrentHead(), index);
+    }
+
+
+    private E remove(HeadList<PLLE<E>> head, int index)
+    {
+
+        if (isFull(2)) {
+            throw new IllegalStateException("array is full");
+        }
+
+        HeadList<PLLE<E>> prevHead = head;
+        HeadList<PLLE<E>> newHead = null;
+
+        checkIndex(index, prevHead);
+
+        E result = get(index);
+
+        if (prevHead.size == 1)
+        {
+            undo.push(new HeadList<>());
+            redo.clear();
+            return result;
+        }
+
+
+        PLLE<E> mid = getPLLE(prevHead, index);
+        System.out.println(drawGraph(false));
+
+        if(mid.prev == -1)
+        {
+            int nextIndex = index+1;
+            CopyResult<PLLE<E>, HeadList<PLLE<E>>> nextLeaf
+                    = copyLeaf(prevHead, nextIndex);
+            newHead = nextLeaf.head;
+
+            PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
+            PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
+
+            nextLeaf.leaf.value.set(nextLeaf.leafInnerIndex, newNextPLLE);
+            newNextPLLE.prev = -1;
+
+            newHead.first = getTreeIndex(nextIndex);
+            newHead.size--;
+        }
+
+//        if (index != 0) {
+//            indexBefore = getTreeIndex(index - 1);
+//            CopyResult<PLLE<E>, HeadList<PLLE<E>>> beforeLeaf = copyLeaf(prevHead, indexBefore);
+//            PLLE<E> beforePLLE = new PLLE<>(beforeLeaf.leaf.value.get(beforeLeaf.leafInnerIndex));
+//            beforePLLE.next = prevHead.sizeTree;
+//            beforeLeaf.leaf.value.set(beforeLeaf.leafInnerIndex, beforePLLE);
+//            newHead = beforeLeaf.head;
+//        }
+//
+//        if (index != prevHead.size - 1) {
+//            indexAfter = getTreeIndex(index);
+//            HeadList<PLLE<E>> prevHead2 = newHead != null ? newHead : prevHead;
+//            CopyResult<PLLE<E>, HeadList<PLLE<E>>> afterLeaf = copyLeaf(prevHead2, indexAfter);
+//            PLLE<E> afterPLLE = new PLLE<>(afterLeaf.leaf.value.get(afterLeaf.leafInnerIndex));
+//            afterPLLE.prev = prevHead.sizeTree;
+//            afterLeaf.leaf.value.set(afterLeaf.leafInnerIndex, afterPLLE);
+//            newHead = afterLeaf.head;
+//        }
+//
+//
+//
+//
+//
+//        PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
+//
+//        if (indexBefore == -1)
+//        {
+//            newHead.first = newHead.sizeTree;
+//        }
+//
+//        if (indexAfter == -1)
+//        {
+//            newHead.last = newHead.sizeTree;
+//        }
+//
+//        findLeafForNewElement(newHead).value.add(element);
+
+        undo.push(newHead);
+        redo.clear();
+
+        System.out.println(drawGraph(false));
+
+
+        return result;
     }
 
     @Override
@@ -502,20 +604,22 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         PLLE<E> current;
         HeadList<PLLE<E>> head;
+        int i=0;
 
         public PersistentListIterator(HeadList<PLLE<E>> head) {
             this.head = head;
-            current = new PLLE<E>(head.first);
+            Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, head.first);
+            PLLE<E> tmp2 = tmp.getKey().value.get(tmp.getValue());
+            current = new PLLE<E>(tmp2.next);
         }
 
         public PersistentListIterator() {
-            this.head = getCurrentHead();
-            current = new PLLE<E>(head.first);
+            this(getCurrentHead());
         }
 
         @Override
         public boolean hasNext() {
-            return current.next != -1;
+            return head.size >= i;
         }
 
         @Override
@@ -524,6 +628,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             //O(log(width, N)) 100%
             Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, current.next);
             current = tmp.getKey().value.get(tmp.getValue());
+            i++;
             return (E2) current.value; // TODO WTF cast err
         }
 

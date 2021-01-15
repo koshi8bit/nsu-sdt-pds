@@ -1,10 +1,30 @@
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
         //arrayPresentation();
         //listPresentation();
-        hashMapPresentation();
+        //hashMapPresentation();
+
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        pl.add(3);
+        pl.add(4);
+        pl.remove(0);
+        //System.out.println(pl.drawGraph());
+        Iterator<Integer> it = pl.iterator();
+        System.out.println(it.hasNext());
+        System.out.println(it.next());
+
+
+//        pl.add(3);
+//        pl.add(4);
+//        pl.add(6);
+//        pl.add(1, 9);
+//        pl.add(1, 7);
+//        pl.add(8);
+//        pl.remove(0);
+//        System.out.println(pl.drawGraph());
     }
 
     private static void hashMapPresentation() {
