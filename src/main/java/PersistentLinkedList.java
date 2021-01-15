@@ -533,7 +533,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newHead.size--;
         }
 
-        if(mid.next == -1)
+        if (mid.next == -1)
         {
             int prevIndex = index-1;
             CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
@@ -548,6 +548,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
             newHead.first = getTreeIndex(prevIndex);
         }
+
+        
+
+
+
 
 //        if (index != 0) {
 //            indexBefore = getTreeIndex(index - 1);
@@ -587,7 +592,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        findLeafForNewElement(newHead).value.add(element);
 
         //assert (newHead != null);
-        assert newHead != null;
+        //assert newHead != null;
         newHead.size--;
         undo.push(newHead);
         redo.clear();
