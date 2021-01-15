@@ -468,7 +468,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
     public String drawGraph(boolean toStr) {
-        return toStr?toString():"" + "\nunique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
+        return (toStr?toString():"") + "\nunique:" + getUniqueLeafsSize() + "; ver:" + getVersionCount()+ "\n"
                 + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
     }
 
@@ -510,7 +510,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
 
         PLLE<E> mid = getPLLE(prevHead, index);
-        System.out.println(drawGraph(false));
+        //System.out.println(drawGraph(false));
 
         if(mid.prev == -1)
         {
@@ -569,7 +569,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         undo.push(newHead);
         redo.clear();
 
-        System.out.println(drawGraph(false));
+        //System.out.println(drawGraph(false));
 
 
         return result;

@@ -10,12 +10,20 @@ public class Main {
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
         pl.add(3);
         pl.add(4);
-        pl.remove(0);
+        
+
+        //todo
+//        System.out.println(pl.drawGraph());
+//        pl.remove(0);
+//        System.out.println(pl.drawGraph());
+//        pl.undo();
+//        System.out.println(pl.drawGraph());
         //System.out.println(pl.drawGraph());
-        Iterator<Integer> it = pl.iterator();
-        System.out.println(it.hasNext());
-        System.out.println(it.next());
-        System.out.println(it.hasNext());
+        //todo
+//        Iterator<Integer> it = pl.iterator();
+//        System.out.println(it.hasNext());
+//        System.out.println(it.next());
+//        System.out.println(it.hasNext());
 
 
 //        pl.add(3);
