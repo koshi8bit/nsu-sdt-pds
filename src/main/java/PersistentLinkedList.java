@@ -609,8 +609,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         public PersistentListIterator(HeadList<PLLE<E>> head) {
             this.head = head;
             Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, head.first);
-            PLLE<E> tmp2 = tmp.getKey().value.get(tmp.getValue());
-            current = new PLLE<E>(tmp2.next);
+            current = tmp.getKey().value.get(tmp.getValue());
         }
 
         public PersistentListIterator() {
@@ -619,17 +618,22 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         @Override
         public boolean hasNext() {
-            return head.size >= i;
+            return head.size > i;
         }
 
         @Override
         public E2 next()
         {
             //O(log(width, N)) 100%
+            E2 result = (E2) current.value; // TODO WTF cast err
+
+            i++;
+            if (!hasNext())
+                return result;
+
             Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, current.next);
             current = tmp.getKey().value.get(tmp.getValue());
-            i++;
-            return (E2) current.value; // TODO WTF cast err
+            return result;
         }
 
         @Override

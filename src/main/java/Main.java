@@ -15,6 +15,7 @@ public class Main {
         Iterator<Integer> it = pl.iterator();
         System.out.println(it.hasNext());
         System.out.println(it.next());
+        System.out.println(it.hasNext());
 
 
 //        pl.add(3);
