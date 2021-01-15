@@ -530,13 +530,17 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newNextPLLE.prev = -1;
 
             newHead.first = getTreeIndex(nextIndex);
+
+            finishRemove(newHead);
+            return result;
+
         }
 
         if (mid.next == -1)
         {
             int prevIndex = index-1;
             CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
-                    = copyLeaf(newHead==null?prevHead:newHead, prevIndex);
+                    = copyLeaf(prevHead, prevIndex);
             newHead = prevLeaf.head;
 
             PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
@@ -546,60 +550,44 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newPrevPLLE.next = -1;
 
             newHead.last = getTreeIndex(prevIndex);
+
+            finishRemove(newHead);
+            return result;
+
         }
 
+        int nextIndex = index+1;
+        CopyResult<PLLE<E>, HeadList<PLLE<E>>> nextLeaf
+                = copyLeaf(prevHead, nextIndex);
+        newHead = nextLeaf.head;
+
+        PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
+        PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
+
+        nextLeaf.leaf.value.set(nextLeaf.leafInnerIndex, newNextPLLE);
+        newNextPLLE.prev = mid.prev;
 
 
+        int prevIndex = index-1;
+        CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
+                = copyLeaf(newHead, prevIndex);
+        newHead = prevLeaf.head;
 
+        PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
+        PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
 
+        prevLeaf.leaf.value.set(prevLeaf.leafInnerIndex, newPrevPLLE);
+        newPrevPLLE.next = mid.next;
 
-//        if (index != 0) {
-//            indexBefore = getTreeIndex(index - 1);
-//            CopyResult<PLLE<E>, HeadList<PLLE<E>>> beforeLeaf = copyLeaf(prevHead, indexBefore);
-//            PLLE<E> beforePLLE = new PLLE<>(beforeLeaf.leaf.value.get(beforeLeaf.leafInnerIndex));
-//            beforePLLE.next = prevHead.sizeTree;
-//            beforeLeaf.leaf.value.set(beforeLeaf.leafInnerIndex, beforePLLE);
-//            newHead = beforeLeaf.head;
-//        }
-//
-//        if (index != prevHead.size - 1) {
-//            indexAfter = getTreeIndex(index);
-//            HeadList<PLLE<E>> prevHead2 = newHead != null ? newHead : prevHead;
-//            CopyResult<PLLE<E>, HeadList<PLLE<E>>> afterLeaf = copyLeaf(prevHead2, indexAfter);
-//            PLLE<E> afterPLLE = new PLLE<>(afterLeaf.leaf.value.get(afterLeaf.leafInnerIndex));
-//            afterPLLE.prev = prevHead.sizeTree;
-//            afterLeaf.leaf.value.set(afterLeaf.leafInnerIndex, afterPLLE);
-//            newHead = afterLeaf.head;
-//        }
-//
-//
-//
-//
-//
-//        PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
-//
-//        if (indexBefore == -1)
-//        {
-//            newHead.first = newHead.sizeTree;
-//        }
-//
-//        if (indexAfter == -1)
-//        {
-//            newHead.last = newHead.sizeTree;
-//        }
-//
-//        findLeafForNewElement(newHead).value.add(element);
+        finishRemove(newHead);
+        return result;
+    }
 
-        //assert (newHead != null);
-        //assert newHead != null;
+    private void finishRemove(HeadList<PLLE<E>> newHead)
+    {
         newHead.size--;
         undo.push(newHead);
         redo.clear();
-
-        //System.out.println(drawGraph(false));
-
-
-        return result;
     }
 
     @Override

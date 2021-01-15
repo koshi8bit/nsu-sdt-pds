@@ -8,13 +8,25 @@ public class Main {
         //hashMapPresentation();
 
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
-        pl.add(3);
-        pl.add(4);
-        pl.add(5);
+        pl.add(0);
+        pl.add(1);
+        pl.add(2);
         System.out.println(pl.drawGraph());
         pl.remove(0);
-        System.out.println(pl.drawGraph(true));
-        //System.out.println(pl.drawGraph(false));
+        System.out.println(pl.drawGraph());
+        pl.remove(0);
+        System.out.println(pl.drawGraph());
+        pl.add(3);
+        System.out.println(pl.drawGraph(false));
+
+
+
+
+        //todo
+//        System.out.println(pl.drawGraph());
+//        pl.remove(1);
+//        System.out.println(pl.drawGraph(true));
+//        //System.out.println(pl.drawGraph(false));
 
 
         //todo
