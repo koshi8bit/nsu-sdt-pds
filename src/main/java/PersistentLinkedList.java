@@ -472,6 +472,10 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
                 + getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
     }
 
+    public String drawGraphClear() {
+        return getCurrentHead().root.drawGraph();
+    }
+
 
 
 
@@ -529,6 +533,22 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newHead.size--;
         }
 
+        if(mid.next == -1)
+        {
+            int prevIndex = index-1;
+            CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
+                    = copyLeaf(prevHead, prevIndex);
+            newHead = prevLeaf.head;
+
+            PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
+            PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
+
+            prevLeaf.leaf.value.set(prevLeaf.leafInnerIndex, newPrevPLLE);
+            newPrevPLLE.next = -1;
+
+            newHead.first = getTreeIndex(prevIndex);
+        }
+
 //        if (index != 0) {
 //            indexBefore = getTreeIndex(index - 1);
 //            CopyResult<PLLE<E>, HeadList<PLLE<E>>> beforeLeaf = copyLeaf(prevHead, indexBefore);
@@ -566,6 +586,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //
 //        findLeafForNewElement(newHead).value.add(element);
 
+        //assert (newHead != null);
+        assert newHead != null;
+        newHead.size--;
         undo.push(newHead);
         redo.clear();
 
