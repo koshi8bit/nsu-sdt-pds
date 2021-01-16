@@ -367,4 +367,29 @@ public class PersistentLinkedListTest {
         assertEquals("[Vanya 1][Gosha 2][Vitya 3]", stringBuilder.toString());
 
     }
+
+    @Test
+    public void testPersistentLinkedListClear() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+        assertEquals(3, pl.size());
+
+        pl.clear();
+        assertEquals("[]", pl.toString());
+        assertEquals(0, pl.size());
+
+        pl.undo();
+        assertEquals("[0, 1, 2]", pl.toString());
+        assertEquals(3, pl.size());
+
+        pl.redo();
+        assertEquals("[]", pl.toString());
+        assertEquals(0, pl.size());
+
+        pl.add(1);
+        pl.add(2);
+        pl.add(3);
+        assertEquals("[1, 2, 3]", pl.toString());
+        assertEquals(3, pl.size());
+    }
 }
