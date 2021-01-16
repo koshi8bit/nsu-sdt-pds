@@ -53,6 +53,43 @@ public class PersistentHashMapTest {
     }
 
     @Test
+    public void testPersistentHashMapUndoRedo() {
+        addABC();
+
+        phm.undo();
+        assertTrue(phm.containsKey("A"));
+        assertTrue(phm.containsKey("B"));
+        assertFalse(phm.containsKey("C"));
+
+        phm.undo();
+        assertTrue(phm.containsKey("A"));
+        assertFalse(phm.containsKey("B"));
+        assertFalse(phm.containsKey("C"));
+
+        phm.redo();
+        assertTrue(phm.containsKey("A"));
+        assertTrue(phm.containsKey("B"));
+        assertFalse(phm.containsKey("C"));
+
+        phm.redo();
+        assertTrue(phm.containsKey("A"));
+        assertTrue(phm.containsKey("B"));
+        assertTrue(phm.containsKey("C"));
+
+        assertTrue(phm.toString().contains("A=1"));
+        assertTrue(phm.toString().contains("B=2"));
+        assertTrue(phm.toString().contains("C=3"));
+
+        phm.undo();
+        phm.undo();
+        phm.undo();
+        assertEquals(0, phm.size());
+
+        phm.put("Alone", 1);
+        assertTrue(phm.toString().contains("Alone=1"));
+    }
+
+    @Test
     public void testPersistentHashMapContainsKey() {
         addABC();
 
@@ -115,5 +152,34 @@ public class PersistentHashMapTest {
         phm.remove("C");
         assertFalse(phm.containsKey("C"));
         assertEquals(1, phm.size());
+    }
+
+    @Test
+    public void testPersistentHashMapModifyAndUndoRedo() {
+        phm.put("Gosha", 12);
+        assertEquals(1, phm.size());
+        assertTrue(phm.containsKey("Gosha"));
+        assertTrue(phm.containsValue(12));
+
+        phm.put("Gosha", 1000);
+        assertEquals(1, phm.size());
+        assertTrue(phm.containsKey("Gosha"));
+        assertTrue(phm.containsValue(1000));
+
+        phm.undo();
+        assertEquals(1, phm.size());
+        assertTrue(phm.containsKey("Gosha"));
+        assertTrue(phm.containsValue(12));
+    }
+
+    @Test
+    public void testPersistentHashMapToString() {
+        addABC();
+        assertTrue(phm.toString().contains("A=1"));
+        assertTrue(phm.toString().contains("B=2"));
+        assertTrue(phm.toString().contains("C=3"));
+
+        // "[C=3 B=2 A=1]" - содержит 13 символов
+        assertEquals(13, phm.toString().length());
     }
 }
