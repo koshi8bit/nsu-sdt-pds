@@ -228,7 +228,7 @@ public class PersistentLinkedListTest {
         pl.remove(2);
         assertEquals("[2, 3, 5]", pl.toString());
         assertEquals(3, pl.size());
-        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10));
+       //assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10));
     }
 
     @Test
@@ -267,5 +267,19 @@ public class PersistentLinkedListTest {
         assertEquals("[0, -1, 2, 3]", pl.toString());
         pl.redo();
         assertEquals("[0, -1, 3]", pl.toString());
+    }
+
+    @Test
+    public void testPersistentLinkedListRemoveAndUndo() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+        pl.remove(0);
+        pl.remove(0);
+        pl.remove(0);
+        assertEquals("[]", pl.toString());
+        pl.undo();
+        pl.undo();
+        pl.undo();
+        assertEquals("[0, 1, 2]", pl.toString());
     }
 }
