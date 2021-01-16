@@ -14,8 +14,8 @@ public class Main {
         System.out.println("add 3 elem " + pl.drawGraph());
         pl.remove(1);
         System.out.println("remove(1) " + pl.drawGraph());
-//        pl.add(7);
-//        System.out.println("add(7) " + pl.drawGraph());
+        pl.add(7);
+        System.out.println("add(7) " + pl.drawGraph());
 
 
 

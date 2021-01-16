@@ -133,14 +133,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     }
 
 
-    public void checkIndex(int index)
+    public void checkListIndex(int index)
     {
-        checkIndex(index, getCurrentHead());
+        checkListIndex(index, getCurrentHead());
     }
 
-    public void checkIndex(int index, HeadList<PLLE<E>> head)
+    public void checkListIndex(int index, HeadList<PLLE<E>> head)
     {
-        //if (!((index>=0) && (index<head.size)))
+        if (!((index>=0) && (index<head.size)))
+            throw new IndexOutOfBoundsException("Invalid index");
+    }
+
+    public void checkTreeIndex(int index, HeadList<PLLE<E>> head)
+    {
         if (!((index>=0) && (index<head.sizeTree)))
             throw new IndexOutOfBoundsException("Invalid index");
     }
@@ -175,7 +180,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         HeadList<PLLE<E>> prevHead = getCurrentHead();
         HeadList<PLLE<E>> newHead = null;
 
-        checkIndex(index, prevHead);
+        checkListIndex(index, prevHead);
 
         int indexBefore = -1;
         int indexAfter = -1;
@@ -237,7 +242,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         //O(N) 100%
 
         //todo need to test
-        checkIndex(listIndex, head);
+        checkListIndex(listIndex, head);
 
         if (head.size == 0)
             return -1;
@@ -398,7 +403,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     private PLLE<E> getPLLE(HeadList<PLLE<E>> head, int index)
     {
         //O(log(width, N)) 100%
-        checkIndex(index);
+        checkListIndex(index);
 
         int treeIndex = getTreeIndex(index);
         if (treeIndex == -1)
@@ -415,7 +420,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     protected Pair<Node<PLLE<E>>, Integer> getLeaf(HeadList<PLLE<E>> head, int index)
     {
         //O(log(width, N)) 100%
-        checkIndex(index, head);
+        checkTreeIndex(index, head);
 
 //        if (index >= head.size)
 //            throw new IndexOutOfBoundsException();
@@ -439,7 +444,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             throw new IllegalStateException("array is full");
             //return null;
         }
-        checkIndex(index, head);
+        checkTreeIndex(index, head);
 
         HeadList<PLLE<E>> newHead = new HeadList<>(head, 0);
         Node<PLLE<E>> currentNode = newHead.root;
@@ -481,30 +486,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //    }
 
 
-
-
     @Override
     public E set(int index, E element) {
-        return null;
+        return set(getCurrentHead(), index, element);
     }
 
+    private E set(HeadList<PLLE<E>> prevHead, int index, E element) {
 
-    @Override
-    public E remove(int index) {
-        return remove(getCurrentHead(), index);
-    }
-
-    private E remove(HeadList<PLLE<E>> head, int index)
-    {
-
-        if (isFull(2)) {
-            throw new IllegalStateException("array is full");
-        }
-
-        HeadList<PLLE<E>> prevHead = head;
         HeadList<PLLE<E>> newHead = null;
 
-        checkIndex(index, prevHead);
+        checkListIndex(index, prevHead);
+
+        if (prevHead.size == 0)
+            throw new IndexOutOfBoundsException("list is empty");
 
         E result = get(index);
 
@@ -587,28 +581,107 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
 
 
-//        int nextIndex = index+1;
-//        CopyResult<PLLE<E>, HeadList<PLLE<E>>> nextLeaf
-//                = copyLeaf(prevHead, nextIndex);
-//        newHead = nextLeaf.head;
-//
-//        PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
-//        PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
-//
-//        nextLeaf.leaf.value.set(nextLeaf.leafInnerIndex, newNextPLLE);
-//        newNextPLLE.prev = mid.prev;
-//
-//
-//        int prevIndex = index-1;
-//        CopyResult<PLLE<E>, HeadList<PLLE<E>>> prevLeaf
-//                = copyLeaf(newHead, prevIndex);
-//        newHead = prevLeaf.head;
-//
-//        PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
-//        PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
-//
-//        prevLeaf.leaf.value.set(prevLeaf.leafInnerIndex, newPrevPLLE);
-//        newPrevPLLE.next = mid.next;
+        finishRemove(newHead);
+        return result;
+    }
+
+
+    @Override
+    public E remove(int index) {
+        return remove(getCurrentHead(), index);
+    }
+
+    private E remove(HeadList<PLLE<E>> prevHead, int index)
+    {
+
+        if (isFull(2)) {
+            throw new IllegalStateException("array is full");
+        }
+
+        HeadList<PLLE<E>> newHead = null;
+
+        checkListIndex(index, prevHead);
+
+        E result = get(index);
+
+        if (prevHead.size == 1)
+        {
+            undo.push(new HeadList<>());
+            redo.clear();
+            return result;
+        }
+
+
+        PLLE<E> mid = getPLLE(prevHead, index);
+        //System.out.println(drawGraph(false));
+
+        if(mid.prev == -1)
+        {
+            int nextIndex = index+1;
+            int treeNextIndex = getTreeIndex(nextIndex);
+
+            newHead = copyLeaf(prevHead, nextIndex).head;
+
+            PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
+            PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
+            newNextPLLE.prev = -1;
+
+            Pair<Node<PLLE<E>>, Integer> leafNext = getLeaf(newHead, treeNextIndex);
+            leafNext.getKey().value.set(treeNextIndex & mask, newNextPLLE);
+
+            newHead.first = treeNextIndex;
+
+            finishRemove(newHead);
+            return result;
+
+        }
+
+        if (mid.next == -1)
+        {
+            int prevIndex = index-1;
+            int treePrevIndex = getTreeIndex(prevIndex);
+
+            newHead = copyLeaf(prevHead, prevIndex).head;
+
+            PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
+            PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
+            newPrevPLLE.next = -1;
+
+            Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
+            leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
+
+            newHead.last = treePrevIndex;
+
+            finishRemove(newHead);
+            return result;
+
+        }
+
+        int nextIndex = index+1;
+        int treeNextIndex = getTreeIndex(nextIndex);
+
+        newHead = copyLeaf(prevHead, nextIndex).head;
+
+        PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
+        PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
+        newNextPLLE.prev = mid.prev;
+
+        Pair<Node<PLLE<E>>, Integer> leafNext = getLeaf(newHead, treeNextIndex);
+        leafNext.getKey().value.set(treeNextIndex & mask, newNextPLLE);
+
+
+        int prevIndex = index-1;
+        int treePrevIndex = getTreeIndex(prevIndex);
+
+        newHead = copyLeaf(prevHead, prevIndex).head;
+
+        PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
+        PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
+        newPrevPLLE.next = mid.next;
+
+        Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
+        leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
+
 
         finishRemove(newHead);
         return result;
