@@ -434,7 +434,7 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
 
 
     public String drawGraph() {
-        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph();
+        return /*getCurrentHead() + "\n" + */getCurrentHead().root.drawGraph();
     }
 
 
