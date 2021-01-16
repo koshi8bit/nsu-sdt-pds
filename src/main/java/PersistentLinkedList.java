@@ -501,7 +501,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         checkListIndex(index, prevHead);
 
         CopyResult<PLLE<E>, HeadList<PLLE<E>>> copyResult
-                = copyLeaf(prevHead, index);
+                = copyLeaf(prevHead, getTreeIndex(prevHead, index));
 
         HeadList<PLLE<E>> newHead = copyResult.head;
 
@@ -604,7 +604,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         int prevIndex = index-1;
         int treePrevIndex = getTreeIndex(prevIndex);
 
-        newHead = copyLeaf(prevHead, prevIndex).head;
+        newHead = copyLeaf(newHead, prevIndex).head;
 
         PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
         PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
