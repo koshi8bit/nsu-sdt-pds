@@ -525,11 +525,15 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
             PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
             PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
-
-            nextLeaf.leaf.value.set(nextLeaf.leafInnerIndex, newNextPLLE);
             newNextPLLE.prev = -1;
 
-            newHead.first = getTreeIndex(nextIndex);
+            //nextLeaf.leaf.value.set(nextLeaf.leafInnerIndex, newNextPLLE);
+            int treeIndexNext = getTreeIndex(nextIndex);
+            Pair<Node<PLLE<E>>, Integer> leafNext = getLeaf(newHead, treeIndexNext);
+            leafNext.getKey().value.set(treeIndexNext & mask, newNextPLLE);
+
+
+            newHead.first = treeIndexNext;
 
             finishRemove(newHead);
             return result;

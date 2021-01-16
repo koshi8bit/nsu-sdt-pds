@@ -11,18 +11,18 @@ public class Main {
         pl.add(0);
         pl.add(1);
         pl.add(2);
-        System.out.println(pl.drawGraph());
+        System.out.println("add 3 elem " + pl.drawGraph());
         pl.remove(0);
-        System.out.println(pl.drawGraph());
+        System.out.println("remove(0) " + pl.drawGraph());
         pl.remove(0);
-        System.out.println(pl.drawGraph());
+        System.out.println("remove(0) " + pl.drawGraph());
         pl.add(3);
-        System.out.println(pl.drawGraph());
+        System.out.println("add(3) " + pl.drawGraph());
         pl.add(4);
         pl.add(5);
-        System.out.println(pl.drawGraph());
+        System.out.println("add(3); add(4) " + pl.drawGraph());
         pl.remove(2);
-        System.out.println(pl.drawGraph(false));
+        System.out.println("remove(2) " + pl.drawGraph(false));
 
 
 
