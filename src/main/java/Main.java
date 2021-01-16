@@ -8,14 +8,13 @@ public class Main {
         //hashMapPresentation();
 
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        pl.add(0);
+        pl.add(1);
+        pl.add(2);
         pl.add(3);
-        pl.add(4);
-        pl.add(5);
-        System.out.println("add 3 elem " + pl.drawGraph());
-        pl.remove(1);
-        System.out.println("remove(1) " + pl.drawGraph());
-        pl.add(7);
-        System.out.println("add(7) " + pl.drawGraph());
+        System.out.println("add [0123] " + pl.drawGraph());
+        pl.set(1, -1);
+        System.out.println("set(1, -1) " + pl.drawGraph());
 
 
 

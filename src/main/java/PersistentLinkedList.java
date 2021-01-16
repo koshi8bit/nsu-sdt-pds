@@ -1,5 +1,6 @@
 import javafx.util.Pair;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
@@ -493,96 +494,24 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private E set(HeadList<PLLE<E>> prevHead, int index, E element) {
 
-        HeadList<PLLE<E>> newHead = null;
+        E oldResult = get(index);
 
         checkListIndex(index, prevHead);
 
-        if (prevHead.size == 0)
-            throw new IndexOutOfBoundsException("list is empty");
+        CopyResult<PLLE<E>, HeadList<PLLE<E>>> copyResult
+                = copyLeaf(prevHead, index);
 
-        E result = get(index);
+        HeadList<PLLE<E>> newHead = copyResult.head;
 
-        if (prevHead.size == 1)
-        {
-            undo.push(new HeadList<>());
-            redo.clear();
-            return result;
-        }
+        PLLE<E> newNode = new PLLE<>(copyResult.leaf.value.get(copyResult.leafInnerIndex));
+        newNode.value = element;
 
+        copyResult.leaf.value.set(copyResult.leafInnerIndex, newNode);
 
-        PLLE<E> mid = getPLLE(prevHead, index);
-        //System.out.println(drawGraph(false));
+        undo.push(newHead);
+        redo.clear();
 
-        if(mid.prev == -1)
-        {
-            int nextIndex = index+1;
-            int treeNextIndex = getTreeIndex(nextIndex);
-
-            newHead = copyLeaf(prevHead, nextIndex).head;
-
-            PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
-            PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
-            newNextPLLE.prev = -1;
-
-            Pair<Node<PLLE<E>>, Integer> leafNext = getLeaf(newHead, treeNextIndex);
-            leafNext.getKey().value.set(treeNextIndex & mask, newNextPLLE);
-
-            newHead.first = treeNextIndex;
-
-            finishRemove(newHead);
-            return result;
-
-        }
-
-        if (mid.next == -1)
-        {
-            int prevIndex = index-1;
-            int treePrevIndex = getTreeIndex(prevIndex);
-
-            newHead = copyLeaf(prevHead, prevIndex).head;
-
-            PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
-            PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
-            newPrevPLLE.next = -1;
-
-            Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
-            leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
-
-            newHead.last = treePrevIndex;
-
-            finishRemove(newHead);
-            return result;
-
-        }
-
-        int nextIndex = index+1;
-        int treeNextIndex = getTreeIndex(nextIndex);
-
-        newHead = copyLeaf(prevHead, nextIndex).head;
-
-        PLLE<E> nextPLLE = getPLLE(newHead, nextIndex);
-        PLLE<E> newNextPLLE = new PLLE<>(nextPLLE);
-        newNextPLLE.prev = mid.prev;
-
-        Pair<Node<PLLE<E>>, Integer> leafNext = getLeaf(newHead, treeNextIndex);
-        leafNext.getKey().value.set(treeNextIndex & mask, newNextPLLE);
-
-
-        int prevIndex = index-1;
-        int treePrevIndex = getTreeIndex(prevIndex);
-
-        newHead = copyLeaf(prevHead, prevIndex).head;
-
-        PLLE<E> prevPLLE = getPLLE(newHead, prevIndex);
-        PLLE<E> newPrevPLLE = new PLLE<>(prevPLLE);
-        newPrevPLLE.next = mid.next;
-
-        Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
-        leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
-
-
-        finishRemove(newHead);
-        return result;
+        return oldResult;
     }
 
 
