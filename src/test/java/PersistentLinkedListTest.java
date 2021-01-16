@@ -200,6 +200,16 @@ public class PersistentLinkedListTest {
         assertEquals(Integer.valueOf(2), i.next());
         assertEquals(Integer.valueOf(3), i.next());
         assertFalse(i.hasNext());
+
+        pl = new PersistentLinkedList<>(3, 1);
+        pl.add(3);
+        pl.add(4);
+        pl.remove(0);
+        assertEquals("[4]", pl.toString());
+        i = pl.iterator();
+        assertTrue(i.hasNext());
+        assertEquals(Integer.valueOf(4), i.next());
+        assertFalse(i.hasNext());
     }
 
     @Test
