@@ -17,8 +17,12 @@ public class Main {
         pl.remove(0);
         System.out.println(pl.drawGraph());
         pl.add(3);
+        System.out.println(pl.drawGraph());
+        pl.add(4);
+        pl.add(5);
+        System.out.println(pl.drawGraph());
+        pl.remove(2);
         System.out.println(pl.drawGraph(false));
-
 
 
 

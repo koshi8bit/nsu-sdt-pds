@@ -315,7 +315,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         //System.out.print(newElement + "   ");
         while (level > 0)
         {
-            int index = ((head.size - 1) >> level) & mask;
+            int index = ((head.sizeTree - 1) >> level) & mask;
             //System.out.print(index);
             Node<PLLE<E>> tmp, newNode;
 
