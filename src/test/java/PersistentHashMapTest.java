@@ -69,6 +69,8 @@ public class PersistentHashMapTest {
     public void testPersistentHashMapContainsValue() {
         addABC();
 
+        assertEquals(3, phm.size());
+
         assertTrue(phm.containsValue(1));
         assertTrue(phm.containsValue(2));
         assertTrue(phm.containsValue(3));
