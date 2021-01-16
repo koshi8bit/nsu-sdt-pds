@@ -142,13 +142,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     public void checkListIndex(int index, HeadList<PLLE<E>> head)
     {
         if (!((index>=0) && (index<head.size)))
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
     }
 
     public void checkTreeIndex(int index, HeadList<PLLE<E>> head)
     {
         if (!((index>=0) && (index<head.sizeTree)))
-            throw new IndexOutOfBoundsException("Invalid index");
+            throw new IndexOutOfBoundsException("Invalid index: " + index);
     }
 
     public boolean isFull()
