@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class Main {
@@ -8,16 +9,28 @@ public class Main {
         //hashMapPresentation();
 
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
-
         pl.add(0);
         pl.add(1);
         pl.add(2);
-        pl.add(3);
-        System.out.println("add [0123] " + pl.drawGraph());
-        pl.clear();
-        System.out.println("clear() " + pl.drawGraph());
+        System.out.println("add [012] " + pl.drawGraph());
+        pl.remove(1);
+        System.out.println("remove(1) " + pl.drawGraph());
+        pl.set(1, 9);
+        System.out.println("set(1, 9) " + pl.drawGraph());
         pl.undo();
-        System.out.println("undo() " + pl.drawGraph());
+        System.out.println("undo " + pl.drawGraph());
+
+//        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+//
+//        pl.add(0);
+//        pl.add(1);
+//        pl.add(2);
+//        pl.add(3);
+//        System.out.println("add [0123] " + pl.drawGraph());
+//        pl.clear();
+//        System.out.println("clear() " + pl.drawGraph());
+//        pl.undo();
+//        System.out.println("undo() " + pl.drawGraph());
 
 
 
