@@ -393,7 +393,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     @Override
     public void clear() {
-
+        HeadList<PLLE<E>> head = new HeadList<>();
+        undo.push(head);
+        redo.clear();
     }
 
     @Override

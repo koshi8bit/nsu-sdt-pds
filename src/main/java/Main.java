@@ -9,7 +9,15 @@ public class Main {
 
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
 
-        Iterator<Integer> iii = pl.iterator();
+        pl.add(0);
+        pl.add(1);
+        pl.add(2);
+        pl.add(3);
+        System.out.println("add [0123] " + pl.drawGraph());
+        pl.clear();
+        System.out.println("clear() " + pl.drawGraph());
+        pl.undo();
+        System.out.println("undo() " + pl.drawGraph());
 
 
 
