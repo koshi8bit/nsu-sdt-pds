@@ -656,6 +656,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         public PersistentListIterator(HeadList<PLLE<E>> head) {
             this.head = head;
+            if (head.size == 0)
+                return;
+
             Pair<Node<PLLE<E>>, Integer> tmp = getLeaf(head, head.first);
             current = tmp.getKey().value.get(tmp.getValue());
         }
