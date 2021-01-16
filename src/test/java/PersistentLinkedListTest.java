@@ -228,7 +228,8 @@ public class PersistentLinkedListTest {
         pl.remove(2);
         assertEquals("[2, 3, 5]", pl.toString());
         assertEquals(3, pl.size());
-       //assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10)); //todo what for?
+       assertThrows(IndexOutOfBoundsException.class, () -> pl.set(999, 10));
+       assertThrows(IndexOutOfBoundsException.class, () -> pl.set(-1, 10));
     }
 
     @Test
@@ -239,7 +240,35 @@ public class PersistentLinkedListTest {
         assertEquals("[0, -1, 2]", pl.toString());
         pl.set(2, -2);
         assertEquals("[0, -1, -2]", pl.toString());
-        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(10, 10)); //todo what for?
+
+        pl.undo();
+        pl.undo();
+        assertEquals("[0, 1, 2]", pl.toString());
+
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(999, 10));
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(-1, 10));
+    }
+
+    @Test
+    public void testPersistentLinkedListRemoveLastElement() {
+        init(2);
+        assertEquals("[0, 1]", pl.toString());
+        pl.remove(1);
+        assertEquals("[0]", pl.toString());
+        pl.add(2);
+        assertEquals("[0, 2]", pl.toString());
+    }
+
+    @Test
+    public void testPersistentLinkedListRemoveMiddleElement() {
+        init(3);
+        assertEquals("[0, 1, 2]", pl.toString());
+        pl.remove(1);
+        assertEquals("[0, 2]", pl.toString());
+        pl.set(1, 9);
+        assertEquals("[0, 9]", pl.toString());
+        pl.undo();
+        assertEquals("[0, 2]", pl.toString());
     }
 
     @Test
@@ -270,16 +299,39 @@ public class PersistentLinkedListTest {
     }
 
     @Test
-    public void testPersistentLinkedListRemoveAndUndo() {
+    public void testPersistentLinkedListRemoveAllElementsAndUndoRedo() {
         init(3);
         assertEquals("[0, 1, 2]", pl.toString());
         pl.remove(0);
         pl.remove(0);
         pl.remove(0);
         assertEquals("[]", pl.toString());
+
         pl.undo();
         pl.undo();
         pl.undo();
+
         assertEquals("[0, 1, 2]", pl.toString());
+        pl.remove(0);
+        pl.remove(0);
+        pl.remove(0);
+        assertEquals("[]", pl.toString());
+
+        pl.add(-1);
+        pl.add(-2);
+        pl.add(-3);
+        assertEquals("[-1, -2, -3]", pl.toString());
+        pl.remove(0);
+        pl.remove(0);
+        pl.remove(0);
+
+        pl.undo();
+        pl.undo();
+        pl.undo();
+        pl.redo();
+        pl.redo();
+        pl.redo();
+
+        assertEquals("[]", pl.toString());
     }
 }
