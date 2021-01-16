@@ -1,5 +1,6 @@
 import org.junit.Test;
 
+import java.util.HashSet;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -16,9 +17,9 @@ public class PersistentHashMapTest {
     @Test
     public void testPersistentHashMapPutAndGet() {
         addABC();
-        assertEquals(1, phm.get("A").intValue());
-        assertEquals(2, phm.get("B").intValue());
-        assertEquals(3, phm.get("C").intValue());
+        assertEquals(Integer.valueOf(1), phm.get("A"));
+        assertEquals(Integer.valueOf(2), phm.get("B"));
+        assertEquals(Integer.valueOf(3), phm.get("C"));
     }
 
     @Test
@@ -30,11 +31,14 @@ public class PersistentHashMapTest {
     @Test
     public void testPersistentHashMapKeySet() {
         addABC();
-        assertTrue(phm.keySet().toString().contains("A"));
-        assertTrue(phm.keySet().toString().contains("B"));
-        assertTrue(phm.keySet().toString().contains("C"));
-        assertFalse(phm.keySet().toString().contains("D"));
-    }
+
+        HashSet<String> hs = new HashSet<>();
+        hs.add("A");
+        hs.add("B");
+        hs.add("C");
+
+        assertEquals(hs, phm.keySet());
+        }
 
     @Test
     public void testPersistentHashMapForEach() {
@@ -57,28 +61,24 @@ public class PersistentHashMapTest {
         addABC();
 
         phm.undo();
-        assertTrue(phm.containsKey("A"));
-        assertTrue(phm.containsKey("B"));
+        assertEquals(Integer.valueOf(1), phm.get("A"));
+        assertEquals(Integer.valueOf(2), phm.get("B"));
         assertFalse(phm.containsKey("C"));
 
         phm.undo();
-        assertTrue(phm.containsKey("A"));
+        assertEquals(Integer.valueOf(1), phm.get("A"));
         assertFalse(phm.containsKey("B"));
         assertFalse(phm.containsKey("C"));
 
         phm.redo();
-        assertTrue(phm.containsKey("A"));
-        assertTrue(phm.containsKey("B"));
+        assertEquals(Integer.valueOf(1), phm.get("A"));
+        assertEquals(Integer.valueOf(2), phm.get("B"));
         assertFalse(phm.containsKey("C"));
 
         phm.redo();
-        assertTrue(phm.containsKey("A"));
-        assertTrue(phm.containsKey("B"));
-        assertTrue(phm.containsKey("C"));
-
-        assertTrue(phm.toString().contains("A=1"));
-        assertTrue(phm.toString().contains("B=2"));
-        assertTrue(phm.toString().contains("C=3"));
+        assertEquals(Integer.valueOf(1), phm.get("A"));
+        assertEquals(Integer.valueOf(2), phm.get("B"));
+        assertEquals(Integer.valueOf(3), phm.get("C"));
 
         phm.undo();
         phm.undo();
@@ -86,12 +86,14 @@ public class PersistentHashMapTest {
         assertEquals(0, phm.size());
 
         phm.put("Alone", 1);
-        assertTrue(phm.toString().contains("Alone=1"));
+        assertEquals(Integer.valueOf(1), phm.get("Alone"));
     }
 
     @Test
     public void testPersistentHashMapContainsKey() {
         addABC();
+
+        assertEquals(3, phm.size());
 
         assertTrue(phm.containsKey("A"));
         assertTrue(phm.containsKey("B"));
@@ -118,14 +120,17 @@ public class PersistentHashMapTest {
     }
 
     @Test
-    public void testPersistentHashMapAPI() {
+    public void testPersistentHashMapAPIForEach() {
         addABC();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         phm.forEach((k, v) -> stringBuilder.append(k).append(":").append(v).append(" "));
         stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(" "));
         stringBuilder.append("]");
-        assertEquals("[C:3 B:2 A:1]", stringBuilder.toString());
+
+        assertTrue(stringBuilder.toString().contains("A:1"));
+        assertTrue(stringBuilder.toString().contains("B:2"));
+        assertTrue(stringBuilder.toString().contains("C:3"));
     }
 
     @Test
@@ -141,9 +146,9 @@ public class PersistentHashMapTest {
         addABC();
 
         assertEquals(3, phm.size());
-        assertTrue(phm.containsKey("A"));
-        assertTrue(phm.containsKey("B"));
-        assertTrue(phm.containsKey("C"));
+        assertEquals(Integer.valueOf(1), phm.get("A"));
+        assertEquals(Integer.valueOf(2), phm.get("B"));
+        assertEquals(Integer.valueOf(3), phm.get("C"));
 
         phm.remove("A");
         assertFalse(phm.containsKey("A"));
@@ -158,18 +163,15 @@ public class PersistentHashMapTest {
     public void testPersistentHashMapModifyAndUndoRedo() {
         phm.put("Gosha", 12);
         assertEquals(1, phm.size());
-        assertTrue(phm.containsKey("Gosha"));
-        assertTrue(phm.containsValue(12));
+        assertEquals(Integer.valueOf(12), phm.get("Gosha"));
 
         phm.put("Gosha", 1000);
         assertEquals(1, phm.size());
-        assertTrue(phm.containsKey("Gosha"));
-        assertTrue(phm.containsValue(1000));
+        assertEquals(Integer.valueOf(1000), phm.get("Gosha"));
 
         phm.undo();
         assertEquals(1, phm.size());
-        assertTrue(phm.containsKey("Gosha"));
-        assertTrue(phm.containsValue(12));
+        assertEquals(Integer.valueOf(12), phm.get("Gosha"));
     }
 
     @Test
