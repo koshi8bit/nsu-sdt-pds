@@ -210,6 +210,10 @@ public class PersistentLinkedListTest {
         assertTrue(i.hasNext());
         assertEquals(Integer.valueOf(4), i.next());
         assertFalse(i.hasNext());
+
+        pl = new PersistentLinkedList<>();
+        i = pl.iterator();
+        assertFalse(i.hasNext());
     }
 
     @Test
@@ -333,5 +337,34 @@ public class PersistentLinkedListTest {
         pl.redo();
 
         assertEquals("[]", pl.toString());
+    }
+
+
+    @Test
+    public void testPersistentLinkedListForEach() {
+        init(3);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Integer i : pl) {
+            stringBuilder.append(i);
+        }
+
+        assertEquals("012", stringBuilder.toString());
+
+        PersistentLinkedList<PersistentHashMap.Pair<String, Integer>> pl2 = new PersistentLinkedList<>();
+        pl2.add(new PersistentHashMap.Pair<>("Vanya", 1));
+        pl2.add(new PersistentHashMap.Pair<>("Gosha", 2));
+        pl2.add(new PersistentHashMap.Pair<>("Vitya", 3));
+
+        stringBuilder = new StringBuilder();
+        for (PersistentHashMap.Pair<String, Integer> pair : pl2) {
+            stringBuilder.append("[");
+            stringBuilder.append(pair.getKey());
+            stringBuilder.append(" ");
+            stringBuilder.append(pair.getValue());
+            stringBuilder.append("]");
+        }
+
+        assertEquals("[Vanya 1][Gosha 2][Vitya 3]", stringBuilder.toString());
+
     }
 }
