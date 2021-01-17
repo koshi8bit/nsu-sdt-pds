@@ -241,8 +241,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
         //O(N) 100%
-
-        //todo need to test
         checkListIndex(listIndex, head);
 
         if (head.size == 0)
@@ -250,8 +248,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         int result = head.first;
 
-//        Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, head.first);
-//        Node<PLLE<E>> current = pair.getKey();
         PLLE<E> current;
 
 
@@ -260,14 +256,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, result);
             current = pair.getKey().value.get(pair.getValue());
             result = current.next;
-//
-//            result = pair.getKey().value.get(pair.getValue()).next;
-//            pair = getLeaf(head, result);
-//            current = getLeaf(head, current.).getKey()
         }
 
         return result;
-
     }
 
     @Override
@@ -412,7 +403,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private PLLE<E> getPLLE(HeadList<PLLE<E>> head, int index)
     {
-        //O(log(width, N)) 100%
+        //O(N) 100%
         checkListIndex(index);
 
         int treeIndex = getTreeIndex(index);
@@ -556,8 +547,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             return result;
         }
 
-
-        PLLE<E> mid = getPLLE(prevHead, index);
+        int treeIndex = getTreeIndex(prevHead, index);
+        PLLE<E> mid = getLeaf(prevHead, treeIndex).getKey().value.get(treeIndex & mask);
         //System.out.println(drawGraph(false));
 
         if(mid.prev == -1)
@@ -626,6 +617,18 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
         leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
+
+
+        if (newHead.deadList == null)
+        {
+            newHead.deadList = new ArrayDeque<>();
+        }
+        else
+        {
+            newHead.deadList = new ArrayDeque<>(newHead.deadList);
+        }
+
+        newHead.deadList.add(treeIndex);
 
 
         finishRemove(newHead);

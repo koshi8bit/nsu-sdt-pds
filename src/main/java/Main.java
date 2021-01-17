@@ -1,11 +1,9 @@
-import java.util.LinkedList;
-
 public class Main {
 
 
     public static void main(String[] args) {
 //        arrayPresentation();
-//        listPresentation();
+        listPresentation();
 //        hashMapPresentation();
 
     }
@@ -90,13 +88,13 @@ public class Main {
 
     private static void listPresentation()
     {
-        listPresentation2();
+        listPresentationBasic();
         //listGetTimeTest();
         listAddTimeTest();
     }
 
 
-    private static void listPresentation2() {
+    private static void listPresentationBasic() {
         System.out.println("\n\n-----LIST-----");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
@@ -119,6 +117,15 @@ public class Main {
         pl.undo();
         System.out.println("undo");
         System.out.println(pl.drawGraph());
+
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
 
         //TODO FAILS! ?tests results are different, wtf?
 //        pl.add(5, 2);
