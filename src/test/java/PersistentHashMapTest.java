@@ -184,4 +184,42 @@ public class PersistentHashMapTest {
         // "[C=3 B=2 A=1]" - содержит 13 символов
         assertEquals(13, phm.toString().length());
     }
+
+    @Test
+    public void testPersistentHashMapCascade() {
+        PersistentHashMap<String, Integer> v1 = new PersistentHashMap<>();
+        v1.put("Vasya", 1);
+        PersistentHashMap<String, Integer> v2 = v1.conj("Cooper", 2);
+
+        assertEquals(Integer.valueOf(1), v1.get("Vasya"));
+        assertFalse(v1.containsKey("Cooper"));
+        assertEquals(1, v1.size());
+
+        assertEquals(Integer.valueOf(1), v2.get("Vasya"));
+        assertEquals(Integer.valueOf(2), v2.get("Cooper"));
+        assertEquals(2, v2.size());
+
+        //assoc
+        PersistentHashMap<String, Integer> v3 = v2.conj("Vasya", 999);
+
+        assertEquals(Integer.valueOf(1), v1.get("Vasya"));
+        assertFalse(v1.containsKey("Cooper"));
+        assertEquals(1, v1.size());
+
+        assertEquals(Integer.valueOf(1), v2.get("Vasya"));
+        assertEquals(Integer.valueOf(2), v2.get("Cooper"));
+        assertEquals(2, v2.size());
+
+        assertEquals(Integer.valueOf(999), v3.get("Vasya"));
+        assertEquals(Integer.valueOf(2), v3.get("Cooper"));
+        assertEquals(2, v3.size());
+
+        v3.put("Maks", 3);
+        v3.put("Anna", 4);
+        assertEquals(4, v3.size());
+
+        v3.remove("Maks");
+        assertFalse(v3.containsKey("Maks"));
+        assertEquals(3, v3.size());
+    }
 }

@@ -14,6 +14,15 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
         }
     }
 
+    public PersistentHashMap(PersistentHashMap<K, V> other) {
+        this.table = new ArrayList<>(30);
+        for (int i = 0; i < tableMaxSize; i++) {
+            table.add(new PersistentLinkedList<>(other.table.get(i)));
+        }
+        this.undo.addAll(other.undo);
+        this.redo.addAll(other.redo);
+    }
+
     @Override
     public V put(K key, V value) {
         int index = calculateIndex(key.hashCode());
@@ -117,6 +126,12 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
         stringBuilder.deleteCharAt(stringBuilder.lastIndexOf(" "));
         stringBuilder.append("]");
         return stringBuilder.toString();
+    }
+
+    public PersistentHashMap<K, V> conj(K key, V value) {
+        PersistentHashMap<K, V> result = new PersistentHashMap<>(this);
+        result.put(key, value);
+        return result;
     }
 
     private int calculateIndex(int hashcode) {
