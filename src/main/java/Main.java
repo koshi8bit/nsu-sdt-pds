@@ -6,6 +6,8 @@ public class Main {
 //        listPresentation();
 //        hashMapPresentation();
 
+
+        //todo MAKE TEST
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
         pl.add(3);
@@ -26,22 +28,13 @@ public class Main {
         System.out.println("undo");
         System.out.println(pl.drawGraph());
 
+        pl.add(7);
+        System.out.println("add(6)");
+        System.out.println(pl.drawGraph());
 
-//        pl.add(7);
-//        System.out.println("add(7)");
-//        System.out.println(pl.drawGraph());
-////
-//        pl.undo();
-//        System.out.println("undo");
-//        System.out.println(pl.drawGraph());
-//
-//        pl.undo();
-//        System.out.println("undo");
-//        System.out.println(pl.drawGraph(false));
 
-//        pl.add(8);
-//        System.out.println("add(8)");
-//        System.out.println(pl.drawGraph());
+
+
     }
 
 
