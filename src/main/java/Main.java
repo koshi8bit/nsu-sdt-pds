@@ -29,7 +29,7 @@ public class Main {
         System.out.println(pl.drawGraph());
 
         pl.add(7);
-        System.out.println("add(6)");
+        System.out.println("add(7)");
         System.out.println(pl.drawGraph());
 
 
