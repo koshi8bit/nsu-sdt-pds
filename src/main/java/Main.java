@@ -1,10 +1,13 @@
+import java.util.LinkedList;
+
 public class Main {
 
 
     public static void main(String[] args) {
-        arrayPresentation();
-        listPresentation();
-        hashMapPresentation();
+//        arrayPresentation();
+//        listPresentation();
+//        hashMapPresentation();
+
     }
 
 
@@ -85,7 +88,15 @@ public class Main {
         System.out.println(pa.getCurrentHead().root.drawGraph());
     }
 
-    private static void listPresentation() {
+    private static void listPresentation()
+    {
+        listPresentation2();
+        //listGetTimeTest();
+        listAddTimeTest();
+    }
+
+
+    private static void listPresentation2() {
         System.out.println("\n\n-----LIST-----");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
@@ -114,28 +125,30 @@ public class Main {
 //        System.out.println("add(5, 2)");
 //        System.out.println(pl.drawGraph());
 
-        //listTimeTest();
+
 
     }
 
-    private static void measureTime(PersistentLinkedList<Integer> pl, int index)
-    {
-        int N = 1000000;
+    interface Express {
+        String doIt();
+    }
+
+    private static void measureTime(Express f, int N) {
         double avg = 0;
         for (int i =0; i<N; i++)
         {
             long start = System.nanoTime();
-            pl.get(index);
+            f.doIt();
             long end = System.nanoTime();
             long delta = end-start;
             //System.out.println(delta);
             avg +=  delta;
         }
-        System.out.println("avg = " + avg/N + "; " + pl.get(index));
+        System.out.println("avg=" + avg/N + "; result=" + f.doIt());
     }
 
-    private static void listTimeTest() {
-        System.out.println("\n---Time test---");
+    private static void listGetTimeTest() {
+        System.out.println("\n---Get time test---");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(1000);
 
         for(int i=0; i<1000; i++)
@@ -143,11 +156,58 @@ public class Main {
             pl.add(i);
         }
 
-        measureTime(pl, 0);
-        measureTime(pl, 200);
-        measureTime(pl, 800);
-        measureTime(pl, 999);
+        int N = 100000;
+
+//        new Thread(() -> measureTime(() ->  "pl.get(0) " + pl.get(0).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(200) " + pl.get(200).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(800) " + pl.get(800).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(999) " + pl.get(999).toString(),  N)).start();
+        measureTime(() ->  "pl.get(0)   " + pl.get(0).toString(),  N);
+        measureTime(() ->  "pl.get(200) " + pl.get(200).toString(),  N);
+        measureTime(() ->  "pl.get(800) " + pl.get(800).toString(),  N);
+        measureTime(() ->  "pl.get(999) " + pl.get(999).toString(),  N);
     }
+
+//    private static void listGetTimeTest2() {
+//        System.out.println("\n---Get time test---");
+//        LinkedList<Integer> ll = new LinkedList<>();
+//
+//        for(int i=0; i<1000; i++)
+//        {
+//            ll.add(i);
+//        }
+//
+//        int N = 10000000;
+//
+//        measureTime(() ->  "ll.get(0) " + ll.get(0).toString(),  N);
+//        measureTime(() ->  "ll.get(200) " + ll.get(200).toString(),  N);
+//        measureTime(() ->  "ll.get(800) " + ll.get(800).toString(),  N);
+//        measureTime(() ->  "ll.get(999) " + ll.get(999).toString(),  N);
+//
+//    }
+
+    private static void listAddTimeTest() {
+        System.out.println("\n---Add time test---");
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(1000000);
+
+        int N = 100000;
+        measureTime(() ->  { pl.add(5); return "pl.add(5)"; },N);
+        pl.clear();
+
+        for(int i=0; i<1000; i++)
+        {
+            pl.add(i);
+        }
+        measureTime(() ->  { pl.add(6); return "pl.add(6)"; },N);
+
+//        measureTime(() ->  { pl.add(5); return "pl.add(5)"; },N);
+//        measureTime(() ->  { pl.add(1, 888); return "pl.add(1, 888)"; },N);
+//        measureTime(() ->  { pl.add(10000, 999); return "pl.add(10000, 999)"; },N);
+//        measureTime(() ->  { pl.add(0); return "pl.add(0)"; },N);
+//        measureTime(() ->  { pl.add(1); return "pl.add(1)"; },N);
+        //System.out.println(pl);
+    }
+
 
 
 
