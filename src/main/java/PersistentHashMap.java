@@ -7,8 +7,8 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
     private Stack<Integer> redo = new Stack<>();
     private Stack<Integer> undo = new Stack<>();
     private PersistentHashMap<?, PersistentHashMap<?, ?>> parent;
-    private Stack<PersistentHashMap<?,?>> insertedUndo = new Stack<>();
-    private Stack<PersistentHashMap<?,?>> insertedRedo = new Stack<>();
+    public Stack<PersistentHashMap<?,?>> insertedUndo = new Stack<>();
+    public Stack<PersistentHashMap<?,?>> insertedRedo = new Stack<>();
 
     public PersistentHashMap() {
         this.table = new ArrayList<>(30);
@@ -145,8 +145,17 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
     @Override
     public void undo() {
         if (!insertedUndo.empty()) {
-            insertedUndo.peek().undo();
-            insertedRedo.push(insertedUndo.pop());
+            if (insertedUndo.peek().isEmpty()) {
+                insertedRedo.push(insertedUndo.pop());
+                if (!undo.empty()) {
+                    table.get(undo.peek()).undo();
+                    redo.push(undo.pop());
+                }
+            } else {
+                PersistentHashMap persistentHashMap = insertedUndo.pop();
+                persistentHashMap.undo();
+                insertedRedo.push(persistentHashMap);
+            }
         } else {
             if (!undo.empty()) {
                 table.get(undo.peek()).undo();
@@ -158,8 +167,17 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
     @Override
     public void redo() {
         if (!insertedRedo.empty()) {
-            insertedRedo.peek().redo();
-            insertedUndo.push(insertedRedo.pop());
+            if (insertedRedo.peek().isEmpty()) {
+                insertedUndo.push(insertedRedo.pop());
+                if (!redo.empty()) {
+                    table.get(redo.peek()).redo();
+                    undo.push(redo.pop());
+                }
+            } else {
+                PersistentHashMap persistentHashMap = insertedRedo.pop();
+                persistentHashMap.redo();
+                insertedUndo.push(persistentHashMap);
+            }
         } else {
             if (!redo.empty()) {
                 table.get(redo.peek()).redo();
@@ -172,6 +190,7 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
     private void tryParentUndo(V value) {
         if (value instanceof PersistentHashMap) {
             ((PersistentHashMap) value).parent = this;
+            onEvent((PersistentHashMap) value);
         }
 
         if (parent != null) {
