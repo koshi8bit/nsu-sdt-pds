@@ -5,6 +5,9 @@ import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
 
+    private PersistentLinkedList<PersistentLinkedList<?>> parent;
+    private Stack<PersistentLinkedList<?>> insertedUndo = new Stack<>();
+    private Stack<PersistentLinkedList<?>> insertedRedo = new Stack<>();
     protected final Stack<HeadList<PLLE<E>>> redo = new Stack<>();
     protected final Stack<HeadList<PLLE<E>>> undo = new Stack<>();
 
@@ -34,14 +37,24 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
 
     public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
+        if (!insertedUndo.empty()) {
+            insertedUndo.peek().undo();
+            insertedRedo.push(insertedUndo.pop());
+        } else {
+            if (!undo.empty()) {
+                redo.push(undo.pop());
+            }
         }
     }
 
     public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
+        if (!insertedRedo.empty()) {
+            insertedRedo.peek().redo();
+            insertedUndo.push(insertedRedo.pop());
+        } else {
+            if (!redo.empty()) {
+                undo.push(redo.pop());
+            }
         }
     }
 
@@ -67,6 +80,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
+    private void tryParentUndo(E value) {
+        if (value instanceof PersistentLinkedList) {
+            ((PersistentLinkedList) value).parent = this;
+        }
+
+        if (parent != null) {
+            parent.onEvent(this);
+        }
+    }
+
+    private void onEvent(PersistentLinkedList<?> persistentLinkedList) {
+        insertedUndo.push(persistentLinkedList);
+    }
 
     protected HeadList<PLLE<E>> getCurrentHead() {
         return this.undo.peek();
@@ -168,7 +194,84 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public boolean isFull(HeadList<PLLE<E>> head, int extra)
     {
-        return head.sizeTree + extra > maxSize;
+        return head.sizeTree + extra >= maxSize;
+    }
+
+    private Pair<Integer, Boolean> getNextIndex(HeadList<PLLE<E>> head)
+    {
+        if (head.deadList == null)
+            return new Pair<>(head.sizeTree, false);
+
+        if (head.deadList.size() == 0)
+            return new Pair<>(head.sizeTree, false);
+
+        head.deadList = new ArrayDeque<>(head.deadList);
+        return new Pair<>(head.deadList.pop(), true);
+
+    }
+
+    @Override
+    public boolean add(E newValue) {
+        //O(2*log(width, N)) 100%
+        if (isFull()) {
+            return false;
+        }
+
+        PLLE<E> element = null;
+
+        HeadList<PLLE<E>> prevHead = getCurrentHead();
+        HeadList<PLLE<E>> newHead = null;
+
+        Pair<Integer, Boolean> next = null;// = getNextIndex(prevHead);
+
+        if (getCurrentHead().size == 0)
+        {
+            //newHead = new HeadList<>(prevHead);
+            newHead = new HeadList<>(); //todo check may be prev line
+            element = new PLLE<>(newValue, -1, -1);
+            newHead.first = 0;
+            newHead.last = 0;
+
+            findLeafForNewElement(newHead).value.add(element);
+        }
+        else
+        {
+            element = new PLLE<>(newValue, prevHead.last, -1);
+            CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
+                    = copyLeaf(prevHead, prevHead.last);
+            newHead = tmp.head;
+            next = getNextIndex(newHead);
+            PLLE<E> last = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
+            tmp.leaf.value.set(tmp.leafInnerIndex, last);
+
+            if (!next.getValue()) {
+                last.next = newHead.sizeTree;
+                newHead.last = newHead.sizeTree;
+            }
+            else
+            {
+                last.next = next.getKey();
+                PLLE<E> oldOne = new PLLE<>(getValueFromLeaf(newHead, next.getKey()));
+
+                Pair<Node<PLLE<E>>, Integer>  oldLeaf = getLeaf(newHead, next.getKey());
+                oldLeaf.getKey().value.set(oldLeaf.getValue(), oldOne);
+
+                oldOne.value = newValue;
+                oldOne.next = -1;
+                oldOne.prev = prevHead.last;
+                newHead.last = last.next;
+                newHead.size++;
+            }
+
+            if (!next.getValue()) {
+                findLeafForNewElement(newHead).value.add(element);
+            }
+        }
+
+        undo.push(newHead);
+        redo.clear();
+
+        return true;
     }
 
     @Override
@@ -184,16 +287,23 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         checkListIndex(index, prevHead);
 
         int indexBefore = -1;
-        int indexAfter = -1;
+        PLLE<E> beforeE = null;
 
-        if (prevHead.sizeTree == 0) { //todo size or sizeTree
+        int indexAfter = -1;
+        PLLE<E> afterE = null;
+
+        //int freeIndex = getNextIndex(prevHead).getKey();
+        int freeIndex = prevHead.sizeTree;
+
+        if (prevHead.size == 0) { //todo size or sizeTree: size чистить скопившийся мусор
             newHead = new HeadList<>(prevHead);
         } else {
             if (index != 0) {
                 indexBefore = getTreeIndex(index - 1);
                 CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(prevHead, indexBefore);
-                PLLE<E> beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
-                beforeE.next = prevHead.sizeTree;
+                beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
+                //beforeE.next = prevHead.sizeTree;
+                beforeE.next = freeIndex;
                 before.leaf.value.set(before.leafInnerIndex, beforeE);
                 newHead = before.head;
             }
@@ -202,28 +312,28 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
                 indexAfter = getTreeIndex(index);
                 HeadList<PLLE<E>> prevHead2 = newHead != null ? newHead : prevHead;
                 CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(prevHead2, indexAfter);
-                PLLE<E> afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
-                afterE.prev = prevHead.sizeTree;
+                afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
+                //afterE.prev = prevHead.sizeTree;
+                afterE.prev = freeIndex;
                 after.leaf.value.set(after.leafInnerIndex, afterE);
                 newHead = after.head;
             }
-
-
         }
 
         undo.push(newHead);
         redo.clear();
+        tryParentUndo(value);
 
         PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
 
         if (indexBefore == -1)
         {
-            newHead.first = newHead.sizeTree;
+            newHead.first = freeIndex;
         }
 
         if (indexAfter == -1)
         {
-            newHead.last = newHead.sizeTree;
+            newHead.last = freeIndex;
         }
 
         findLeafForNewElement(newHead).value.add(element);
@@ -241,8 +351,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     private int getTreeIndex(HeadList<PLLE<E>> head, int listIndex)
     {
         //O(N) 100%
-
-        //todo need to test
         checkListIndex(listIndex, head);
 
         if (head.size == 0)
@@ -250,8 +358,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         int result = head.first;
 
-//        Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, head.first);
-//        Node<PLLE<E>> current = pair.getKey();
         PLLE<E> current;
 
 
@@ -260,57 +366,25 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             Pair<Node<PLLE<E>>, Integer> pair = getLeaf(head, result);
             current = pair.getKey().value.get(pair.getValue());
             result = current.next;
-//
-//            result = pair.getKey().value.get(pair.getValue()).next;
-//            pair = getLeaf(head, result);
-//            current = getLeaf(head, current.).getKey()
         }
 
         return result;
 
     }
 
-    @Override
-    public boolean add(E newValue) {
-        if (isFull()) {
-            return false;
-        }
-
-        PLLE<E> element;
-
-        HeadList<PLLE<E>> prevHead = getCurrentHead();
-        HeadList<PLLE<E>> newHead;
-
-        if (getCurrentHead().size == 0)
-        {
-            newHead = new HeadList<>(prevHead);
-            element = new PLLE<>(newValue, -1, -1);
-            newHead.first = newHead.sizeTree;
-        }
-        else
-        {
-            element = new PLLE<>(newValue, prevHead.last, -1);
-            CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
-                    = copyLeaf(prevHead, prevHead.last);
-            newHead = tmp.head;
-            PLLE<E> prev = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
-            prev.next = newHead.sizeTree;
-            tmp.leaf.value.set(tmp.leafInnerIndex, prev);
-        }
-        newHead.last = newHead.sizeTree;
-
-        undo.push(newHead);
-        redo.clear();
-
-        findLeafForNewElement(newHead).value.add(element);
-
-        return true;
+    public PersistentLinkedList<E> conj(E newElement) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.add(newElement);
+        return result;
     }
+
+
 
 
 
     protected Node<PLLE<E>> findLeafForNewElement(HeadList<PLLE<E>> head)
     {
+        //O(log(width, N)) 100%
         if (isFull(head)) {
             throw new IndexOutOfBoundsException("collection is full");
         }
@@ -398,6 +472,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         redo.clear();
     }
 
+    private PLLE<E> getValueFromLeaf(HeadList<PLLE<E>> head, int index)
+    {
+        return getLeaf(head, index).getKey().value.get(index & mask);
+    }
+
     @Override
     public E get(int index) {
         return get(getCurrentHead(), index);
@@ -405,7 +484,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private PLLE<E> getPLLE(HeadList<PLLE<E>> head, int index)
     {
-        //O(log(width, N)) 100%
+        //O(N) 100%
         checkListIndex(index);
 
         int treeIndex = getTreeIndex(index);
@@ -417,6 +496,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private E get(HeadList<PLLE<E>> head, int index)
     {
+        if (index == 0)
+            return getValueFromLeaf(head, head.first).value;
+
+        if (index == head.size-1)
+            return getValueFromLeaf(head, head.last).value;
+
+
         return getPLLE(head, index).value;
     }
 
@@ -488,6 +574,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
 //    }
 
+    public PersistentLinkedList<E> assoc(int index, E element) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.set(index, element);
+        return result;
+    }
 
     @Override
     public E set(int index, E element) {
@@ -512,6 +603,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         undo.push(newHead);
         redo.clear();
+        tryParentUndo(element);
 
         return oldResult;
     }
@@ -542,8 +634,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             return result;
         }
 
-
-        PLLE<E> mid = getPLLE(prevHead, index);
+        int treeIndex = getTreeIndex(prevHead, index);
+        PLLE<E> mid = getLeaf(prevHead, treeIndex).getKey().value.get(treeIndex & mask);
         //System.out.println(drawGraph(false));
 
         if(mid.prev == -1)
@@ -612,6 +704,18 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         Pair<Node<PLLE<E>>, Integer> leafPrev = getLeaf(newHead, treePrevIndex);
         leafPrev.getKey().value.set(treePrevIndex & mask, newPrevPLLE);
+
+
+        if (newHead.deadList == null)
+        {
+            newHead.deadList = new ArrayDeque<>();
+        }
+        else
+        {
+            newHead.deadList = new ArrayDeque<>(newHead.deadList);
+        }
+
+        newHead.deadList.push(treeIndex);
 
 
         finishRemove(newHead);

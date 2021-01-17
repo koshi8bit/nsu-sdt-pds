@@ -1,9 +1,42 @@
 public class Main {
+
+
     public static void main(String[] args) {
-        arrayPresentation();
-        listPresentation();
-        hashMapPresentation();
+//        arrayPresentation();
+//        listPresentation();
+//        hashMapPresentation();
+
+
+        //todo MAKE TEST
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
+
+        pl.add(3);
+        pl.add(4);
+        pl.add(5);
+        System.out.println("add 3,4,5");
+        System.out.println(pl.drawGraph());
+
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
+        pl.add(6);
+        System.out.println("add(6)");
+        System.out.println(pl.drawGraph());
+
+        pl.undo();
+        System.out.println("undo");
+        System.out.println(pl.drawGraph());
+
+        pl.add(7);
+        System.out.println("add(7)");
+        System.out.println(pl.drawGraph());
+
+
+
+
     }
+
 
     private static void arrayPresentation() {
         simple();
@@ -82,9 +115,17 @@ public class Main {
         System.out.println(pa.getCurrentHead().root.drawGraph());
     }
 
-    private static void listPresentation() {
+    private static void listPresentation()
+    {
+        listPresentationBasic();
+        //listGetTimeTest();
+        //listAddTimeTest();
+    }
+
+
+    private static void listPresentationBasic() {
         System.out.println("\n\n-----LIST-----");
-        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
         pl.add(3);
         pl.add(4);
@@ -106,17 +147,112 @@ public class Main {
         System.out.println("undo");
         System.out.println(pl.drawGraph());
 
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
+        pl.add(2);
+        System.out.println("add 2");
+        System.out.println(pl.drawGraph());
+
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
+
         //TODO FAILS! ?tests results are different, wtf?
-        pl.add(5, 2);
-        System.out.println("add(5, 2)");
-        System.out.println(pl.drawGraph(false));
+//        pl.add(5, 2);
+//        System.out.println("add(5, 2)");
+//        System.out.println(pl.drawGraph());
+
 
 
     }
 
+    interface Express {
+        String doIt();
+    }
+
+    private static void measureTime(Express f, int N) {
+        double avg = 0;
+        for (int i =0; i<N; i++)
+        {
+            long start = System.nanoTime();
+            f.doIt();
+            long end = System.nanoTime();
+            long delta = end-start;
+            //System.out.println(delta);
+            avg +=  delta;
+        }
+        System.out.println("avg=" + avg/N + "; result=" + f.doIt());
+    }
+
+    private static void listGetTimeTest() {
+        System.out.println("\n---Get time test---");
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(1000);
+
+        for(int i=0; i<1000; i++)
+        {
+            pl.add(i);
+        }
+
+        int N = 100000;
+
+//        new Thread(() -> measureTime(() ->  "pl.get(0) " + pl.get(0).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(200) " + pl.get(200).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(800) " + pl.get(800).toString(),  N)).start();
+//        new Thread(() -> measureTime(() ->  "pl.get(999) " + pl.get(999).toString(),  N)).start();
+        measureTime(() ->  "pl.get(0)   " + pl.get(0).toString(),  N);
+        measureTime(() ->  "pl.get(200) " + pl.get(200).toString(),  N);
+        measureTime(() ->  "pl.get(800) " + pl.get(800).toString(),  N);
+        measureTime(() ->  "pl.get(999) " + pl.get(999).toString(),  N);
+    }
+
+//    private static void listGetTimeTest2() {
+//        System.out.println("\n---Get time test---");
+//        LinkedList<Integer> ll = new LinkedList<>();
+//
+//        for(int i=0; i<1000; i++)
+//        {
+//            ll.add(i);
+//        }
+//
+//        int N = 10000000;
+//
+//        measureTime(() ->  "ll.get(0) " + ll.get(0).toString(),  N);
+//        measureTime(() ->  "ll.get(200) " + ll.get(200).toString(),  N);
+//        measureTime(() ->  "ll.get(800) " + ll.get(800).toString(),  N);
+//        measureTime(() ->  "ll.get(999) " + ll.get(999).toString(),  N);
+//
+//    }
+
+    private static void listAddTimeTest() {
+        System.out.println("\n---Add time test---");
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(1000000);
+
+        int N = 100000;
+        measureTime(() ->  { pl.add(5); return "pl.add(5)"; },N);
+        pl.clear();
+
+        for(int i=0; i<1000; i++)
+        {
+            pl.add(i);
+        }
+        measureTime(() ->  { pl.add(6); return "pl.add(6)"; },N);
+
+//        measureTime(() ->  { pl.add(5); return "pl.add(5)"; },N);
+//        measureTime(() ->  { pl.add(1, 888); return "pl.add(1, 888)"; },N);
+//        measureTime(() ->  { pl.add(10000, 999); return "pl.add(10000, 999)"; },N);
+//        measureTime(() ->  { pl.add(0); return "pl.add(0)"; },N);
+//        measureTime(() ->  { pl.add(1); return "pl.add(1)"; },N);
+        //System.out.println(pl);
+    }
+
+
 
 
     private static void hashMapPresentation() {
+        System.out.println("\n\n-----HashMap-----");
         PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
         phm.put("Vasya",10);
         phm.put("Petya", 11);
