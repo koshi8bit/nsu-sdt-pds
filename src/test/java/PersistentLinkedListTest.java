@@ -416,4 +416,45 @@ public class PersistentLinkedListTest {
         v3.remove(2);
         assertEquals("[Abdula, Cooper, 4]", v3.toString());
     }
+
+    @Test
+    public void testPersistentLinkedListInsertedUndoRedo() {
+        PersistentLinkedList<PersistentLinkedList<String>> parent = new PersistentLinkedList<>();
+        PersistentLinkedList<String> child1 = new PersistentLinkedList<>();
+        PersistentLinkedList<String> child2 = new PersistentLinkedList<>();
+        PersistentLinkedList<String> child3 = new PersistentLinkedList<>();
+        parent.add(child1);
+        parent.add(child2);
+        parent.add(child3);
+
+        parent.get(0).add("1");
+        parent.get(0).add("2");
+        parent.get(0).add("3");
+
+        parent.get(1).add("11");
+        parent.get(1).add("22");
+        parent.get(1).add("33");
+
+        parent.get(2).add("111");
+        parent.get(2).add("222");
+        parent.get(2).add("333");
+
+        assertEquals("[[1, 2, 3], [11, 22, 33], [111, 222, 333]]", parent.toString());
+        parent.undo();
+        assertEquals("[[1, 2, 3], [11, 22, 33], [111, 222]]", parent.toString());
+
+
+        PersistentLinkedList<String> child4 = new PersistentLinkedList<>();
+        parent.add(1, child4);
+        child4.add("Меня выпилят :(");
+        assertEquals("[[1, 2, 3], [Меня выпилят :(], [11, 22, 33], [111, 222]]", parent.toString());
+        parent.undo();
+        assertEquals("[[1, 2, 3], [], [11, 22, 33], [111, 222]]", parent.toString());
+
+        parent.get(0).set(0, "Я выживу!");
+        parent.get(0).set(1, "А я нет...");
+        assertEquals("[[Я выживу!, А я нет..., 3], [], [11, 22, 33], [111, 222]]", parent.toString());
+        parent.undo();
+        assertEquals("[[Я выживу!, 2, 3], [], [11, 22, 33], [111, 222]]", parent.toString());
+    }
 }
