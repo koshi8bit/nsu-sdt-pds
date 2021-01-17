@@ -5,10 +5,11 @@ import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
 
+    private PersistentLinkedList<PersistentLinkedList<?>> parent;
+    private Stack<PersistentLinkedList<?>> insertedUndo = new Stack<>();
+    private Stack<PersistentLinkedList<?>> insertedRedo = new Stack<>();
     protected final Stack<HeadList<PLLE<E>>> redo = new Stack<>();
     protected final Stack<HeadList<PLLE<E>>> undo = new Stack<>();
-
-
 
 
     public PersistentLinkedList() {
@@ -36,14 +37,24 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
 
     public void undo() {
-        if (!undo.empty()) {
-            redo.push(undo.pop());
+        if (!insertedUndo.empty()) {
+            insertedUndo.peek().undo();
+            insertedRedo.push(insertedUndo.pop());
+        } else {
+            if (!undo.empty()) {
+                redo.push(undo.pop());
+            }
         }
     }
 
     public void redo() {
-        if (!redo.empty()) {
-            undo.push(redo.pop());
+        if (!insertedRedo.empty()) {
+            insertedRedo.peek().redo();
+            insertedUndo.push(insertedRedo.pop());
+        } else {
+            if (!redo.empty()) {
+                undo.push(redo.pop());
+            }
         }
     }
 
@@ -69,6 +80,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
+    private void tryParentUndo(E value) {
+        if (value instanceof PersistentLinkedList) {
+            ((PersistentLinkedList) value).parent = this;
+        }
+
+        if (parent != null) {
+            parent.onEvent(this);
+        }
+    }
+
+    private void onEvent(PersistentLinkedList<?> persistentLinkedList) {
+        insertedUndo.push(persistentLinkedList);
+    }
 
     protected HeadList<PLLE<E>> getCurrentHead() {
         return this.undo.peek();
@@ -298,6 +322,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         undo.push(newHead);
         redo.clear();
+        tryParentUndo(value);
 
         PLLE<E> element = new PLLE<>(value, indexBefore, indexAfter);
 
@@ -343,6 +368,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             result = current.next;
         }
 
+        return result;
+
+    }
+
+    public PersistentLinkedList<E> conj(E newElement) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.add(newElement);
         return result;
     }
 
@@ -542,6 +574,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
 //    }
 
+    public PersistentLinkedList<E> assoc(int index, E element) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.set(index, element);
+        return result;
+    }
 
     @Override
     public E set(int index, E element) {
@@ -566,6 +603,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
         undo.push(newHead);
         redo.clear();
+        tryParentUndo(element);
 
         return oldResult;
     }
