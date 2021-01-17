@@ -15,25 +15,27 @@ public class Main {
         pl.add(5);
         System.out.println("add 3,4,5");
         System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3); //do assert on it
 
         pl.remove(1);
         System.out.println("remove(1)");
         System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
 
         pl.add(6);
         System.out.println("add(6)");
         System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
 
         pl.undo();
         System.out.println("undo");
         System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
 
         pl.add(7);
         System.out.println("add(7)");
         System.out.println(pl.drawGraph());
-
-
-
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
 
     }
 
