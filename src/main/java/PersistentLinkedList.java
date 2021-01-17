@@ -1,6 +1,5 @@
 import javafx.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
@@ -270,6 +269,12 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
+    public PersistentLinkedList<E> conj(E newElement) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.add(newElement);
+        return result;
+    }
+
     @Override
     public boolean add(E newValue) {
         if (isFull()) {
@@ -488,6 +493,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 //        return getCurrentHead() + "\n" + getCurrentHead().root.drawGraph() + "\n";
 //    }
 
+    public PersistentLinkedList<E> assoc(int index, E element) {
+        PersistentLinkedList<E> result = new PersistentLinkedList<>(this);
+        result.set(index, element);
+        return result;
+    }
 
     @Override
     public E set(int index, E element) {
