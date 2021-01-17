@@ -186,6 +186,69 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     }
 
+    @Override
+    public boolean add(E newValue) {
+        //O(2*log(width, N)) 100%
+        if (isFull()) {
+            return false;
+        }
+
+        PLLE<E> element = null;
+
+        HeadList<PLLE<E>> prevHead = getCurrentHead();
+        HeadList<PLLE<E>> newHead = null;
+
+        Pair<Integer, Boolean> next = null;// = getNextIndex(prevHead);
+
+        if (getCurrentHead().size == 0)
+        {
+            //newHead = new HeadList<>(prevHead);
+            newHead = new HeadList<>(); //todo check may be prev line
+            element = new PLLE<>(newValue, -1, -1);
+            newHead.first = 0;
+            newHead.last = 0;
+
+            findLeafForNewElement(newHead).value.add(element);
+        }
+        else
+        {
+            element = new PLLE<>(newValue, prevHead.last, -1);
+            CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
+                    = copyLeaf(prevHead, prevHead.last);
+            newHead = tmp.head;
+            next = getNextIndex(newHead);
+            PLLE<E> last = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
+            tmp.leaf.value.set(tmp.leafInnerIndex, last);
+
+            if (!next.getValue()) {
+                last.next = newHead.sizeTree;
+                newHead.last = newHead.sizeTree;
+            }
+            else
+            {
+                last.next = next.getKey();
+                PLLE<E> oldOne = new PLLE<>(getValueFromLeaf(newHead, next.getKey()));
+
+                Pair<Node<PLLE<E>>, Integer>  oldLeaf = getLeaf(newHead, next.getKey());
+                oldLeaf.getKey().value.set(oldLeaf.getValue(), oldOne);
+
+                oldOne.value = newValue;
+                oldOne.next = -1;
+                oldOne.prev = prevHead.last;
+                newHead.last = last.next;
+                newHead.size++;
+            }
+
+            if (!next.getValue()) {
+                findLeafForNewElement(newHead).value.add(element);
+            }
+        }
+
+        undo.push(newHead);
+        redo.clear();
+
+        return true;
+    }
 
     @Override
     public void add(int index, E value) {
@@ -283,68 +346,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return result;
     }
 
-    @Override
-    public boolean add(E newValue) {
-        //O(2*log(width, N)) 100%
-        if (isFull()) {
-            return false;
-        }
 
-        PLLE<E> element = null;
-
-        HeadList<PLLE<E>> prevHead = getCurrentHead();
-        HeadList<PLLE<E>> newHead = null;
-
-        Pair<Integer, Boolean> next = null;// = getNextIndex(prevHead);
-
-        if (getCurrentHead().size == 0)
-        {
-            //newHead = new HeadList<>(prevHead);
-            newHead = new HeadList<>(); //todo check may be prev line
-            element = new PLLE<>(newValue, -1, -1);
-            newHead.first = 0;
-            newHead.last = 0;
-
-            findLeafForNewElement(newHead).value.add(element);
-        }
-        else
-        {
-            element = new PLLE<>(newValue, prevHead.last, -1);
-            CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
-                    = copyLeaf(prevHead, prevHead.last);
-            newHead = tmp.head;
-            next = getNextIndex(newHead);
-            PLLE<E> prev = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
-            tmp.leaf.value.set(tmp.leafInnerIndex, prev);
-
-            if (!next.getValue()) {
-                prev.next = newHead.sizeTree;
-                newHead.last = newHead.sizeTree;
-            }
-            else
-            {
-                prev.next = next.getKey();
-                PLLE<E> oldOne = getValueFromLeaf(newHead, next.getKey());
-                oldOne.value = newValue;
-                oldOne.next = -1;
-                oldOne.prev = prevHead.last;
-                newHead.last = prev.next;
-                newHead.size++;
-            }
-
-            if (!next.getValue()) {
-                findLeafForNewElement(newHead).value.add(element);
-            }
-
-
-        }
-
-
-        undo.push(newHead);
-        redo.clear();
-
-        return true;
-    }
 
 
 
