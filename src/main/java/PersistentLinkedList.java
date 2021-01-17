@@ -173,18 +173,19 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return head.sizeTree + extra >= maxSize;
     }
 
-    private int getNextIndex(HeadList<PLLE<E>> head)
+    private Pair<Integer, Boolean> getNextIndex(HeadList<PLLE<E>> head)
     {
         if (head.deadList == null)
-            return head.sizeTree;
+            return new Pair<>(head.sizeTree, false);
 
         if (head.deadList.size() == 0)
-            return head.sizeTree;
+            return new Pair<>(head.sizeTree, false);
 
         head.deadList = new ArrayDeque<>(head.deadList);
-        return head.deadList.pop();
+        return new Pair<>(head.deadList.pop(), true);
 
     }
+
 
     @Override
     public void add(int index, E value) {
@@ -204,7 +205,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         int indexAfter = -1;
         PLLE<E> afterE = null;
 
-        int freeIndex = getNextIndex(prevHead);
+        int freeIndex = getNextIndex(prevHead).getKey();
 
         if (prevHead.size == 0) { //todo size or sizeTree: size чистить скопившийся мусор
             newHead = new HeadList<>(prevHead);

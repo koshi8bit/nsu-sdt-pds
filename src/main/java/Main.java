@@ -3,9 +3,24 @@ public class Main {
 
     public static void main(String[] args) {
 //        arrayPresentation();
-        listPresentation();
+//        listPresentation();
 //        hashMapPresentation();
 
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
+
+        pl.add(3);
+        pl.add(4);
+        pl.add(5);
+        System.out.println("add 3,4,5");
+        System.out.println(pl.drawGraph());
+
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+
+        pl.add(6);
+        System.out.println("add(6)");
+        System.out.println(pl.drawGraph());
     }
 
 
