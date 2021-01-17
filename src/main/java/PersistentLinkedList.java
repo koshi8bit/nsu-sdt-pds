@@ -181,7 +181,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (head.deadList.size() == 0)
             return new Pair<>(head.sizeTree, false);
 
-        head.deadList = new ArrayDeque<>(head.deadList);
+        //head.deadList = new ArrayDeque<>(head.deadList);
         return new Pair<>(head.deadList.pop(), true);
 
     }
@@ -310,16 +310,15 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             CopyResult<PLLE<E>, HeadList<PLLE<E>>> tmp
                     = copyLeaf(prevHead, prevHead.last);
             newHead = tmp.head;
+            PLLE<E> prev = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
+            tmp.leaf.value.set(tmp.leafInnerIndex, prev);
 
             if (!next.getValue()) {
-                PLLE<E> prev = new PLLE<>(tmp.leaf.value.get(tmp.leafInnerIndex));
                 prev.next = newHead.sizeTree;
-                tmp.leaf.value.set(tmp.leafInnerIndex, prev);
                 newHead.last = newHead.sizeTree;
             }
             else
             {
-                PLLE<E> prev = tmp.leaf.value.get(tmp.leafInnerIndex);
                 prev.next = next.getKey();
                 PLLE<E> oldOne = getValueFromLeaf(newHead, next.getKey());
                 oldOne.value = newValue;

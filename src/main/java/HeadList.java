@@ -43,7 +43,9 @@ public class HeadList<E> extends HeadArray<E> {
 //                first,
 //                last
 //        );
-        return String.format("s:%d; S:%d; F:%d; L:%d; D:%09x%s",
+
+        return String.format("%09x s:%d; S:%d; F:%d; L:%d; D:%09x%s",
+                this.hashCode(),
                 size,
                 sizeTree,
                 first,
