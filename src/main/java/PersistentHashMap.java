@@ -6,6 +6,9 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
     private final int tableMaxSize = 16;
     private Stack<Integer> redo = new Stack<>();
     private Stack<Integer> undo = new Stack<>();
+    private PersistentHashMap<?, PersistentHashMap<?, ?>> parent;
+    private Stack<PersistentHashMap<?,?>> insertedUndo = new Stack<>();
+    private Stack<PersistentHashMap<?,?>> insertedRedo = new Stack<>();
 
     public PersistentHashMap() {
         this.table = new ArrayList<>(30);
@@ -38,6 +41,7 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
         table.get(index).add(new Pair<>(key, value));
         undo.push(index);
         redo.clear();
+        tryParentUndo(value);
         return value;
     }
 
@@ -140,14 +144,43 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
 
     @Override
     public void undo() {
-        table.get(undo.peek()).undo();
-        redo.push(undo.pop());
+        if (!insertedUndo.empty()) {
+            insertedUndo.peek().undo();
+            insertedRedo.push(insertedUndo.pop());
+        } else {
+            if (!undo.empty()) {
+                table.get(undo.peek()).undo();
+                redo.push(undo.pop());
+            }
+        }
     }
 
     @Override
     public void redo() {
-        table.get(redo.peek()).redo();
-        undo.push(redo.pop());
+        if (!insertedRedo.empty()) {
+            insertedRedo.peek().redo();
+            insertedUndo.push(insertedRedo.pop());
+        } else {
+            if (!redo.empty()) {
+                table.get(redo.peek()).redo();
+                undo.push(redo.pop());
+
+            }
+        }
+    }
+
+    private void tryParentUndo(V value) {
+        if (value instanceof PersistentHashMap) {
+            ((PersistentHashMap) value).parent = this;
+        }
+
+        if (parent != null) {
+            parent.onEvent(this);
+        }
+    }
+
+    private void onEvent(PersistentHashMap<?, ?> persistentHashMap) {
+        insertedUndo.push(persistentHashMap);
     }
 
     static class Pair<K, V> implements Map.Entry<K, V> {

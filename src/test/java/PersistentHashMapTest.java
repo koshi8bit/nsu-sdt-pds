@@ -222,4 +222,50 @@ public class PersistentHashMapTest {
         assertFalse(v3.containsKey("Maks"));
         assertEquals(3, v3.size());
     }
+
+    @Test
+    public void testPersistentPersistentHashMapInsertedUndoRedo() {
+        PersistentHashMap<String, PersistentHashMap<String, Integer>> parent = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child1 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child2 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child3 = new PersistentHashMap<>();
+
+        parent.put("child1", child1);
+        parent.put("child2", child2);
+        parent.put("child3", child3);
+
+        parent.get("child1").put("One", 1);
+        parent.get("child1").put("Two", 2);
+        parent.get("child1").put("Three", 3);
+
+        parent.get("child2").put("One", 11);
+        parent.get("child2").put("Two", 22);
+        parent.get("child2").put("Three", 33);
+
+        parent.get("child3").put("One", 111);
+        parent.get("child3").put("Two", 222);
+        parent.get("child3").put("Three", 333);
+
+        assertEquals(Integer.valueOf(333), parent.get("child3").get("Three"));
+        parent.undo();
+        assertFalse(parent.get("child3").containsKey("Three"));
+
+        PersistentHashMap<String, Integer> child4 = new PersistentHashMap<>();
+        parent.put("child4", child4);
+        System.out.println("!!!");
+        System.out.println(parent.toString());
+        parent.undo();
+        System.out.println(parent.toString());
+        System.out.println("!!!");
+        child4.put("Меня выпилят :(", 666);
+
+        assertEquals(Integer.valueOf(666), parent.get("child4").get("Меня выпилят :("));
+        System.out.println(parent.toString());
+        parent.undo();
+        assertFalse(parent.get("child4").containsKey("Меня выпилят :("));
+        System.out.println(parent.toString());
+        parent.undo();
+        System.out.println(parent.toString());
+        assertFalse(parent.containsKey("child4"));
+    }
 }
