@@ -122,6 +122,10 @@ public class Main {
         System.out.println("remove(1)");
         System.out.println(pl.drawGraph());
 
+        pl.add(2);
+        System.out.println("add 2");
+        System.out.println(pl.drawGraph());
+
         pl.remove(1);
         System.out.println("remove(1)");
         System.out.println(pl.drawGraph());

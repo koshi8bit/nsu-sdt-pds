@@ -43,12 +43,13 @@ public class HeadList<E> extends HeadArray<E> {
 //                first,
 //                last
 //        );
-        return String.format("s:%d; S:%d; F:%d; L:%d; D:%s",
+        return String.format("s:%d; S:%d; F:%d; L:%d; D:%09x%s",
                 size,
                 sizeTree,
                 first,
                 last,
-                deadList!=null ? deadList.toString() : ""
+                deadList!=null ? deadList.hashCode() : 0,
+                deadList!=null ? deadList.toString() : "[]"
         );
     }
 
