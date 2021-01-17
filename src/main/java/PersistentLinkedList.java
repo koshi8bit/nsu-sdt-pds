@@ -173,6 +173,18 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return head.sizeTree + extra >= maxSize;
     }
 
+    private int getNextIndex(HeadList<PLLE<E>> head)
+    {
+        if (head.deadList == null)
+            return head.sizeTree;
+
+        if (head.deadList.size() == 0)
+            return head.sizeTree;
+
+        return head.deadList.pop();
+
+    }
+
     @Override
     public void add(int index, E value) {
         if (isFull()) {
@@ -186,7 +198,10 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         checkListIndex(index, prevHead);
 
         int indexBefore = -1;
+        PLLE<E> beforeE;
+
         int indexAfter = -1;
+        PLLE<E> afterE;
 
         if (prevHead.size == 0) { //todo size or sizeTree: size чистить скопившийся мусор
             newHead = new HeadList<>(prevHead);
@@ -194,8 +209,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             if (index != 0) {
                 indexBefore = getTreeIndex(index - 1);
                 CopyResult<PLLE<E>, HeadList<PLLE<E>>> before = copyLeaf(prevHead, indexBefore);
-                PLLE<E> beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
+                beforeE = new PLLE<>(before.leaf.value.get(before.leafInnerIndex));
                 beforeE.next = prevHead.sizeTree;
+                //beforeE.next = getNextIndex(prevHead);
                 before.leaf.value.set(before.leafInnerIndex, beforeE);
                 newHead = before.head;
             }
@@ -204,7 +220,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
                 indexAfter = getTreeIndex(index);
                 HeadList<PLLE<E>> prevHead2 = newHead != null ? newHead : prevHead;
                 CopyResult<PLLE<E>, HeadList<PLLE<E>>> after = copyLeaf(prevHead2, indexAfter);
-                PLLE<E> afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
+                afterE = new PLLE<>(after.leaf.value.get(after.leafInnerIndex));
                 afterE.prev = prevHead.sizeTree;
                 after.leaf.value.set(after.leafInnerIndex, afterE);
                 newHead = after.head;
@@ -628,7 +644,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
             newHead.deadList = new ArrayDeque<>(newHead.deadList);
         }
 
-        newHead.deadList.add(treeIndex);
+        newHead.deadList.push(treeIndex);
 
 
         finishRemove(newHead);
