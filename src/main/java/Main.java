@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Main {
     public static void main(String[] args) {
         arrayPresentation();
@@ -9,9 +7,8 @@ public class Main {
 
     private static void arrayPresentation() {
         simple();
-        vasyaCooperAbdula();
+        cascade();
         arrayInArray();
-
     }
 
     private static void simple() {
@@ -30,21 +27,21 @@ public class Main {
 
 
 
-    private static void vasyaCooperAbdula() {
+    private static void cascade() {
         System.out.println("\n\n---Vasya-Cooper-Abdula---");
         PersistentArray<String> v1 = new PersistentArray<>(3, 1);
         v1.add("Vasya");
         PersistentArray<String> v2 = v1.conj("Cooper");
 
-        System.out.println("Vasya\t\t\t\t\t" + v1);
-        System.out.println("Vasya, Cooper\t\t\t" + v2);
+        System.out.println("v1 Vasya\t\t\t\t\t" + v1);
+        System.out.println("v2 Vasya, Cooper\t\t\t" + v2);
 
         PersistentArray<String> v3 = v2.assoc(0, "Abdula");
 
         System.out.println();
-        System.out.println("Vasya\t\t\t\t\t" + v1);
-        System.out.println("Vasya, Cooper\t\t\t" + v2);
-        System.out.println("Vasya, Cooper, Abdula\t" + v3);
+        System.out.println("v1 Vasya\t\t\t\t\t" + v1);
+        System.out.println("v2 Vasya, Cooper\t\t\t" + v2);
+        System.out.println("v3 Abdula, Cooper \t\t\t" + v3);
 
 
         v3.add("3");
