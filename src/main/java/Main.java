@@ -1,9 +1,12 @@
 public class Main {
+
+
     public static void main(String[] args) {
         arrayPresentation();
         listPresentation();
         hashMapPresentation();
     }
+
 
     private static void arrayPresentation() {
         simple();
@@ -84,7 +87,7 @@ public class Main {
 
     private static void listPresentation() {
         System.out.println("\n\n-----LIST-----");
-        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(3, 1);
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
         pl.add(3);
         pl.add(4);
@@ -107,16 +110,49 @@ public class Main {
         System.out.println(pl.drawGraph());
 
         //TODO FAILS! ?tests results are different, wtf?
-        pl.add(5, 2);
-        System.out.println("add(5, 2)");
-        System.out.println(pl.drawGraph(false));
+//        pl.add(5, 2);
+//        System.out.println("add(5, 2)");
+//        System.out.println(pl.drawGraph());
 
+        //listTimeTest();
 
+    }
+
+    private static void measureTime(PersistentLinkedList<Integer> pl, int index)
+    {
+        int N = 1000000;
+        double avg = 0;
+        for (int i =0; i<N; i++)
+        {
+            long start = System.nanoTime();
+            pl.get(index);
+            long end = System.nanoTime();
+            long delta = end-start;
+            //System.out.println(delta);
+            avg +=  delta;
+        }
+        System.out.println("avg = " + avg/N + "; " + pl.get(index));
+    }
+
+    private static void listTimeTest() {
+        System.out.println("\n---Time test---");
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(1000);
+
+        for(int i=0; i<1000; i++)
+        {
+            pl.add(i);
+        }
+
+        measureTime(pl, 0);
+        measureTime(pl, 200);
+        measureTime(pl, 800);
+        measureTime(pl, 999);
     }
 
 
 
     private static void hashMapPresentation() {
+        System.out.println("\n\n-----HashMap-----");
         PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
         phm.put("Vasya",10);
         phm.put("Petya", 11);

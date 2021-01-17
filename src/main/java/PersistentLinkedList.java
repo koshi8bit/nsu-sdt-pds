@@ -9,6 +9,8 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
     protected final Stack<HeadList<PLLE<E>>> undo = new Stack<>();
 
 
+
+
     public PersistentLinkedList() {
         this(6, 5);
     }
@@ -168,7 +170,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     public boolean isFull(HeadList<PLLE<E>> head, int extra)
     {
-        return head.sizeTree + extra > maxSize;
+        return head.sizeTree + extra >= maxSize;
     }
 
     @Override
@@ -186,7 +188,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         int indexBefore = -1;
         int indexAfter = -1;
 
-        if (prevHead.sizeTree == 0) { //todo size or sizeTree
+        if (prevHead.size == 0) { //todo size or sizeTree: size чистить скопившийся мусор
             newHead = new HeadList<>(prevHead);
         } else {
             if (index != 0) {
@@ -207,8 +209,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
                 after.leaf.value.set(after.leafInnerIndex, afterE);
                 newHead = after.head;
             }
-
-
         }
 
         undo.push(newHead);
@@ -272,6 +272,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     @Override
     public boolean add(E newValue) {
+        //O(2*log(width, N)) 100%
         if (isFull()) {
             return false;
         }
@@ -311,6 +312,7 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     protected Node<PLLE<E>> findLeafForNewElement(HeadList<PLLE<E>> head)
     {
+        //O(log(width, N)) 100%
         if (isFull(head)) {
             throw new IndexOutOfBoundsException("collection is full");
         }
@@ -398,6 +400,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         redo.clear();
     }
 
+    private E getValueFromLeaf(HeadList<PLLE<E>> head, int index)
+    {
+        return getLeaf(head, index).getKey().value.get(index & mask).value;
+    }
+
     @Override
     public E get(int index) {
         return get(getCurrentHead(), index);
@@ -417,6 +424,13 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
 
     private E get(HeadList<PLLE<E>> head, int index)
     {
+        if (index == 0)
+            return getValueFromLeaf(head, head.first);
+
+        if (index == head.size-1)
+            return getValueFromLeaf(head, head.last);
+
+
         return getPLLE(head, index).value;
     }
 
