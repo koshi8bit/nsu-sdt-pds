@@ -337,9 +337,6 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         if (!next.getValue()) {
             findLeafForNewElement(newHead).value.add(element);
         }
-        else {
-
-        }
 
         return true;
     }

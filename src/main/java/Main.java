@@ -25,6 +25,18 @@ public class Main {
         pl.add(7);
         System.out.println("add(7)");
         System.out.println(pl.drawGraph());
+
+        pl.undo();
+        System.out.println("undo");
+        System.out.println(pl.drawGraph());
+
+        pl.undo();
+        System.out.println("undo");
+        System.out.println(pl.drawGraph());
+
+        pl.add(8);
+        System.out.println("add(8)");
+        System.out.println(pl.drawGraph());
     }
 
 
