@@ -201,23 +201,6 @@ public class Main {
         measureTime(() ->  "pl.get(999) " + pl.get(999).toString(),  N);
     }
 
-//    private static void listGetTimeTest2() {
-//        System.out.println("\n---Get time test---");
-//        LinkedList<Integer> ll = new LinkedList<>();
-//
-//        for(int i=0; i<1000; i++)
-//        {
-//            ll.add(i);
-//        }
-//
-//        int N = 10000000;
-//
-//        measureTime(() ->  "ll.get(0) " + ll.get(0).toString(),  N);
-//        measureTime(() ->  "ll.get(200) " + ll.get(200).toString(),  N);
-//        measureTime(() ->  "ll.get(800) " + ll.get(800).toString(),  N);
-//        measureTime(() ->  "ll.get(999) " + ll.get(999).toString(),  N);
-//
-//    }
 
     private static void listAddTimeTest() {
         System.out.println("\n---Add time test---");
@@ -245,6 +228,13 @@ public class Main {
 
 
     private static void hashMapPresentation() {
+        hashMapPresentationSimple();
+        hashMapPresentationCascade();
+    }
+
+
+
+    private static void hashMapPresentationSimple() {
         System.out.println("\n\n-----HashMap-----");
         PersistentHashMap<String, Integer> phm = new PersistentHashMap<>();
         phm.put("Vasya",10);
@@ -270,6 +260,10 @@ public class Main {
         System.out.println("remove Vova\t\t\t"+ phm.toString());
         phm.undo();
         System.out.println("undo\t\t\t\t" + phm.toString());
+    }
+
+    private static void hashMapPresentationCascade() {
+        //TODO Anton
     }
 
 }
