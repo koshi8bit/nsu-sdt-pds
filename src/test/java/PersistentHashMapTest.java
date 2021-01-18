@@ -235,15 +235,15 @@ public class PersistentHashMapTest {
         parent.put("child3", child3);
 
         parent.get("child1").put("One", 1);
-        //parent.get("child1").put("Two", 2);
+        parent.get("child1").put("Two", 2);
         //parent.get("child1").put("Three", 3);
 
         parent.get("child2").put("One", 11);
-        //parent.get("child2").put("Two", 22);
+        parent.get("child2").put("Two", 22);
         //parent.get("child2").put("Three", 33);
 
         parent.get("child3").put("One", 111);
-        //parent.get("child3").put("Two", 222);
+        parent.get("child3").put("Two", 222);
         //parent.get("child3").put("Three", 333);
 
         //assertEquals(Integer.valueOf(333), parent.get("child3").get("Three"));
@@ -251,16 +251,68 @@ public class PersistentHashMapTest {
         //assertFalse(parent.get("child3").containsKey("Three"));
 
         //System.out.println(parent.toString());
-        PersistentHashMap<String, Integer> child4 = new PersistentHashMap<>();
-        parent.put("child4", child4);
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        //parent.insertedRedo.pop().redo();
+        //parent.redo();
+
+
+
+        /*System.out.println("[child1=[One=1]] = " + parent.toString());
+        System.out.println(parent.insertedRedo + "Это внутр реду");
+        System.out.println("делаем два анду");
+        parent.undo();
+        parent.undo();
+        System.out.println("[] = " + parent);
+        System.out.println(parent.insertedRedo + "Это внутр реду");
+        parent.redo();
+        // parent.table.get(parent.redo.pop()).redo(); - святой грааль
+        System.out.println("[child1=[]] = " + parent);*/
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
         System.out.println(parent.toString());
         parent.undo();
         System.out.println(parent.toString());
         parent.undo();
         System.out.println(parent.toString());
-        parent.redo();
-        System.out.println(parent.toString());
-        parent.redo();
+        parent.undo();
         System.out.println(parent.toString());
 
 /*
