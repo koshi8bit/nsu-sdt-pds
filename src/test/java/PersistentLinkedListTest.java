@@ -441,20 +441,39 @@ public class PersistentLinkedListTest {
 
         assertEquals("[[1, 2, 3], [11, 22, 33], [111, 222, 333]]", parent.toString());
         parent.undo();
-        assertEquals("[[1, 2, 3], [11, 22, 33], [111, 222]]", parent.toString());
 
 
-        PersistentLinkedList<String> child4 = new PersistentLinkedList<>();
-        parent.add(1, child4);
-        child4.add("Меня выпилят :(");
-        assertEquals("[[1, 2, 3], [Меня выпилят :(], [11, 22, 33], [111, 222]]", parent.toString());
-        parent.undo();
-        assertEquals("[[1, 2, 3], [], [11, 22, 33], [111, 222]]", parent.toString());
 
-        parent.get(0).set(0, "Я выживу!");
-        parent.get(0).set(1, "А я нет...");
-        assertEquals("[[Я выживу!, А я нет..., 3], [], [11, 22, 33], [111, 222]]", parent.toString());
-        parent.undo();
-        assertEquals("[[Я выживу!, 2, 3], [], [11, 22, 33], [111, 222]]", parent.toString());
+    }
+
+    @Test
+    public void testPersistentLinkedListMemoryReuse() {
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
+
+        pl.add(3);
+        pl.add(4);
+        pl.add(5);
+        assertEquals("[3, 4, 5]", pl.toString());
+        assertEquals(3, pl.getCurrentHead().sizeTree);
+
+        pl.remove(1);
+        assertEquals("[3, 5]", pl.toString());
+        assertEquals(3, pl.getCurrentHead().sizeTree);
+
+        pl.add(6);
+        assertEquals("[3, 5, 6]", pl.toString());
+        assertEquals(3, pl.getCurrentHead().sizeTree);
+
+        pl.undo();
+        assertEquals("[3, 5]", pl.toString());
+        assertEquals(3, pl.getCurrentHead().sizeTree);
+
+        pl.add(7);
+        assertEquals("[3, 5, 7]", pl.toString());
+        assertEquals(3, pl.getCurrentHead().sizeTree);
+
+        pl.add(8);
+        assertEquals("[3, 5, 7, 8]", pl.toString());
+        assertEquals(4, pl.getCurrentHead().sizeTree);
     }
 }

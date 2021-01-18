@@ -2,43 +2,10 @@ public class Main {
 
 
     public static void main(String[] args) {
-//        arrayPresentation();
-//        listPresentation();
-//        hashMapPresentation();
-
-
-        //todo MAKE TEST
-        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
-
-        pl.add(3);
-        pl.add(4);
-        pl.add(5);
-        System.out.println("add 3,4,5");
-        System.out.println(pl.drawGraph());
-        System.out.println(pl.getCurrentHead().sizeTree == 3); //do assert on it
-
-        pl.remove(1);
-        System.out.println("remove(1)");
-        System.out.println(pl.drawGraph());
-        System.out.println(pl.getCurrentHead().sizeTree == 3);
-
-        pl.add(6);
-        System.out.println("add(6)");
-        System.out.println(pl.drawGraph());
-        System.out.println(pl.getCurrentHead().sizeTree == 3);
-
-        pl.undo();
-        System.out.println("undo");
-        System.out.println(pl.drawGraph());
-        System.out.println(pl.getCurrentHead().sizeTree == 3);
-
-        pl.add(7);
-        System.out.println("add(7)");
-        System.out.println(pl.drawGraph());
-        System.out.println(pl.getCurrentHead().sizeTree == 3);
-
+        arrayPresentation();
+        listPresentation();
+        hashMapPresentation();
     }
-
 
     private static void arrayPresentation() {
         simple();
@@ -120,6 +87,7 @@ public class Main {
     private static void listPresentation()
     {
         listPresentationBasic();
+        listPresentationMemReuse();
         //listGetTimeTest();
         //listAddTimeTest();
     }
@@ -161,14 +129,37 @@ public class Main {
         System.out.println("remove(1)");
         System.out.println(pl.drawGraph());
 
+    }
 
-        //TODO FAILS! ?tests results are different, wtf?
-//        pl.add(5, 2);
-//        System.out.println("add(5, 2)");
-//        System.out.println(pl.drawGraph());
+    private static void listPresentationMemReuse() {
+        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
+        pl.add(3);
+        pl.add(4);
+        pl.add(5);
+        System.out.println("add 3,4,5");
+        System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3); //do assert on it
 
+        pl.remove(1);
+        System.out.println("remove(1)");
+        System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
 
+        pl.add(6);
+        System.out.println("add(6)");
+        System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
+
+        pl.undo();
+        System.out.println("undo");
+        System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
+
+        pl.add(7);
+        System.out.println("add(7)");
+        System.out.println(pl.drawGraph());
+        System.out.println(pl.getCurrentHead().sizeTree == 3);
     }
 
     interface Express {

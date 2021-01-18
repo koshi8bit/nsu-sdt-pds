@@ -266,6 +266,5 @@ public class PersistentHashMapTest {
         System.out.println(parent.toString());
         parent.undo();
         System.out.println(parent.toString());
-        assertFalse(parent.containsKey("child4"));
     }
 }

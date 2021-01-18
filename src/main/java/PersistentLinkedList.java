@@ -494,6 +494,9 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         return getLeaf(head, treeIndex).getKey().value.get(treeIndex & mask);
     }
 
+
+
+
     private E get(HeadList<PLLE<E>> head, int index)
     {
         if (index == 0)
