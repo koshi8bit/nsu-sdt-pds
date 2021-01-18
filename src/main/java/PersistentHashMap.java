@@ -4,14 +4,14 @@ import java.util.*;
 
 public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRedo {
 
-    public ArrayList<PersistentLinkedList<Pair<K, V>>> table;
+    private ArrayList<PersistentLinkedList<Pair<K, V>>> table;
     private final int tableMaxSize = 16;
-    public Stack<Integer> redo = new Stack<>();
-    public Stack<Integer> undo = new Stack<>();
-    public PersistentHashMap<?, PersistentHashMap<?, ?>> parent;
-    public int countInsertedHM = 0;
-    public Stack<PersistentHashMap<?, ?>> insertedUndo = new Stack<>();
-    public Stack<PersistentHashMap<?, ?>> insertedRedo = new Stack<>();
+    private Stack<Integer> redo = new Stack<>();
+    private Stack<Integer> undo = new Stack<>();
+    private PersistentHashMap<?, PersistentHashMap<?, ?>> parent;
+    private int countInsertedHM = 0;
+    private Stack<PersistentHashMap<?, ?>> insertedUndo = new Stack<>();
+    private Stack<PersistentHashMap<?, ?>> insertedRedo = new Stack<>();
 
     public PersistentHashMap() {
         this.table = new ArrayList<>(30);
@@ -150,20 +150,14 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
         if (!insertedUndo.empty()) {
             if (insertedUndo.peek().isEmpty()) {
                 insertedRedo.push(insertedUndo.pop()); //?
-                if (!undo.empty()) {
-                    table.get(undo.peek()).undo();
-                    redo.push(undo.pop());
-                }
+                standardUndo();
             } else {
                 PersistentHashMap persistentHashMap = insertedUndo.pop();
                 persistentHashMap.undo();
                 insertedRedo.push(persistentHashMap);
             }
         } else {
-            if (!undo.empty()) {
-                table.get(undo.peek()).undo();
-                redo.push(undo.pop());
-            }
+            standardUndo();
         }
     }
 
@@ -172,26 +166,36 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
         if (!insertedRedo.empty()) {
             if (insertedRedo.peek().isEmpty()) {
                 if (insertedRedo.peek().parent.size() == countInsertedHM) {
-                    PersistentHashMap persistentHashMap = insertedRedo.pop();
-                    persistentHashMap.redo();
-                    insertedUndo.push(persistentHashMap);
+                    standardInsertedRedo();
                 } else {
-                    insertedUndo.push(insertedRedo.pop()); //?
-                    if (!redo.empty()) {
-                        table.get(redo.peek()).redo();
-                        undo.push(redo.pop());
-                    }
+                    insertedUndo.push(insertedRedo.pop());
+                    standardRedo();
                 }
             } else {
-                PersistentHashMap persistentHashMap = insertedRedo.pop();
-                persistentHashMap.redo();
-                insertedUndo.push(persistentHashMap);
+                standardInsertedRedo();
             }
         } else {
-            if (!redo.empty()) {
-                table.get(redo.peek()).redo();
-                undo.push(redo.pop());
-            }
+            standardRedo();
+        }
+    }
+
+    private void standardInsertedRedo(){
+        PersistentHashMap persistentHashMap = insertedRedo.pop();
+        persistentHashMap.redo();
+        insertedUndo.push(persistentHashMap);
+    }
+
+    private void standardRedo(){
+        if (!redo.empty()) {
+            table.get(redo.peek()).redo();
+            undo.push(redo.pop());
+        }
+    }
+
+    private void standardUndo(){
+        if (!undo.empty()) {
+            table.get(undo.peek()).undo();
+            redo.push(undo.pop());
         }
     }
 
@@ -200,6 +204,8 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
             countInsertedHM++;
             ((PersistentHashMap) value).parent = this;
             onEvent((PersistentHashMap) value);
+            redo.clear();
+            insertedRedo.clear();
         }
 
         if (parent != null) {

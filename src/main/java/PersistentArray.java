@@ -570,10 +570,11 @@ public class PersistentArray<E> extends AbstractPersistentCollection<E> implemen
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public E next()
         {
             //if (index == getC)
-            return (E) get(index++); // TODO WTF cast err
+            return (E) get(index++);
         }
 
         @Override

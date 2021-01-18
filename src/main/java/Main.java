@@ -2,9 +2,10 @@ public class Main {
 
 
     public static void main(String[] args) {
-        arrayPresentation();
-        listPresentation();
-        hashMapPresentation();
+        hashMapPresentationCascade();
+        //arrayPresentation();
+        //listPresentation();
+        //hashMapPresentation();
     }
 
     private static void arrayPresentation() {
@@ -263,7 +264,68 @@ public class Main {
     }
 
     private static void hashMapPresentationCascade() {
-        //TODO Anton
-    }
+        System.out.println("\n\n-----HashMapCascade-----");
+        PersistentHashMap<String, PersistentHashMap<String, Integer>> parent = new PersistentHashMap<>();
 
+        PersistentHashMap<String, Integer>  child1 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer>  child2 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer>  child3 = new PersistentHashMap<>();
+
+        parent.put("Child1", child1);
+        parent.put("Child2", child2);
+        parent.put("Child3", child3);
+
+        child1.put("F", 1);
+        child1.put("S", 2);
+
+        child2.put("F", 11);
+        child2.put("S", 22);
+
+        child3.put("F", 111);
+        child3.put("S", 222);
+
+        System.out.println("parent = " + parent.toString());
+        parent.undo();
+        System.out.println("undo = " + parent.toString());
+        parent.undo();
+        System.out.println("undo = " + parent.toString());
+
+        parent.redo();
+        System.out.println("redo = " + parent.toString());
+        parent.undo();
+        System.out.println("undo = " + parent.toString());
+
+        parent.undo();
+        parent.undo();
+        parent.undo();
+        parent.undo();
+        System.out.println("4 undo = " + parent.toString());
+
+        parent.undo();
+        System.out.println("undo = " + parent.toString());
+        parent.redo();
+        System.out.println("redo = " + parent.toString());
+
+        parent.undo();
+        parent.undo();
+        parent.undo();
+        System.out.println("3 undo = " + parent.toString());
+
+        parent.redo();
+        parent.redo();
+        parent.redo();
+        System.out.println("3 redo = " + parent.toString());
+
+        PersistentHashMap<String, Integer>  child4 = new PersistentHashMap<>();
+        parent.put("Child4",child4);
+        System.out.println("put in parent child4 = " +parent.toString());
+
+        parent.redo();
+        parent.redo();
+        System.out.println("2 redo = " + parent.toString());
+
+        parent.undo();
+        parent.undo();
+        System.out.println("2 undo = " + parent.toString());
+    }
 }

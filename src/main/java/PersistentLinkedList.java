@@ -1,6 +1,5 @@
 import javafx.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E>> implements List<E>{
@@ -782,10 +781,11 @@ public class PersistentLinkedList<E> extends AbstractPersistentCollection<PLLE<E
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public E2 next()
         {
             //O(log(width, N)) 100%
-            E2 result = (E2) current.value; // TODO WTF cast err
+            E2 result = (E2) current.value;
 
             i++;
             if (!hasNext())
