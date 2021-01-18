@@ -7,30 +7,70 @@ public class Main {
 //        hashMapPresentation();
 
 
+
+        PersistentHashMap<String, PersistentHashMap<String, Integer>> parent = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child1 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child2 = new PersistentHashMap<>();
+        PersistentHashMap<String, Integer> child3 = new PersistentHashMap<>();
+
+        child1.put("A", 1);
+
+        parent.put("child1", child1);
+        parent.put("child2", child2);
+        parent.put("child3", child3);
+
+        System.out.println("put x3" + parent); // [child3=[] child2=[] child1=[A=1]]
+
+        parent.undo();                         // [child2=[] child1=[A=1]]
+        System.out.println("undo" + parent);
+
+        child2.put("AA", 11);                  // [child2=[AA=11] child1=[A=1]]
+        System.out.println("undo" + parent);
+
+        parent.undo();                         // [child2=[] child1=[A=1]]
+        System.out.println("undo" + parent);
+
+        parent.undo();
+        System.out.println("\nundo" + parent); // [child1=[A=1]]
+        System.out.println("child1" + child1); // child1[A=1]
+
+        parent.undo();
+        System.out.println("undo" + parent);   // []
+        System.out.println("child1" + child1); // child1[A=1]
+
+
+
+
+
+
+
+
+
+
         //todo MAKE TEST
-        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
-
-        pl.add(3);
-        pl.add(4);
-        pl.add(5);
-        System.out.println("add 3,4,5");
-        System.out.println(pl.drawGraph());
-
-        pl.remove(1);
-        System.out.println("remove(1)");
-        System.out.println(pl.drawGraph());
-
-        pl.add(6);
-        System.out.println("add(6)");
-        System.out.println(pl.drawGraph());
-
-        pl.undo();
-        System.out.println("undo");
-        System.out.println(pl.drawGraph());
-
-        pl.add(7);
-        System.out.println("add(7)");
-        System.out.println(pl.drawGraph());
+//        PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
+//
+//        pl.add(3);
+//        pl.add(4);
+//        pl.add(5);
+//        System.out.println("add 3,4,5");
+//        System.out.println(pl.drawGraph());
+//
+//        pl.remove(1);
+//        System.out.println("remove(1)");
+//        System.out.println(pl.drawGraph());
+//
+//        pl.add(6);
+//        System.out.println("add(6)");
+//        System.out.println(pl.drawGraph());
+//
+//        pl.undo();
+//        System.out.println("undo");
+//        System.out.println(pl.drawGraph());
+//
+//        pl.add(7);
+//        System.out.println("add(7)");
+//        System.out.println(pl.drawGraph());
 
 
 
