@@ -236,27 +236,86 @@ public class PersistentHashMapTest {
 
         parent.get("child1").put("One", 1);
         parent.get("child1").put("Two", 2);
-        parent.get("child1").put("Three", 3);
+        //parent.get("child1").put("Three", 3);
 
         parent.get("child2").put("One", 11);
         parent.get("child2").put("Two", 22);
-        parent.get("child2").put("Three", 33);
+        //parent.get("child2").put("Three", 33);
 
         parent.get("child3").put("One", 111);
         parent.get("child3").put("Two", 222);
-        parent.get("child3").put("Three", 333);
+        //parent.get("child3").put("Three", 333);
 
-        assertEquals(Integer.valueOf(333), parent.get("child3").get("Three"));
+        //assertEquals(Integer.valueOf(333), parent.get("child3").get("Three"));
+        //parent.undo();
+        //assertFalse(parent.get("child3").containsKey("Three"));
+
+        //System.out.println(parent.toString());
+        System.out.println(parent);
         parent.undo();
-        assertFalse(parent.get("child3").containsKey("Three"));
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
+        parent.undo();
+        System.out.println(parent);
 
-        PersistentHashMap<String, Integer> child4 = new PersistentHashMap<>();
-        parent.put("child4", child4);
-        System.out.println("!!!");
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        parent.redo();
+        System.out.println(parent);
+        //parent.insertedRedo.pop().redo();
+        //parent.redo();
+
+
+
+        /*System.out.println("[child1=[One=1]] = " + parent.toString());
+        System.out.println(parent.insertedRedo + "Это внутр реду");
+        System.out.println("делаем два анду");
+        parent.undo();
+        parent.undo();
+        System.out.println("[] = " + parent);
+        System.out.println(parent.insertedRedo + "Это внутр реду");
+        parent.redo();
+        // parent.table.get(parent.redo.pop()).redo(); - святой грааль
+        System.out.println("[child1=[]] = " + parent);*/
+
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+
         System.out.println(parent.toString());
         parent.undo();
         System.out.println(parent.toString());
-        System.out.println("!!!");
+        parent.undo();
+        System.out.println(parent.toString());
+        parent.undo();
+        System.out.println(parent.toString());
+
+/*
         child4.put("Меня выпилят :(", 666);
 
         assertEquals(Integer.valueOf(666), parent.get("child4").get("Меня выпилят :("));
@@ -266,5 +325,6 @@ public class PersistentHashMapTest {
         System.out.println(parent.toString());
         parent.undo();
         System.out.println(parent.toString());
+        assertFalse(parent.containsKey("child4"));*/
     }
 }
