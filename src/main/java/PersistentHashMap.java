@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.*;
 
 public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRedo {
@@ -56,6 +54,9 @@ public class PersistentHashMap<K, V> extends AbstractMap<K, V> implements UndoRe
             if (pair.getKey().equals(key)) {
                 V value = pair.getValue();
                 table.get(index).remove(i);
+                undo.push(index);
+                redo.clear();
+                tryParentUndo((V) this);
                 return value;
             }
         }

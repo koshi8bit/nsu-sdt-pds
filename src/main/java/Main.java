@@ -327,5 +327,10 @@ public class Main {
         parent.undo();
         parent.undo();
         System.out.println("2 undo = " + parent.toString());
+
+        parent.remove("Child1");
+        System.out.println("remove child1 = " + parent.toString());
+        parent.undo();
+        System.out.println("undo = " + parent.toString());
     }
 }
