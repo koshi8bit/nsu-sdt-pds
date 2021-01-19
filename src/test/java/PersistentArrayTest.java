@@ -310,4 +310,13 @@ public class PersistentArrayTest {
     }
 
 
+    @Test
+    public void testPersistentArrayPop2() {
+        addABC(3, 1);
+        assertEquals("C", pa.pop());
+        assertEquals("B", pa.pop());
+        assertEquals("A", pa.pop());
+    }
+
+
 }

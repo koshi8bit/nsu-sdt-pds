@@ -38,7 +38,7 @@ public class Main {
         System.out.println("v1 = v0.conj(Vasya)");
 
         PersistentArray<String> v2 = v1.conj("Cooper");
-        System.out.println("v2 = v0.conj(Cooper)");
+        System.out.println("v2 = v1.conj(Cooper)");
 
         PersistentArray<String> v3 = v2.assoc(0, "Abdula");
         System.out.println("v3 = v2.assoc(0, Abdula)");
