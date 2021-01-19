@@ -230,6 +230,8 @@ public class PersistentHashMapTest {
         PersistentHashMap<String, Integer> child2 = new PersistentHashMap<>();
         PersistentHashMap<String, Integer> child3 = new PersistentHashMap<>();
 
+        parent.get("child1").put("One", 1);
+
         parent.put("child1", child1);
         parent.put("child2", child2);
         parent.put("child3", child3);

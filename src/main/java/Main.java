@@ -2,10 +2,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        hashMapPresentationCascade();
-        //arrayPresentation();
-        //listPresentation();
-        //hashMapPresentation();
+        arrayPresentation();
+        listPresentation();
+        hashMapPresentation();
     }
 
     private static void arrayPresentation() {
@@ -21,7 +20,7 @@ public class Main {
 
         pa.add("1");
         pa.add("2");
-        System.out.println("add 1,2,3 \t\t" + pa);
+        System.out.println("add 1,2 \t\t" + pa);
         System.out.println("pop=" + pa.pop());
         System.out.println("after pop \t\t" + pa);
         pa.undo();
@@ -32,19 +31,23 @@ public class Main {
 
     private static void cascade() {
         System.out.println("\n\n---Vasya-Cooper-Abdula---");
-        PersistentArray<String> v1 = new PersistentArray<>(3, 1);
-        v1.add("Vasya");
-        PersistentArray<String> v2 = v1.conj("Cooper");
+        PersistentArray<String> v0 = new PersistentArray<>(3, 1);
+        System.out.println("v0 = new PersistentArray<>(3, 1)");
 
-        System.out.println("v1 Vasya\t\t\t\t\t" + v1);
-        System.out.println("v2 Vasya, Cooper\t\t\t" + v2);
+        PersistentArray<String> v1 = v0.conj("Vasya");
+        System.out.println("v1 = v0.conj(Vasya)");
+
+        PersistentArray<String> v2 = v1.conj("Cooper");
+        System.out.println("v2 = v0.conj(Cooper)");
 
         PersistentArray<String> v3 = v2.assoc(0, "Abdula");
+        System.out.println("v3 = v2.assoc(0, Abdula)");
 
         System.out.println();
-        System.out.println("v1 Vasya\t\t\t\t\t" + v1);
-        System.out.println("v2 Vasya, Cooper\t\t\t" + v2);
-        System.out.println("v3 Abdula, Cooper \t\t\t" + v3);
+        System.out.println("v0\t\t" + v0);
+        System.out.println("v1\t\t" + v1);
+        System.out.println("v2\t\t" + v2);
+        System.out.println("v3\t\t" + v3);
 
 
         v3.add("3");
@@ -74,15 +77,15 @@ public class Main {
         pa.add(pa2);
 
         System.out.println("Begin");
-        System.out.println(pa.drawGraph());
+        System.out.println(pa);
 
         pa1.set(1, 9);
         System.out.println("\npa1.set(1, 9)");
-        System.out.println(pa.drawGraph());
+        System.out.println(pa);
 
         pa.undo();
         System.out.println("\npa.undo()");
-        System.out.println(pa.getCurrentHead().root.drawGraph());
+        System.out.println(pa);
     }
 
     private static void listPresentation()
@@ -133,6 +136,7 @@ public class Main {
     }
 
     private static void listPresentationMemReuse() {
+        System.out.println("\n\n---LIST MEM---");
         PersistentLinkedList<Integer> pl = new PersistentLinkedList<>(4, 1);
 
         pl.add(3);
